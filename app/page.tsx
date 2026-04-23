@@ -60,7 +60,7 @@ export default function HomePage() {
 
         <div style={{ marginTop: '60px' }}>
           <h2>Contact</h2>
-          <p>Email: hello@aleronsystems.com</p>
+          <p>Email: info@aleronsystems.com</p>
           <p>Pennsylvania, United States</p>
         </div>
       </section>
