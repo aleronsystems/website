@@ -86,17 +86,17 @@ img {
   h2 {
     font-size: 32px !important;
     line-height: 1.1 !important;
-    text-align: center !important;
+    text-align: left !important;
   }
 
   h3 {
-    text-align: center !important;
+    text-align: left !important;
   }
 
   p {
     font-size: 17px !important;
     line-height: 1.55 !important;
-    text-align: center !important;
+    text-align: left !important;
   }
 
   div {
@@ -115,6 +115,19 @@ img {
 
   a[href="/contact"],
   a[href="/services"] {
+    justify-content: center !important;
+  }
+}
+
+/* Hero only stays centered on mobile */
+@media (max-width: 768px) {
+  main > section:first-of-type h1,
+  main > section:first-of-type p,
+  main > section:first-of-type div {
+    text-align: center !important;
+  }
+
+  main > section:first-of-type div[style*='display: flex'] {
     justify-content: center !important;
   }
 }
