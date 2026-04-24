@@ -80,18 +80,18 @@ export default function HomePage() {
         }}
       >
         <a href="/" style={{ display: 'inline-flex', alignItems: 'center' }}>
-          <Image
-            src="/logos/navbar-logo-dark.png"
-            alt="Aleron Systems"
-            width={360}
-            height={120}
-            priority
-            style={{
-              width: '300px',
-              height: 'auto',
-              display: 'block',
-            }}
-          />
+<Image
+  src="/logos/navbar-logo-dark.png"
+  alt="Aleron Systems"
+  width={430}
+  height={140}
+  priority
+  style={{
+    width: '360px',
+    height: 'auto',
+    display: 'block',
+  }}
+/>
         </a>
 
         <nav
@@ -210,46 +210,35 @@ export default function HomePage() {
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
-          <div
-            style={{
-              position: 'relative',
-              borderRadius: '34px',
-              padding: '18px',
-              background:
-                'linear-gradient(145deg, rgba(15,23,42,.95), rgba(2,6,23,.85))',
-              border: '1px solid rgba(94,234,212,.18)',
-              boxShadow: '0 28px 90px rgba(0,0,0,.42)',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background:
-                  'radial-gradient(circle at center, rgba(94,234,212,.16), transparent 48%)',
-                pointerEvents: 'none',
-              }}
-            />
-            <Image
-              src="/banners/hero-logo-feature.png"
-              alt="Aleron Systems technology visual"
-              width={700}
-              height={700}
-              priority
-              style={{
-                position: 'relative',
-                width: '100%',
-                height: 'auto',
-                display: 'block',
-                borderRadius: '24px',
-                opacity: 0.9,
-                mixBlendMode: 'screen',
-              }}
-            />
-          </div>
-        </motion.div>
+<motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+  <div
+    style={{
+      position: 'relative',
+      minHeight: '460px',
+      borderRadius: '34px',
+      overflow: 'hidden',
+      background:
+        'radial-gradient(circle at center, rgba(94,234,212,.18), transparent 42%)',
+    }}
+  >
+    <Image
+      src="/banners/hero-logo-feature.png"
+      alt="Aleron Systems technology visual"
+      width={700}
+      height={700}
+      priority
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        display: 'block',
+        opacity: 0.88,
+        mixBlendMode: 'screen',
+        filter: 'drop-shadow(0 0 28px rgba(94,234,212,.18))',
+      }}
+    />
+  </div>
+</motion.div>
       </section>
 
       <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '64px 28px' }}>
