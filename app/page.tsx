@@ -83,11 +83,11 @@ export default function HomePage() {
 <Image
   src="/logos/navbar-logo-dark.png"
   alt="Aleron Systems"
-  width={430}
-  height={140}
+  width={600}
+  height={180}
   priority
   style={{
-    width: '360px',
+    width: '480px',
     height: 'auto',
     display: 'block',
   }}
@@ -214,7 +214,7 @@ export default function HomePage() {
   <div
     style={{
       position: 'relative',
-      minHeight: '460px',
+      minHeight: '520px',
       borderRadius: '34px',
       overflow: 'hidden',
       background:
@@ -222,21 +222,22 @@ export default function HomePage() {
     }}
   >
     <Image
-      src="/banners/hero-logo-feature.png"
-      alt="Aleron Systems technology visual"
-      width={700}
-      height={700}
-      priority
-      style={{
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        display: 'block',
-        opacity: 0.88,
-        mixBlendMode: 'screen',
-        filter: 'drop-shadow(0 0 28px rgba(94,234,212,.18))',
-      }}
-    />
+  src="/banners/hero-logo-feature.png"
+  alt="Aleron Systems technology visual"
+  width={700}
+  height={700}
+  priority
+  style={{
+    width: '100%',
+    height: '100%',
+    objectFit: 'contain',
+    objectPosition: 'center top',
+    display: 'block',
+    opacity: 0.88,
+    mixBlendMode: 'screen',
+    filter: 'drop-shadow(0 0 28px rgba(94,234,212,.18))',
+  }}
+/>
   </div>
 </motion.div>
       </section>
