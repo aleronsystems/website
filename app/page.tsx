@@ -71,7 +71,7 @@ export default function HomePage() {
         style={{
           maxWidth: '1280px',
           margin: '0 auto',
-          marginTop: '-85px',
+          marginTop: '-105px',
           padding: '0px 28px',
           display: 'flex',
           justifyContent: 'space-between',
@@ -118,7 +118,7 @@ export default function HomePage() {
         style={{
           maxWidth: '1280px',
           margin: '0 auto',
-          padding: '0px 28px 24px',
+          padding: '0px 28px 10px',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
           gap: '56px',
@@ -169,7 +169,7 @@ export default function HomePage() {
               color: '#94a3b8',
               fontSize: '16px',
               lineHeight: '1.6',
-              marginBottom: '24px',
+              marginBottom: '12px',
               maxWidth: '720px',
             }}
           >
