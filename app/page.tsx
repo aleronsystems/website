@@ -96,14 +96,17 @@ export default function HomePage() {
         </a>
 
         <nav
-          style={{
-            display: 'flex',
-            gap: '24px',
-            flexWrap: 'nowrap',
-            alignItems: 'center',
-            fontSize: '18px',
-          }}
-        >
+        style={{
+          display: 'flex',
+          gap: '24px',
+          flexWrap: 'nowrap',
+          alignItems: 'center',
+          fontSize: '16px',
+          fontWeight: 700,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+  }}
+>
           <a href="/services" style={{ color: 'white', textDecoration: 'none' }}>Services</a>
           <a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About</a>
           <a href="/government" style={{ color: 'white', textDecoration: 'none' }}>Government</a>
