@@ -88,7 +88,7 @@ export default function HomePage() {
   height={160}
   priority
   style={{
-    width: '320px',
+    width: '360px',
     height: 'auto',
     display: 'block',
   }}
@@ -166,7 +166,7 @@ export default function HomePage() {
               color: '#94a3b8',
               fontSize: '18px',
               lineHeight: '1.6',
-              marginBottom: '34px',
+              marginBottom: '24px',
               maxWidth: '720px',
             }}
           >
@@ -215,7 +215,7 @@ export default function HomePage() {
   <div
     style={{
       position: 'relative',
-      minHeight: '420px',
+      minHeight: '380px',
       borderRadius: '34px',
       overflow: 'hidden',
       background:
@@ -232,7 +232,7 @@ export default function HomePage() {
     width: '100%',
     height: '100%',
     objectFit: 'contain',
-    objectPosition: 'center top',
+    objectPosition: 'center center',
     display: 'block',
     opacity: 0.88,
     mixBlendMode: 'screen',
