@@ -39,7 +39,6 @@ const services = [
 
 const why = [
   'Veteran Owned Business',
-  'Disabled Veteran Owned Business',
   'Agile and Responsive',
   'Enterprise Level Experience',
   'Cost Effective Solutions',
