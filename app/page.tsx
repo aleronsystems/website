@@ -118,7 +118,7 @@ export default function HomePage() {
         style={{
           maxWidth: '1280px',
           margin: '0 auto',
-          padding: '0px 28px 10px',
+          padding: '0px 28px 0px',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
           gap: '56px',
@@ -141,7 +141,7 @@ export default function HomePage() {
 
           <h1
             style={{
-              fontSize: 'clamp(38px, 5vw, 62px)',
+              fontSize: 'clamp(36px, 4.6vw, 58px)',
               lineHeight: '0.98',
               margin: '0 0 24px',
               letterSpacing: '-0.04em',
@@ -155,7 +155,7 @@ export default function HomePage() {
             style={{
               color: '#dbeafe',
               fontSize: '20px',
-              lineHeight: '1.55',
+              lineHeight: '1.45',
               marginBottom: '18px',
               maxWidth: '720px',
             }}
@@ -168,7 +168,7 @@ export default function HomePage() {
             style={{
               color: '#94a3b8',
               fontSize: '16px',
-              lineHeight: '1.6',
+              lineHeight: '1.45',
               marginBottom: '12px',
               maxWidth: '720px',
             }}
@@ -177,7 +177,7 @@ export default function HomePage() {
             optimization, we help organizations simplify complexity and accelerate growth.
           </p>
 
-          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', marginTop: '8px' }}>
             <a
               href="/contact"
               style={{
