@@ -71,7 +71,7 @@ export default function HomePage() {
         style={{
           maxWidth: '1280px',
           margin: '0 auto',
-          padding: '24px 28px',
+          padding: '12px 28px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -83,11 +83,11 @@ export default function HomePage() {
 <Image
   src="/logos/navbar-logo-dark.png"
   alt="Aleron Systems"
-  width={600}
-  height={180}
+  width={800}
+  height={240}
   priority
   style={{
-    width: '480px',
+    width: '620px',
     height: 'auto',
     display: 'block',
   }}
