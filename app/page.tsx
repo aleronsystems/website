@@ -114,7 +114,7 @@ export default function HomePage() {
         style={{
           maxWidth: '1280px',
           margin: '0 auto',
-          padding: '10px 28px 50px',
+          padding: '8px 28px 30px',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
           gap: '56px',
@@ -137,7 +137,7 @@ export default function HomePage() {
 
           <h1
             style={{
-              fontSize: 'clamp(44px, 6vw, 76px)',
+              fontSize: 'clamp(38px, 5vw, 62px)',
               lineHeight: '0.98',
               margin: '0 0 24px',
               letterSpacing: '-0.04em',
@@ -214,7 +214,7 @@ export default function HomePage() {
   <div
     style={{
       position: 'relative',
-      minHeight: '520px',
+      minHeight: '420px',
       borderRadius: '34px',
       overflow: 'hidden',
       background:
