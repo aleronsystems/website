@@ -71,8 +71,8 @@ export default function HomePage() {
         style={{
           maxWidth: '1280px',
           margin: '0 auto',
-          marginTop: '-60px',
-          padding: '4px 28px',
+          marginTop: '-85px',
+          padding: '0px 28px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -88,7 +88,7 @@ export default function HomePage() {
   height={160}
   priority
   style={{
-    width: '360px',
+    width: '540px',
     height: 'auto',
     display: 'block',
   }}
@@ -118,7 +118,7 @@ export default function HomePage() {
         style={{
           maxWidth: '1280px',
           margin: '0 auto',
-          padding: '8px 28px 30px',
+          padding: '0px 28px 24px',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
           gap: '56px',
@@ -154,7 +154,7 @@ export default function HomePage() {
           <p
             style={{
               color: '#dbeafe',
-              fontSize: '22px',
+              fontSize: '20px',
               lineHeight: '1.55',
               marginBottom: '18px',
               maxWidth: '720px',
@@ -167,7 +167,7 @@ export default function HomePage() {
           <p
             style={{
               color: '#94a3b8',
-              fontSize: '18px',
+              fontSize: '16px',
               lineHeight: '1.6',
               marginBottom: '24px',
               maxWidth: '720px',
