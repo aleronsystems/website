@@ -114,7 +114,7 @@ export default function HomePage() {
         style={{
           maxWidth: '1280px',
           margin: '0 auto',
-          padding: '36px 28px 70px',
+          padding: '10px 28px 50px',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
           gap: '56px',
