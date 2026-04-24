@@ -1,14 +1,10 @@
 import './globals.css';
 import type { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Aleron Systems LLC',
   description:
     'CRM consulting, cloud solutions, workflow automation, security, infrastructure, and government contracting support.',
-  icons: {
-    icon: '/logos/favicon-32x32.png',
-    apple: '/logos/apple-touch-icon.png',
-  },
 };
 
 export default function RootLayout({
