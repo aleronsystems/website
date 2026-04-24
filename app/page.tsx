@@ -71,12 +71,12 @@ export default function HomePage() {
         style={{
           maxWidth: '1280px',
           margin: '0 auto',
-          padding: '10px 28px',
+          padding: '4px 28px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           gap: '24px',
-          flexWrap: 'wrap',
+          flexWrap: 'nowrap',
         }}
       >
         <a href="/" style={{ display: 'inline-flex', alignItems: 'center' }}>
@@ -87,7 +87,7 @@ export default function HomePage() {
   height={160}
   priority
   style={{
-    width: '420px',
+    width: '320px',
     height: 'auto',
     display: 'block',
   }}
@@ -98,7 +98,7 @@ export default function HomePage() {
           style={{
             display: 'flex',
             gap: '24px',
-            flexWrap: 'wrap',
+            flexWrap: 'nowrap',
             alignItems: 'center',
             fontSize: '18px',
           }}
