@@ -146,7 +146,7 @@ export default function ContactPage() {
             method="post"
             encType="text/plain"
             style={{
-              padding: '32px',
+              padding: '26px',
               borderRadius: '28px',
               background:
                 'linear-gradient(180deg, rgba(15,23,42,.92), rgba(7,16,31,.92))',
@@ -172,12 +172,8 @@ export default function ContactPage() {
             <button type="submit" style={buttonStyle}>
               Send Message <ArrowRight size={18} />
             </button>
-
-            <p style={{ color: '#94a3b8', fontSize: '13px', lineHeight: '1.5', margin: 0 }}>
-              This form opens your email client. A hosted form can be added later with Formspree,
-              HubSpot, or another form provider.
-            </p>
-          </form>
+            
+            </form>
         </motion.div>
       </section>
 
