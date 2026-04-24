@@ -72,7 +72,7 @@ export default function HomePage() {
           maxWidth: '1280px',
           margin: '0 auto',
           marginTop: '-105px',
-          padding: '0px 28px',
+          padding: '0px 8px 0px 0px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
