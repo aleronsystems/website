@@ -80,7 +80,14 @@ export default function HomePage() {
           flexWrap: 'nowrap',
         }}
       >
-        <a href="/" style={{ display: 'inline-flex', alignItems: 'center' }}>
+        <a
+  href="/"
+  style={{
+    display: 'inline-flex',
+    alignItems: 'center',
+    marginLeft: '-20px',
+  }}
+>
 <Image
   src="/logos/navbar-logo-dark.png"
   alt="Aleron Systems"
