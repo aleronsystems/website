@@ -5,11 +5,9 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const highlights = [
-  '15+ Years Enterprise Technology Experience',
-  'Salesforce, CRM, Automation, and Cloud Systems',
+  '15+ Years Enterprise Experience',
   'Veteran Owned Business',
-  'Direct and Responsive Support',
-  'Commercial and Government Focus',
+  'Direct & Responsive Support',
 ];
 
 const experience = [
@@ -85,9 +83,9 @@ export default function AboutPage() {
           margin: '-45px auto 0',
           padding: '0px 28px 50px',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-          gap: '48px',
-          alignItems: 'center',
+          gridTemplateColumns: '1.3fr .7fr',
+          gap: '38px',
+          alignItems: 'start',
         }}
       >
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
@@ -106,11 +104,11 @@ export default function AboutPage() {
 
           <h1
             style={{
-              fontSize: 'clamp(40px, 5vw, 68px)',
-              lineHeight: '0.98',
-              margin: '0 0 24px',
+              fontSize: 'clamp(38px, 4.5vw, 64px)',
+              lineHeight: '0.95',
+              margin: '0 0 22px',
               letterSpacing: '-0.04em',
-              maxWidth: '900px',
+              maxWidth: '760px',
             }}
           >
             Enterprise experience with practical, direct support.
@@ -119,10 +117,10 @@ export default function AboutPage() {
           <p
             style={{
               color: '#dbeafe',
-              fontSize: '20px',
+              fontSize: '18px',
               lineHeight: '1.5',
-              marginBottom: '18px',
-              maxWidth: '760px',
+              marginBottom: '16px',
+              maxWidth: '700px',
             }}
           >
             Aleron Systems LLC was built to provide reliable CRM, cloud, automation, and technology
@@ -136,7 +134,7 @@ export default function AboutPage() {
               fontSize: '16px',
               lineHeight: '1.55',
               marginBottom: '20px',
-              maxWidth: '760px',
+              maxWidth: '700px',
             }}
           >
             The company is led by Bogdan Alekseyenko, a U.S. Army veteran with more than 15 years of
@@ -166,18 +164,18 @@ export default function AboutPage() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           style={{
-            maxWidth: '520px',
+            maxWidth: '380px',
             justifySelf: 'end',
           }}
         >
           <div
             style={{
-              padding: '26px',
-              borderRadius: '28px',
+              padding: '18px',
+              borderRadius: '24px',
               background:
                 'linear-gradient(180deg, rgba(15,23,42,.92), rgba(7,16,31,.92))',
               border: '1px solid rgba(94,234,212,.14)',
-              boxShadow: '0 28px 80px rgba(0,0,0,.28)',
+              boxShadow: '0 20px 60px rgba(0,0,0,.25)',
             }}
           >
             <Image
@@ -187,160 +185,50 @@ export default function AboutPage() {
               height={520}
               style={{
                 width: '100%',
-                height: '360px',
-                borderRadius: '22px',
-                marginBottom: '22px',
+                height: '210px',
+                borderRadius: '18px',
+                marginBottom: '18px',
                 objectFit: 'cover',
-                objectPosition: 'center 18%',
+                objectPosition: 'center 22%',
               }}
             />
 
-            <h2 style={{ fontSize: '30px', margin: '0 0 8px', lineHeight: 1.05 }}>
-              Bogdan Alekseyenko
+            <h2 style={{ fontSize: '44px', margin: '0 0 6px', lineHeight: 1.0 }}>
+              Bogdan
             </h2>
 
             <div
               style={{
                 color: '#5eead4',
-                fontSize: '16px',
+                fontSize: '15px',
                 fontWeight: 700,
-                marginBottom: '16px',
+                marginBottom: '14px',
               }}
             >
               Founder & Managing Consultant
             </div>
 
-            <p style={{ color: '#cbd5e1', fontSize: '17px', lineHeight: '1.55', marginBottom: '18px' }}>
-              U.S. Army veteran and senior technology consultant with 15+ years of experience across enterprise Salesforce administration, workflow automation, cloud operations, release management, and infrastructure support.
-            </p>
-
-            <div style={{ display: 'grid', gap: '10px' }}>
+            <ul
+              style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+                color: '#e2e8f0',
+                fontSize: '15px',
+              }}
+            >
               {highlights.map((item) => (
-                <div
-                  key={item}
-                  style={{
-                    display: 'flex',
-                    gap: '10px',
-                    alignItems: 'center',
-                    color: '#e2e8f0',
-                  }}
-                >
-                  <CheckCircle2 size={18} color="#5eead4" />
-                  <span>{item}</span>
-                </div>
+                <li key={item} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <CheckCircle2 size={16} color="#5eead4" />
+                  {item}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </motion.div>
       </section>
 
       <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '56px 28px' }}>
-        <div style={{ maxWidth: '820px', marginBottom: '32px' }}>
-          <div style={{ color: '#5eead4', marginBottom: '12px', fontWeight: 800 }}>
-            Experience That Matters
-          </div>
-          <h2 style={{ fontSize: 'clamp(34px, 4vw, 48px)', margin: '0 0 14px', lineHeight: 1.05 }}>
-            A background built across real enterprise systems.
-          </h2>
-          <p style={{ color: '#cbd5e1', fontSize: '18px', lineHeight: '1.6' }}>
-            Aleron Systems brings practical experience from complex business environments where
-            reliability, security, usability, and operational efficiency all matter.
-          </p>
-        </div>
-
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '14px',
-          }}
-        >
-          {experience.map((item) => (
-            <div
-              key={item}
-              style={{
-                display: 'flex',
-                gap: '10px',
-                alignItems: 'center',
-                padding: '16px',
-                borderRadius: '16px',
-                background: 'rgba(15,23,42,.75)',
-                border: '1px solid rgba(94,234,212,.14)',
-              }}
-            >
-              <CheckCircle2 size={18} color="#5eead4" />
-              <span>{item}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section
-        style={{
-          maxWidth: '1200px',
-          margin: '40px auto 80px',
-          padding: '42px 28px',
-          borderRadius: '28px',
-          background:
-            'linear-gradient(rgba(5,11,20,.78), rgba(5,11,20,.92)), url("/footer/footer-bg-glow.png") center / cover no-repeat',
-          border: '1px solid rgba(94,234,212,.18)',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '24px',
-          alignItems: 'center',
-        }}
-      >
-        <div>
-          <div style={{ color: '#5eead4', marginBottom: '12px', fontWeight: 800 }}>
-            Let’s build something practical.
-          </div>
-          <h2 style={{ fontSize: 'clamp(34px, 4vw, 46px)', margin: '0 0 14px', lineHeight: 1.05 }}>
-            Need a technology partner who understands execution?
-          </h2>
-        </div>
-
-        <a
-          href="/contact"
-          style={{
-            justifySelf: 'start',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: 'linear-gradient(135deg,#5eead4,#38bdf8)',
-            color: '#021014',
-            padding: '15px 22px',
-            borderRadius: '12px',
-            textDecoration: 'none',
-            fontWeight: 'bold',
-          }}
-        >
-          Contact Aleron <ArrowRight size={18} />
-        </a>
-      </section>
-
-      <footer
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '30px 28px 44px',
-          textAlign: 'center',
-          borderTop: '1px solid rgba(94,234,212,.12)',
-        }}
-      >
-        <Image
-          src="/footer/footer-logo-dark.png"
-          alt="Aleron Systems"
-          width={300}
-          height={100}
-          style={{ width: '260px', height: 'auto' }}
-        />
-        <p style={{ color: '#94a3b8' }}>
-          CRM consulting • Cloud solutions • Workflow automation • Security & infrastructure
-        </p>
-        <p style={{ color: '#64748b', fontSize: '13px' }}>
-          © 2026 Aleron Systems LLC. All rights reserved.
-        </p>
-      </footer>
-    </main>
-  );
-}
