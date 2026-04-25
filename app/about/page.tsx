@@ -232,3 +232,112 @@ export default function AboutPage() {
       </section>
 
       <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '56px 28px' }}>
+        <div style={{ maxWidth: '820px', marginBottom: '32px' }}>
+          <div style={{ color: '#5eead4', marginBottom: '12px', fontWeight: 800 }}>
+            Experience That Matters
+          </div>
+          <h2 style={{ fontSize: 'clamp(34px, 4vw, 48px)', margin: '0 0 14px', lineHeight: 1.05 }}>
+            A background built across real enterprise systems.
+          </h2>
+          <p style={{ color: '#cbd5e1', fontSize: '18px', lineHeight: '1.6' }}>
+            Aleron Systems brings practical experience from complex business environments where
+            reliability, security, usability, and operational efficiency all matter.
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '14px',
+          }}
+        >
+          {experience.map((item) => (
+            <div
+              key={item}
+              style={{
+                display: 'flex',
+                gap: '10px',
+                alignItems: 'center',
+                padding: '16px',
+                borderRadius: '16px',
+                background: 'rgba(15,23,42,.75)',
+                border: '1px solid rgba(94,234,212,.14)',
+              }}
+            >
+              <CheckCircle2 size={18} color="#5eead4" />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
+        style={{
+          maxWidth: '1200px',
+          margin: '40px auto 80px',
+          padding: '42px 28px',
+          borderRadius: '28px',
+          background:
+            'linear-gradient(rgba(5,11,20,.78), rgba(5,11,20,.92)), url("/footer/footer-bg-glow.png") center / cover no-repeat',
+          border: '1px solid rgba(94,234,212,.18)',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '24px',
+          alignItems: 'center',
+        }}
+      >
+        <div>
+          <div style={{ color: '#5eead4', marginBottom: '12px', fontWeight: 800 }}>
+            Let’s build something practical.
+          </div>
+          <h2 style={{ fontSize: 'clamp(34px, 4vw, 46px)', margin: '0 0 14px', lineHeight: 1.05 }}>
+            Need a technology partner who understands execution?
+          </h2>
+        </div>
+
+        <a
+          href="/contact"
+          style={{
+            justifySelf: 'start',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'linear-gradient(135deg,#5eead4,#38bdf8)',
+            color: '#021014',
+            padding: '15px 22px',
+            borderRadius: '12px',
+            textDecoration: 'none',
+            fontWeight: 'bold',
+          }}
+        >
+          Contact Aleron <ArrowRight size={18} />
+        </a>
+      </section>
+
+      <footer
+        style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '30px 28px 44px',
+          textAlign: 'center',
+          borderTop: '1px solid rgba(94,234,212,.12)',
+        }}
+      >
+        <Image
+          src="/footer/footer-logo-dark.png"
+          alt="Aleron Systems"
+          width={300}
+          height={100}
+          style={{ width: '260px', height: 'auto' }}
+        />
+        <p style={{ color: '#94a3b8' }}>
+          CRM consulting • Cloud solutions • Workflow automation • Security & infrastructure
+        </p>
+        <p style={{ color: '#64748b', fontSize: '13px' }}>
+          © 2026 Aleron Systems LLC. All rights reserved.
+        </p>
+      </footer>
+    </main>
+  );
+}
