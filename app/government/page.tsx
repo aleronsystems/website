@@ -120,17 +120,39 @@ export default function GovernmentPage() {
             Reliable technology support for government and commercial contracts.
           </h1>
 
-          <p
-            style={{
-              color: '#dbeafe',
-              fontSize: '20px',
-              lineHeight: '1.5',
-              marginBottom: '24px',
-              maxWidth: '760px',
-            }}
-          >
-            Aleron Systems LLC provides practical CRM, cloud, automation, security, and infrastructure support for government agencies, prime contractors, and commercial organizations.
-          </p>
+<p
+  style={{
+    color: '#dbeafe',
+    fontSize: '20px',
+    lineHeight: '1.5',
+    marginBottom: '24px',
+    maxWidth: '760px',
+  }}
+>
+  Aleron Systems LLC provides practical CRM, cloud, automation, security, and infrastructure support for government agencies, prime contractors, and commercial organizations.
+</p>
+
+<a
+  href="/docs/Aleron_Federal_Capability_Statement.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{
+    display: 'inline-flex',
+    marginTop: '8px',
+    alignItems: 'center',
+    gap: '8px',
+    background: 'linear-gradient(135deg,#5eead4,#38bdf8)',
+    color: '#021014',
+    padding: '15px 24px',
+    borderRadius: '12px',
+    textDecoration: 'none',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    boxShadow: '0 8px 24px rgba(56,189,248,.18)',
+  }}
+>
+  Download Federal Capability Statement <ArrowRight size={18} />
+</a>
         </motion.div>
       </section>
 
