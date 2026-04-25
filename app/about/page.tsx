@@ -82,11 +82,11 @@ export default function AboutPage() {
       <section
         style={{
           maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '0px 28px 30px',
+          margin: '-45px auto 0',
+          padding: '0px 28px 50px',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-          gap: '56px',
+          gap: '48px',
           alignItems: 'center',
         }}
       >
@@ -162,10 +162,17 @@ export default function AboutPage() {
           </a>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          style={{
+            maxWidth: '520px',
+            justifySelf: 'end',
+          }}
+        >
           <div
             style={{
-              padding: '34px',
+              padding: '26px',
               borderRadius: '28px',
               background:
                 'linear-gradient(180deg, rgba(15,23,42,.92), rgba(7,16,31,.92))',
@@ -173,22 +180,22 @@ export default function AboutPage() {
               boxShadow: '0 28px 80px rgba(0,0,0,.28)',
             }}
           >
-<Image
-  src="/marketing/About_Headshot_photo.jpg"
-  alt="Bogdan Alekseyenko"
-  width={420}
-  height={520}
-  style={{
-    width: '100%',
-    height: '420px',
-    borderRadius: '22px',
-    marginBottom: '24px',
-    objectFit: 'cover',
-    objectPosition: 'center 18%',
-  }}
-/>
+            <Image
+              src="/marketing/About_Headshot_photo.jpg"
+              alt="Bogdan Alekseyenko"
+              width={420}
+              height={520}
+              style={{
+                width: '100%',
+                height: '360px',
+                borderRadius: '22px',
+                marginBottom: '22px',
+                objectFit: 'cover',
+                objectPosition: 'center 18%',
+              }}
+            />
 
-            <h2 style={{ fontSize: '32px', margin: '0 0 8px', lineHeight: 1.05 }}>
+            <h2 style={{ fontSize: '30px', margin: '0 0 8px', lineHeight: 1.05 }}>
               Bogdan Alekseyenko
             </h2>
 
@@ -197,17 +204,17 @@ export default function AboutPage() {
                 color: '#5eead4',
                 fontSize: '16px',
                 fontWeight: 700,
-                marginBottom: '18px',
+                marginBottom: '16px',
               }}
             >
               Founder & Managing Consultant
             </div>
 
-            <p style={{ color: '#cbd5e1', fontSize: '18px', lineHeight: '1.6', marginBottom: '20px' }}>
+            <p style={{ color: '#cbd5e1', fontSize: '17px', lineHeight: '1.55', marginBottom: '18px' }}>
               U.S. Army veteran and senior technology consultant with 15+ years of experience across enterprise Salesforce administration, workflow automation, cloud operations, release management, and infrastructure support.
             </p>
 
-            <div style={{ display: 'grid', gap: '12px' }}>
+            <div style={{ display: 'grid', gap: '10px' }}>
               {highlights.map((item) => (
                 <div
                   key={item}
@@ -227,7 +234,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '64px 28px' }}>
+      <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '56px 28px' }}>
         <div style={{ maxWidth: '820px', marginBottom: '32px' }}>
           <div style={{ color: '#5eead4', marginBottom: '12px', fontWeight: 800 }}>
             Experience That Matters
