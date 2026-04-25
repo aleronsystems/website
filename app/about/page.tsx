@@ -173,19 +173,20 @@ export default function AboutPage() {
               boxShadow: '0 28px 80px rgba(0,0,0,.28)',
             }}
           >
-            <Image
-              src="/marketing/About_Headshot_photo.jpg"
-              alt="Bogdan Alekseyenko"
-              width={500}
-              height={620}
-              style={{
-                width: '100%',
-                height: 'auto',
-                borderRadius: '22px',
-                marginBottom: '24px',
-                objectFit: 'cover',
-              }}
-            />
+<Image
+  src="/marketing/About_Headshot_photo.jpg"
+  alt="Bogdan Alekseyenko"
+  width={420}
+  height={520}
+  style={{
+    width: '100%',
+    height: '420px',
+    borderRadius: '22px',
+    marginBottom: '24px',
+    objectFit: 'cover',
+    objectPosition: 'center 18%',
+  }}
+/>
 
             <h2 style={{ fontSize: '32px', margin: '0 0 8px', lineHeight: 1.05 }}>
               Bogdan Alekseyenko
