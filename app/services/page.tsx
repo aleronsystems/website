@@ -127,17 +127,39 @@ export default function ServicesPage() {
             Services Designed to Scale Your Business
           </h1>
 
-          <p
-            style={{
-              color: '#dbeafe',
-              fontSize: '20px',
-              lineHeight: '1.5',
-              marginBottom: '24px',
-              maxWidth: '760px',
-            }}
-          >
-            From CRM optimization to automation and infrastructure support, Aleron Systems delivers practical solutions built on enterprise experience.
-          </p>
+<p
+  style={{
+    color: '#dbeafe',
+    fontSize: '20px',
+    lineHeight: '1.5',
+    marginBottom: '24px',
+    maxWidth: '760px',
+  }}
+>
+  From CRM optimization to automation and infrastructure support, Aleron Systems delivers practical solutions built on enterprise experience.
+</p>
+
+<a
+  href="/docs/Aleron_Commercial_Capability_Statement.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{
+    display: 'inline-flex',
+    marginTop: '8px',
+    alignItems: 'center',
+    gap: '8px',
+    background: 'linear-gradient(135deg,#5eead4,#38bdf8)',
+    color: '#021014',
+    padding: '15px 24px',
+    borderRadius: '12px',
+    textDecoration: 'none',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    boxShadow: '0 8px 24px rgba(56,189,248,.18)',
+  }}
+>
+  Download Commercial Capability Statement <ArrowRight size={18} />
+</a>
         </motion.div>
       </section>
 
