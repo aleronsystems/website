@@ -5,11 +5,16 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const highlights = [
-  '15+ Years Enterprise Technology Experience',
-  'Salesforce, CRM, Automation, and Cloud Systems',
+  'U.S. Army Veteran',
+  'Senior CRM & Technology Consultant',
+  '15+ Years Enterprise Experience',
+];
+
+const businessHighlights = [
   'Veteran Owned Business',
   'Direct and Responsive Support',
   'Commercial and Government Focus',
+  'Salesforce, CRM, Automation, and Cloud Systems',
 ];
 
 const experience = [
@@ -195,9 +200,15 @@ export default function AboutPage() {
               }}
             />
 
-            <h2 style={{ fontSize: '34px', margin: '0 0 6px', lineHeight: 1.0 }}>
-              Bogdan Alekseyenko
-            </h2>
+<h2
+  style={{
+    fontSize: '28px',
+    margin: '0 0 6px',
+    lineHeight: 1.05,
+  }}
+>
+  Bogdan Alekseyenko
+</h2>
 
             <div
               style={{
