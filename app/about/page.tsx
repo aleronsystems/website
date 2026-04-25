@@ -174,23 +174,36 @@ export default function AboutPage() {
             }}
           >
             <Image
-              src="/icons/icon-trust.png"
-              alt=""
-              width={120}
-              height={120}
+              src="/marketing/About_Headshot_photo.jpg"
+              alt="Bogdan Alekseyenko"
+              width={500}
+              height={620}
               style={{
-                borderRadius: '26px',
+                width: '100%',
+                height: 'auto',
+                borderRadius: '22px',
                 marginBottom: '24px',
+                objectFit: 'cover',
               }}
             />
 
-            <h2 style={{ fontSize: '32px', margin: '0 0 16px', lineHeight: 1.05 }}>
-              Built for trust, execution, and long-term support.
+            <h2 style={{ fontSize: '32px', margin: '0 0 8px', lineHeight: 1.05 }}>
+              Bogdan Alekseyenko
             </h2>
 
-            <p style={{ color: '#cbd5e1', fontSize: '18px', lineHeight: '1.6', marginBottom: '24px' }}>
-              Aleron focuses on practical technology outcomes: cleaner systems, better visibility,
-              smoother workflows, and reliable support.
+            <div
+              style={{
+                color: '#5eead4',
+                fontSize: '16px',
+                fontWeight: 700,
+                marginBottom: '18px',
+              }}
+            >
+              Founder & Managing Consultant
+            </div>
+
+            <p style={{ color: '#cbd5e1', fontSize: '18px', lineHeight: '1.6', marginBottom: '20px' }}>
+              U.S. Army veteran and senior technology consultant with 15+ years of experience across enterprise Salesforce administration, workflow automation, cloud operations, release management, and infrastructure support.
             </p>
 
             <div style={{ display: 'grid', gap: '12px' }}>
