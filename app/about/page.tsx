@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const highlights = [
-  'U.S. Army Veteran',
   'Senior CRM & Technology Consultant',
   '15+ Years Enterprise Experience',
+  'U.S. Army Veteran',
 ];
 
 const businessHighlights = [
