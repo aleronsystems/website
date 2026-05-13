@@ -161,10 +161,10 @@ export default function HomePage() {
         }
         .nav-inner {
           max-width: var(--max-w); margin: 0 auto; padding: 0 var(--px);
-          height: 72px;
+          height: 80px;
           display: flex; align-items: center; justify-content: space-between;
         }
-        .nav-logo img { height: 52px; width: auto; display: block; }
+        .nav-logo img { height: 64px; width: auto; display: block; }
         .nav-links {
           display: flex; gap: 28px; align-items: center; list-style: none;
         }
@@ -298,28 +298,32 @@ export default function HomePage() {
         /* ── SERVICES ── */
         .services-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 1px;
-          background: var(--border);
+          grid-template-columns: repeat(3, 1fr);
           border: 1px solid var(--border);
           border-radius: 10px;
           overflow: hidden;
         }
-        @media (max-width: 900px) {
-          .services-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 520px) {
+        @media (max-width: 700px) {
           .services-grid { grid-template-columns: 1fr; }
-        }
-        /* 5th item spans 4 cols so it doesn't orphan with empty siblings */
-        .service-item:last-child {
-          grid-column: 1 / -1;
-          max-width: 320px;
         }
         .service-item {
           background: var(--bg);
-          padding: 24px;
+          padding: 26px;
           transition: background .18s;
+          border-right: 1px solid var(--border);
+          border-bottom: 1px solid var(--border);
+        }
+        /* Col 3 items: no right border */
+        .service-item:nth-child(3n) { border-right: none; }
+        /* Row 2 items (4th, 5th): no bottom border */
+        .service-item:nth-child(4),
+        .service-item:nth-child(5) { border-bottom: none; }
+        /* 5th item: center it across cols 2–3 so row 2 looks balanced */
+        .service-item:nth-child(4) { border-right: 1px solid var(--border); }
+        .service-item:nth-child(5) { border-right: none; }
+        @media (max-width: 700px) {
+          .service-item { border-right: none; }
+          .service-item:last-child { border-bottom: none; }
         }
         .service-item:hover { background: var(--bg2); }
         .svc-icon {
@@ -456,7 +460,7 @@ export default function HomePage() {
               width={480}
               height={140}
               priority
-              style={{ height: '50px', width: 'auto' }}
+              style={{ height: '62px', width: 'auto' }}
             />
           </a>
           <nav>
