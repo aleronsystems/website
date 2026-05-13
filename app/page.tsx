@@ -69,7 +69,7 @@ const services = [
 const whyAleron = [
   {
     heading: 'Hands-On Salesforce Platform Experience',
-    body: 'Over 15 years of direct Salesforce administration and platform operations — supporting enterprise orgs with 2,000+ users across global sales, service, and operations teams.',
+    body: 'Over 15 years of direct Salesforce administration and platform operations, supporting enterprise orgs with 2,000+ users across global sales, service, and operations teams.',
   },
   {
     heading: 'Regulated Environment Operations',
@@ -77,11 +77,11 @@ const whyAleron = [
   },
   {
     heading: 'Release Governance You Can Rely On',
-    body: 'Structured QA, UAT, and production deployment coordination using Gearset and AutoRABIT — with documented governance practices that hold up to enterprise scrutiny.',
+    body: 'Structured QA, UAT, and production deployment coordination using Gearset and AutoRABIT, with documented governance practices that hold up to enterprise scrutiny.',
   },
   {
     heading: 'Senior-Level, No Handoffs',
-    body: 'Every engagement is staffed at the senior level from day one. No account managers, no junior resources on production work — direct platform expertise throughout.',
+    body: 'Every engagement is staffed at the senior level from day one. No account managers, no junior resources on production work. Direct platform expertise throughout.',
   },
 ];
 
@@ -161,35 +161,24 @@ export default function HomePage() {
         }
         .nav-inner {
           max-width: var(--max-w); margin: 0 auto;
-          padding: 0 var(--px);
-          height: 76px;
+          padding: 0 clamp(24px, 4vw, 52px);
+          height: 88px;
           display: flex; align-items: center; justify-content: space-between;
-          gap: 32px;
+          gap: 40px;
         }
-        /* Logo: the anchor is the sizing context */
-        .nav-logo {
-          display: block;
+        /* The wrapper div controls ALL sizing. The image fills it. */
+        .logo-wrapper {
           flex-shrink: 0;
-          height: 44px;
-          width: auto;
-          /* Derived from logo aspect ratio: ~480:140 ≈ 3.43:1 */
-          /* At 44px tall, width ≈ 151px */
           position: relative;
+          width: 180px;
+          height: 52px;
         }
-        .nav-logo-img {
-          height: 44px !important;
-          width: auto !important;
-          max-width: none !important;
-          display: block !important;
-          object-fit: contain;
-          object-position: left center;
-        }
-        @media (max-width: 480px) {
-          .nav-logo { height: 36px; }
-          .nav-logo-img { height: 36px !important; }
+        @media (max-width: 640px) {
+          .nav-inner { height: 72px; }
+          .logo-wrapper { width: 148px; height: 44px; }
         }
         .nav-links {
-          display: flex; gap: 28px; align-items: center; list-style: none;
+          display: flex; gap: 32px; align-items: center; list-style: none;
         }
         .nav-links a {
           color: var(--text-2); text-decoration: none;
@@ -199,7 +188,7 @@ export default function HomePage() {
         .nav-links a:hover { color: var(--text-1); }
         .nav-links a.gov { color: var(--teal); }
         .nav-contact {
-          padding: 8px 16px; border-radius: 6px;
+          padding: 9px 18px; border-radius: 6px;
           border: 1px solid var(--border);
           color: var(--text-1); background: transparent;
           font-size: 13px; font-weight: 500; text-decoration: none;
@@ -483,15 +472,17 @@ export default function HomePage() {
         transition={{ duration: 0.4 }}
       >
         <div className="nav-inner">
-          <a href="/" className="nav-logo">
-            <Image
-              src="/logos/navbar-logo-dark.png"
-              alt="Aleron Systems"
-              width={480}
-              height={140}
-              priority
-              className="nav-logo-img"
-            />
+          <a href="/" style={{ textDecoration: 'none', display: 'block' }}>
+            <div className="logo-wrapper">
+              <Image
+                src="/logos/navbar-logo-dark.png"
+                alt="Aleron Systems"
+                fill
+                priority
+                sizes="(max-width: 640px) 148px, 180px"
+                style={{ objectFit: 'contain', objectPosition: 'left center' }}
+              />
+            </div>
           </a>
           <nav>
             <ul className="nav-links">
@@ -562,7 +553,7 @@ export default function HomePage() {
           <div className="section-label">Core Services</div>
           <h2 className="section-h2">Platform operations built on direct enterprise experience</h2>
           <p className="section-sub">
-            Focused Salesforce and operational services — not broad consulting engagements.
+            Focused Salesforce and operational services. No broad consulting engagements.
           </p>
         </motion.div>
 
@@ -659,7 +650,7 @@ export default function HomePage() {
           </h2>
           <p className="cta-sub">
             Whether you need ongoing Salesforce administration, release governance support,
-            or workflow automation — we bring senior-level platform expertise directly to your environment.
+            or workflow automation, we bring senior-level platform expertise directly to your environment.
           </p>
           <a href="/contact" className="btn-primary">
             Start the Conversation <ArrowRight size={14} />
