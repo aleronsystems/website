@@ -7,25 +7,25 @@ import { ArrowRight, BarChart3, Zap, TrendingUp, GitMerge, Server } from 'lucide
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 10 },
+  hidden: { opacity: 0, y: 6 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94], delay },
+    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94], delay },
   }),
 };
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.07 } },
+  visible: { transition: { staggerChildren: 0.055 } },
 };
 
 const itemFade = {
-  hidden: { opacity: 0, y: 8 },
+  hidden: { opacity: 0, y: 5 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] },
   },
 };
 
@@ -35,53 +35,53 @@ const metrics = [
   { value: '15+', label: 'Years Enterprise Experience' },
   { value: '2,000+', label: 'Users Supported' },
   { value: 'Veteran', label: 'Owned Business' },
-  { value: 'Enterprise', label: 'CRM Specialization' },
+  { value: 'Enterprise', label: 'Platform Specialization' },
 ];
 
 const services = [
   {
     icon: <BarChart3 size={18} />,
     title: 'CRM Solutions',
-    description: 'Salesforce administration, optimization, and enterprise CRM operations for global teams.',
+    description: 'Salesforce administration, optimization, and enterprise platform operations supporting global business teams.',
   },
   {
     icon: <Zap size={18} />,
     title: 'Workflow Automation',
-    description: 'Process automation and integration architecture that reduces manual overhead at scale.',
+    description: 'Process automation and integration architecture that reduces manual overhead across operational environments.',
   },
   {
     icon: <TrendingUp size={18} />,
     title: 'Business Process Improvement',
-    description: 'Operational analysis, workflow redesign, and reporting that drives measurable efficiency.',
+    description: 'Operational analysis, workflow redesign, and reporting frameworks that drive measurable efficiency gains.',
   },
   {
     icon: <GitMerge size={18} />,
     title: 'DevOps & Release Governance',
-    description: 'Controlled deployment pipelines, CI/CD governance, and structured release management.',
+    description: 'Controlled deployment pipelines, structured release management, and governance-focused operational practices.',
   },
   {
     icon: <Server size={18} />,
     title: 'Enterprise Platform Support',
-    description: 'Ongoing administration and integrations for enterprise platforms in compliance-critical environments.',
+    description: 'Ongoing administration and integrations for enterprise platforms in regulated, compliance-critical environments.',
   },
 ];
 
 const whyAleron = [
   {
-    heading: 'Deep Enterprise CRM Experience',
-    body: 'Over 15 years supporting large-scale Salesforce environments across global operations — as a focused CRM specialist, not a generalist.',
+    heading: 'Deep Salesforce & CRM Experience',
+    body: 'Over 15 years supporting large-scale Salesforce environments across global operations — as a focused platform specialist, not a generalist.',
   },
   {
-    heading: 'Compliance-Focused Governance',
-    body: 'Supported enterprise systems in highly regulated environments requiring controlled operational processes, including FDA 21 CFR Part 11 aligned practices.',
+    heading: 'Regulated Environment Experience',
+    body: 'Supported enterprise systems in highly regulated operational environments requiring governance-focused processes and audit-ready practices, including FDA 21 CFR Part 11 aligned workflows.',
   },
   {
     heading: 'Senior-Level Engagement',
-    body: 'Every engagement is handled at the senior level. No junior handoffs, no account managers — direct expertise from day one.',
+    body: 'Every engagement is handled at the senior level. No junior handoffs, no account managers as intermediaries — direct operational expertise from day one.',
   },
   {
-    heading: 'Global Salesforce Operations',
-    body: 'Hands-on experience supporting Salesforce platforms serving international business teams across multiple regions and complex operational structures.',
+    heading: 'Global Enterprise Operations',
+    body: 'Hands-on experience supporting enterprise platforms serving international business teams across multiple regions, operational structures, and deployment environments.',
   },
 ];
 
@@ -89,30 +89,30 @@ const caseStudies = [
   {
     ref: 'Qlik',
     client: 'Analytics Platform Provider',
-    challenge: 'Legacy workflow processes creating bottlenecks across global sales operations.',
-    solution: 'Redesigned CRM workflows and automation architecture to reduce manual touchpoints and unify data across regional teams.',
-    outcome: 'Streamlined sales cycle management and improved cross-team operational visibility.',
+    challenge: 'Legacy workflow processes creating operational bottlenecks across global sales and business operations.',
+    solution: 'Redesigned platform workflows and automation architecture to reduce manual touchpoints and unify data across regional teams.',
+    outcome: 'Streamlined operational processes and improved cross-team visibility across the business.',
   },
   {
     ref: 'UL Solutions',
     client: 'Safety Science Organization',
-    challenge: 'Fragmented enterprise platform support with inconsistent governance across deployment cycles.',
-    solution: 'Implemented structured DevOps governance, controlled release processes, and ongoing platform administration.',
-    outcome: 'Consistent, audit-ready deployment practices aligned with enterprise compliance requirements.',
+    challenge: 'Fragmented platform support with inconsistent governance practices across deployment and release cycles.',
+    solution: 'Established structured DevOps governance, controlled release processes, and audit-ready deployment practices aligned with regulated environment requirements.',
+    outcome: 'Consistent, governance-aligned deployment operations supporting compliance and operational integrity.',
   },
   {
     ref: 'BankUnited',
     client: 'Financial Services Institution',
-    challenge: 'CRM environment lacking operational maturity and integration with core business processes.',
-    solution: 'Delivered Salesforce optimization, integration development, and operational workflow improvements.',
-    outcome: 'Increased CRM adoption and data integrity across business units.',
+    challenge: 'Enterprise platform operations lacking structured governance, release coordination, and process maturity.',
+    solution: 'Delivered operational governance support, change management coordination, and platform workflow improvements across business units.',
+    outcome: 'Improved operational maturity and deployment consistency across the enterprise environment.',
   },
   {
     ref: 'Aptos',
     client: 'Retail Technology Platform',
-    challenge: 'Scaling operations requiring enterprise platform support and automation modernization.',
-    solution: 'Provided platform support, workflow automation consulting, and process improvement advisory.',
-    outcome: 'Reduced operational overhead and improved system reliability at scale.',
+    challenge: 'Scaling operations requiring enterprise platform support and automation modernization across business workflows.',
+    solution: 'Provided ongoing platform administration, workflow automation advisory, and operational process improvement support.',
+    outcome: 'Reduced operational overhead and improved platform reliability as the business scaled.',
   },
 ];
 
@@ -161,10 +161,11 @@ export default function HomePage() {
         }
         .nav-inner {
           max-width: var(--max-w); margin: 0 auto; padding: 0 var(--px);
-          height: 80px;
+          height: 72px;
           display: flex; align-items: center; justify-content: space-between;
         }
-        .nav-logo img { height: 64px; width: auto; display: block; }
+        .nav-logo { display: flex; align-items: center; }
+        .nav-logo img { height: 48px; width: auto; display: block; max-width: 260px; }
         .nav-links {
           display: flex; gap: 28px; align-items: center; list-style: none;
         }
@@ -189,30 +190,30 @@ export default function HomePage() {
         /* ── HERO ── */
         .hero {
           max-width: var(--max-w); margin: 0 auto;
-          padding: clamp(48px,6vw,80px) var(--px) clamp(40px,5vw,64px);
+          padding: clamp(44px,5.5vw,72px) var(--px) clamp(36px,4.5vw,56px);
           border-bottom: 1px solid var(--border);
         }
         .hero-label {
           font-size: 11px; font-weight: 600; letter-spacing: .14em;
           text-transform: uppercase; color: var(--accent);
-          margin-bottom: 20px;
+          margin-bottom: 18px;
         }
         .hero h1 {
           font-size: var(--fs-h1);
           font-weight: 500;
-          line-height: 1.08;
-          letter-spacing: -.025em;
+          line-height: 1.05;
+          letter-spacing: -.028em;
           color: var(--text-1);
-          max-width: 820px;
-          margin-bottom: 20px;
+          max-width: 860px;
+          margin-bottom: 18px;
         }
         .hero h1 span { color: var(--teal); }
         .hero-sub {
-          font-size: clamp(15px, 1.5vw, 17px);
-          line-height: 1.7;
+          font-size: clamp(15px, 1.4vw, 16.5px);
+          line-height: 1.65;
           color: var(--text-2);
-          max-width: 600px;
-          margin-bottom: 32px;
+          max-width: 560px;
+          margin-bottom: 30px;
         }
         .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
         .btn-primary {
@@ -271,12 +272,12 @@ export default function HomePage() {
         /* ── SECTION COMMON ── */
         .section {
           max-width: var(--max-w); margin: 0 auto;
-          padding: clamp(40px,5vw,60px) var(--px);
+          padding: clamp(36px,4.5vw,52px) var(--px);
           border-bottom: 1px solid var(--border);
         }
         .section-hd {
-          display: flex; flex-direction: column; gap: 8px;
-          margin-bottom: 32px;
+          display: flex; flex-direction: column; gap: 6px;
+          margin-bottom: 28px;
         }
         .section-label {
           font-size: 11px; font-weight: 600; letter-spacing: .14em;
@@ -285,14 +286,14 @@ export default function HomePage() {
         .section-h2 {
           font-size: var(--fs-h2);
           font-weight: 400;
-          letter-spacing: -.018em;
-          line-height: 1.15;
+          letter-spacing: -.02em;
+          line-height: 1.1;
           color: var(--text-1);
-          max-width: 520px;
+          max-width: 500px;
         }
         .section-sub {
-          font-size: 15px; line-height: 1.65; color: var(--text-2);
-          max-width: 480px; margin-top: 4px;
+          font-size: 14px; line-height: 1.6; color: var(--text-2);
+          max-width: 460px; margin-top: 2px;
         }
 
         /* ── SERVICES ── */
@@ -367,66 +368,72 @@ export default function HomePage() {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
           gap: 16px;
+          align-items: stretch;
         }
         .case-card {
           border: 1px solid var(--border);
           border-radius: 8px;
           padding: 22px;
           background: var(--surface);
-          display: flex; flex-direction: column; gap: 14px;
+          display: flex; flex-direction: column;
+          gap: 0;
           transition: border-color .18s;
         }
         .case-card:hover { border-color: rgba(255,255,255,.14); }
+        .case-head { margin-bottom: 16px; }
         .case-ref {
           font-size: 10px; font-weight: 700; letter-spacing: .14em;
           text-transform: uppercase; color: var(--accent);
-          margin-bottom: 3px;
+          margin-bottom: 4px;
         }
         .case-name {
-          font-size: 16px; font-weight: 400;
+          font-size: 15px; font-weight: 500;
           color: var(--text-1); letter-spacing: -.01em;
+          line-height: 1.3;
         }
-        .case-rule { height: 1px; background: var(--border); }
+        .case-rule { height: 1px; background: var(--border); margin-bottom: 16px; }
+        .case-blocks { display: flex; flex-direction: column; gap: 12px; flex: 1; }
         .case-block { display: flex; flex-direction: column; gap: 3px; }
         .case-lbl {
           font-size: 10px; font-weight: 600; letter-spacing: .12em;
           text-transform: uppercase; color: var(--text-3);
         }
-        .case-txt { font-size: 13px; line-height: 1.65; color: var(--text-2); }
+        .case-txt { font-size: 13px; line-height: 1.6; color: var(--text-2); }
         .case-outcome {
-          font-size: 13px; line-height: 1.65;
+          font-size: 13px; line-height: 1.6;
           color: var(--teal);
           padding: 10px 12px;
           border-radius: 6px;
           background: rgba(94,234,212,.05);
           border: 1px solid rgba(94,234,212,.1);
+          margin-top: 16px;
         }
 
         /* ── CTA ── */
         .cta-section {
           max-width: var(--max-w); margin: 0 auto;
-          padding: clamp(40px,5vw,60px) var(--px);
+          padding: clamp(28px,3.5vw,44px) var(--px);
         }
         .cta-inner {
           border: 1px solid var(--border);
           border-radius: 10px;
-          padding: clamp(32px,4vw,48px);
+          padding: clamp(24px,3vw,36px) clamp(24px,3.5vw,40px);
           background: var(--surface);
         }
         .cta-label {
           font-size: 11px; font-weight: 600; letter-spacing: .14em;
           text-transform: uppercase; color: var(--accent);
-          margin-bottom: 14px;
+          margin-bottom: 10px;
         }
         .cta-h2 {
-          font-size: clamp(20px, 2.5vw, 30px);
+          font-size: clamp(18px, 2vw, 26px);
           font-weight: 400; letter-spacing: -.02em; line-height: 1.15;
-          color: var(--text-1); max-width: 460px;
-          margin-bottom: 12px;
+          color: var(--text-1); max-width: 440px;
+          margin-bottom: 10px;
         }
         .cta-sub {
-          font-size: 15px; line-height: 1.7; color: var(--text-2);
-          max-width: 500px; margin-bottom: 24px;
+          font-size: 14px; line-height: 1.65; color: var(--text-2);
+          max-width: 480px; margin-bottom: 20px;
         }
 
         /* ── FOOTER ── */
@@ -453,14 +460,14 @@ export default function HomePage() {
         transition={{ duration: 0.4 }}
       >
         <div className="nav-inner">
-          <a href="/">
+          <a href="/" className="nav-logo">
             <Image
               src="/logos/navbar-logo-dark.png"
               alt="Aleron Systems"
               width={480}
               height={140}
               priority
-              style={{ height: '62px', width: 'auto' }}
+              style={{ height: '46px', width: 'auto', display: 'block' }}
             />
           </a>
           <nav>
@@ -482,7 +489,7 @@ export default function HomePage() {
       <section className="hero">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
           <motion.div className="hero-label" variants={fadeUp} custom={0}>
-            CRM · Automation · Process Optimization
+            Salesforce · Automation · Operational Governance
           </motion.div>
           <motion.h1 variants={fadeUp} custom={0.05}>
             Streamline Operations Through{' '}
@@ -490,7 +497,7 @@ export default function HomePage() {
             &amp; Process Optimization
           </motion.h1>
           <motion.p className="hero-sub" variants={fadeUp} custom={0.1}>
-            Aleron Systems delivers focused consulting for enterprise CRM platforms, workflow
+            Aleron Systems delivers focused consulting for enterprise platforms, workflow
             automation, and operational improvement. Operationally mature. Compliance-aware.
             Senior-level engagement.
           </motion.p>
@@ -593,18 +600,20 @@ export default function HomePage() {
         <motion.div className="cases-grid" variants={stagger}>
           {caseStudies.map((c) => (
             <motion.div key={c.ref} className="case-card" variants={itemFade}>
-              <div>
+              <div className="case-head">
                 <div className="case-ref">{c.ref}</div>
                 <div className="case-name">{c.client}</div>
               </div>
               <div className="case-rule" />
-              <div className="case-block">
-                <div className="case-lbl">Challenge</div>
-                <div className="case-txt">{c.challenge}</div>
-              </div>
-              <div className="case-block">
-                <div className="case-lbl">Approach</div>
-                <div className="case-txt">{c.solution}</div>
+              <div className="case-blocks">
+                <div className="case-block">
+                  <div className="case-lbl">Challenge</div>
+                  <div className="case-txt">{c.challenge}</div>
+                </div>
+                <div className="case-block">
+                  <div className="case-lbl">Approach</div>
+                  <div className="case-txt">{c.solution}</div>
+                </div>
               </div>
               <div className="case-outcome">{c.outcome}</div>
             </motion.div>
@@ -624,12 +633,11 @@ export default function HomePage() {
         <div className="cta-inner">
           <div className="cta-label">Get in Touch</div>
           <h2 className="cta-h2">
-            Let's discuss your operational and CRM goals.
+            Let's discuss your operational goals.
           </h2>
           <p className="cta-sub">
-            Whether you're optimizing an existing Salesforce environment, modernizing legacy
-            workflows, or establishing governance practices for controlled deployments — we're
-            ready to engage.
+            Whether you're optimizing enterprise platforms, modernizing operational workflows,
+            or establishing governance practices for controlled deployments — we're ready to engage.
           </p>
           <a href="/contact" className="btn-primary">
             Start the Conversation <ArrowRight size={14} />
