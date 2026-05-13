@@ -156,42 +156,36 @@ export default function HomePage() {
         .nav {
           width: 100%;
           position: sticky; top: 0; z-index: 50;
-          background: rgba(2,8,23,.95);
+          border-bottom: 1px solid var(--border);
+          background: rgba(2, 8, 23, 0.92);
           backdrop-filter: blur(12px);
-          border-bottom: 1px solid rgba(255,255,255,.10);
         }
         .nav-inner {
+          max-width: var(--max-w);
           margin: 0 auto;
-          max-width: 1280px;
           height: 88px;
+          padding: 0 var(--px);
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0 32px;
         }
-        @media (min-width: 1024px) {
-          .nav-inner { padding: 0 48px; }
-        }
-        @media (max-width: 640px) {
-          .nav-inner { height: 68px; padding: 0 20px; }
-        }
-        /* Logo wrapper: this controls visual size. Nothing else touches it. */
-        .logo-link {
+        .nav-logo {
           display: flex;
           align-items: center;
           flex-shrink: 0;
-          text-decoration: none;
         }
-        .logo-box {
+        .logo-wrap {
           position: relative;
-          width: 170px;
-          height: 52px;
+          width: 190px;
+          height: 58px;
         }
-        @media (min-width: 768px) {
-          .logo-box { width: 190px; height: 58px; }
+        .logo-image {
+          object-fit: contain;
+          object-position: left center;
         }
-        @media (max-width: 480px) {
-          .logo-box { width: 140px; height: 42px; }
+        @media (max-width: 768px) {
+          .nav-inner { height: 78px; }
+          .logo-wrap { width: 160px; height: 48px; }
         }
         .nav-links {
           display: flex; gap: 32px; align-items: center; list-style: none;
@@ -488,15 +482,14 @@ export default function HomePage() {
         transition={{ duration: 0.4 }}
       >
         <div className="nav-inner">
-          <a href="/" className="logo-link">
-            <div className="logo-box">
+          <a href="/" className="nav-logo">
+            <div className="logo-wrap">
               <Image
                 src="/logos/navbar-logo-dark.png"
                 alt="Aleron Systems"
                 fill
                 priority
-                sizes="(max-width: 480px) 140px, (max-width: 768px) 170px, 190px"
-                style={{ objectFit: 'contain', objectPosition: 'left center' }}
+                className="logo-image"
               />
             </div>
           </a>
