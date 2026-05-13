@@ -160,12 +160,34 @@ export default function HomePage() {
           border-bottom: 1px solid var(--border);
         }
         .nav-inner {
-          max-width: var(--max-w); margin: 0 auto; padding: 0 var(--px);
-          height: 72px;
+          max-width: var(--max-w); margin: 0 auto;
+          padding: 0 var(--px);
+          height: 76px;
           display: flex; align-items: center; justify-content: space-between;
+          gap: 32px;
         }
-        .nav-logo { display: flex; align-items: center; }
-        .nav-logo img { height: 48px; width: auto; display: block; max-width: 260px; }
+        /* Logo: the anchor is the sizing context */
+        .nav-logo {
+          display: block;
+          flex-shrink: 0;
+          height: 44px;
+          width: auto;
+          /* Derived from logo aspect ratio: ~480:140 ≈ 3.43:1 */
+          /* At 44px tall, width ≈ 151px */
+          position: relative;
+        }
+        .nav-logo-img {
+          height: 44px !important;
+          width: auto !important;
+          max-width: none !important;
+          display: block !important;
+          object-fit: contain;
+          object-position: left center;
+        }
+        @media (max-width: 480px) {
+          .nav-logo { height: 36px; }
+          .nav-logo-img { height: 36px !important; }
+        }
         .nav-links {
           display: flex; gap: 28px; align-items: center; list-style: none;
         }
@@ -183,6 +205,7 @@ export default function HomePage() {
           font-size: 13px; font-weight: 500; text-decoration: none;
           transition: border-color .18s, background .18s;
           display: inline-flex; align-items: center; gap: 6px;
+          white-space: nowrap;
         }
         .nav-contact:hover { border-color: rgba(94,234,212,.3); background: rgba(94,234,212,.05); }
         @media (max-width: 600px) { .nav-links { display: none; } }
@@ -467,7 +490,7 @@ export default function HomePage() {
               width={480}
               height={140}
               priority
-              style={{ height: '46px', width: 'auto', display: 'block' }}
+              className="nav-logo-img"
             />
           </a>
           <nav>
