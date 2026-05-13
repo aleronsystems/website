@@ -34,84 +34,88 @@ const metrics = [
   { value: '15+', label: 'Years Salesforce Experience' },
   { value: '2,000+', label: 'Platform Users Supported' },
   { value: 'Veteran', label: 'Owned Business' },
-  { value: 'Enterprise', label: 'Salesforce Specialization' },
+  { value: 'Gearset', label: 'Certified Specialist' },
 ];
 
 const services = [
   {
     icon: <BarChart3 size={18} />,
     title: 'Salesforce Administration',
-    description: 'Day-to-day platform administration, user management, configuration, and ongoing operational support for enterprise Salesforce environments.',
+    description: 'Roles, profiles, permission sets, page layouts, validation rules, and ongoing platform configuration for enterprise Salesforce orgs.',
   },
   {
     icon: <Zap size={18} />,
-    title: 'Workflow & Flow Automation',
-    description: 'Flow Builder development, legacy workflow modernization, and process automation to reduce manual overhead and improve operational reliability.',
+    title: 'Flow & Automation Modernization',
+    description: 'Flow Builder development, migration of legacy Workflow Rules and Process Builders to Flow, and automation debugging across sandbox and production.',
   },
   {
     icon: <TrendingUp size={18} />,
-    title: 'Business Process Improvement',
-    description: 'Operational analysis, workflow redesign, and reporting improvements aligned with how enterprise teams actually work.',
+    title: 'Experience Cloud & Integrations',
+    description: 'Customer portal configuration, external user access, and enterprise integrations with third-party platforms using Workato, Celigo, and native connectors.',
   },
   {
     icon: <GitMerge size={18} />,
     title: 'Release Governance & DevOps',
-    description: 'Deployment coordination across sandbox, UAT, and production environments using Gearset and AutoRABIT, with structured change management practices.',
+    description: 'Deployment coordination across Dev, QA, UAT, and Production using Gearset and AutoRABIT, with change management practices suited to regulated environments.',
   },
   {
     icon: <Server size={18} />,
-    title: 'Integrations & Platform Support',
-    description: 'Enterprise integrations, Experience Cloud support, and ongoing platform operations for regulated and compliance-critical environments.',
+    title: 'Platform Operations & Support',
+    description: 'Ongoing operational support for enterprise Salesforce environments, including data management, metadata migrations, and production stability.',
   },
 ];
 
 const whyAleron = [
   {
-    heading: 'Hands-On Salesforce Platform Experience',
-    body: 'Over 15 years of direct Salesforce administration and platform operations, supporting enterprise orgs with 2,000+ users across global sales, service, and operations teams.',
+    heading: '15 Years of Direct Platform Work',
+    body: 'Hands-on Salesforce administration across enterprise orgs — including a single engagement supporting 2,000+ users over eight years. Not advisory. Not oversight.',
   },
   {
-    heading: 'Regulated Environment Operations',
-    body: 'Experience supporting Salesforce deployments in regulated industries requiring audit-ready practices, controlled change management, and FDA 21 CFR Part 11 aligned operational processes.',
+    heading: 'Regulated Environment Experience',
+    body: 'Supported Salesforce and CI/CD operations where deployment documentation, change control, and audit-readiness are required — including FDA 21 CFR Part 11 aligned practices.',
   },
   {
-    heading: 'Release Governance You Can Rely On',
-    body: 'Structured QA, UAT, and production deployment coordination using Gearset and AutoRABIT, with documented governance practices that hold up to enterprise scrutiny.',
+    heading: 'Certified in the Tools That Matter',
+    body: 'Gearset Certified Deployment Specialist. Workato Automation Pro I & II. Hands-on with AutoRABIT, Celigo, GitHub, and Data Loader.',
   },
   {
-    heading: 'Senior-Level, No Handoffs',
-    body: 'Every engagement is staffed at the senior level from day one. No account managers, no junior resources on production work. Direct platform expertise throughout.',
+    heading: 'Senior Work, Directly Delivered',
+    body: 'No account managers. No junior resources on production systems. Every engagement is handled personally at the senior level.',
   },
 ];
 
 const caseStudies = [
   {
     ref: 'Qlik',
-    client: 'Analytics Platform Provider',
-    challenge: 'Salesforce org supporting 2,000+ global users had accumulated legacy workflows, manual processes, and fragmented Experience Cloud configurations slowing platform operations.',
-    solution: 'Administered Salesforce platform operations, modernized legacy workflows using Flow Builder, supported Experience Cloud environments, and managed Gearset-based deployments with structured release governance.',
-    outcome: 'Stable, governable platform operations with modernized automation and reliable deployment cycles across a global user base.',
+    client: 'Global Analytics Platform',
+    years: '2017 – 2026',
+    challenge: 'Enterprise org serving 2,000+ global users with accumulated legacy automation, fragmented Experience Cloud configurations, and growing deployment complexity.',
+    solution: 'Full Salesforce administration, Flow migration from legacy Workflow Rules, Experience Cloud portal operations, enterprise integrations, and Gearset-managed deployments across Dev, QA, UAT, and Production.',
+    outcome: 'Eight years of stable, governed platform operations with modernized automation.',
   },
   {
     ref: 'UL Solutions',
-    client: 'Safety Science Organization',
-    challenge: 'Salesforce deployments in a regulated environment required consistent CI/CD practices and validation processes aligned with FDA 21 CFR Part 11 requirements.',
-    solution: 'Supported AutoRABIT migration and CI/CD pipeline operations, implemented controlled deployment practices across QA, UAT, and production environments, and maintained documentation aligned with regulated validation requirements.',
-    outcome: 'Deployment operations with audit-ready release documentation and compliance-aligned change management across the Salesforce environment.',
+    client: 'Life Sciences Division',
+    years: '2011 – 2017',
+    challenge: 'Regulated life sciences environment requiring Salesforce support and CI/CD operations for ComplianceWire, aligned to FDA standards.',
+    solution: 'Salesforce administration for Sales and Marketing, then DevOps support with AutoRABIT pipeline migration, validation documentation, and controlled deployments aligned with FDA 21 CFR Part 11 governance practices.',
+    outcome: 'Audit-ready deployment operations with validation documentation meeting regulatory requirements.',
   },
   {
     ref: 'BankUnited',
-    client: 'Financial Services Institution',
-    challenge: 'A regulated financial services Salesforce environment needed structured release coordination, governance controls, and audit-ready deployment practices.',
-    solution: 'Provided AutoRABIT deployment support, coordinated release schedules across sandbox and production environments, and established governance documentation and change control practices suited to a regulated financial institution.',
-    outcome: 'Consistent, audit-ready release operations with structured governance supporting the compliance requirements of a regulated financial environment.',
+    client: 'Regulated Financial Institution',
+    years: '2023',
+    challenge: 'Regulated financial services environment requiring deployment governance and controlled release coordination for Salesforce and nCino.',
+    solution: 'AutoRABIT pipeline operations, release validation, post-deployment stabilization, and change control documentation aligned with compliance requirements.',
+    outcome: 'Controlled, audit-ready release operations sustaining production stability.',
   },
   {
     ref: 'Aptos',
     client: 'Retail Technology Platform',
-    challenge: 'Scaling Salesforce environment required ongoing administration, integration support, and workflow operations as the business expanded.',
-    solution: 'Delivered Salesforce administration, enterprise integration support, and workflow and process improvements to maintain platform reliability as operational demands grew.',
-    outcome: 'Reliable platform operations and integration stability supporting business growth without degrading Salesforce performance or supportability.',
+    years: 'Contract',
+    challenge: 'Scaling Salesforce environment requiring consistent administration, integration support, and workflow operations.',
+    solution: 'Salesforce administration, integration maintenance, and workflow improvements to sustain reliability as operational demands grew.',
+    outcome: 'Stable platform operations with supportable integrations through growth.',
   },
 ];
 
@@ -161,9 +165,9 @@ export default function HomePage() {
         }
         .nav-inner {
           max-width: 1280px;
-          height: 92px;
+          height: 112px;
           margin: 0 auto;
-          padding: 0 32px;
+          padding: 0 40px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -172,15 +176,16 @@ export default function HomePage() {
           display: flex;
           align-items: center;
           flex-shrink: 0;
+          line-height: 0;
         }
         .nav-logo-img {
-          width: 220px;
+          width: 253px;
           height: auto;
           display: block;
         }
         @media (max-width: 768px) {
-          .nav-inner { height: 78px; padding: 0 20px; }
-          .nav-logo-img { width: 170px; }
+          .nav-inner { height: 88px; padding: 0 20px; }
+          .nav-logo-img { width: 187px; }
         }
         .nav-links {
           display: flex; gap: 32px; align-items: center; list-style: none;
@@ -207,32 +212,32 @@ export default function HomePage() {
         /* ── HERO ── */
         .hero {
           max-width: var(--max-w); margin: 0 auto;
-          padding: clamp(44px,5.5vw,72px) var(--px) clamp(36px,4.5vw,56px);
+          padding: clamp(32px,3.5vw,48px) var(--px) clamp(24px,3vw,36px);
           border-bottom: 1px solid var(--border);
         }
         .hero-label {
           font-size: 11px; font-weight: 600; letter-spacing: .14em;
           text-transform: uppercase; color: var(--accent);
-          margin-bottom: 18px;
+          margin-bottom: 12px;
         }
         .hero h1 {
-          font-size: var(--fs-h1);
+          font-size: clamp(26px, 3.3vw, 47px);
           font-weight: 500;
-          line-height: 1.05;
-          letter-spacing: -.028em;
+          line-height: 1.04;
+          letter-spacing: -.026em;
           color: var(--text-1);
-          max-width: 860px;
-          margin-bottom: 18px;
+          max-width: 760px;
+          margin-bottom: 14px;
         }
         .hero h1 span { color: var(--teal); }
         .hero-sub {
-          font-size: clamp(15px, 1.4vw, 16.5px);
+          font-size: clamp(13.5px, 1.2vw, 15px);
           line-height: 1.65;
           color: var(--text-2);
-          max-width: 560px;
-          margin-bottom: 30px;
+          max-width: 500px;
+          margin-bottom: 22px;
         }
-        .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+        .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
         .btn-primary {
           display: inline-flex; align-items: center; gap: 7px;
           padding: 11px 22px; border-radius: 7px;
@@ -253,17 +258,20 @@ export default function HomePage() {
         }
         .btn-ghost:hover { border-color: rgba(255,255,255,.18); color: var(--text-1); }
 
+        /* ── HERO LAYOUT ── (unused class removed) */
+
         /* ── METRICS ── */
         .metrics {
           max-width: var(--max-w); margin: 0 auto;
           padding: 0 var(--px);
+          background: var(--bg);
           border-bottom: 1px solid var(--border);
           display: grid;
           grid-template-columns: repeat(4, 1fr);
         }
         @media (max-width: 640px) { .metrics { grid-template-columns: repeat(2, 1fr); } }
         .metric {
-          padding: 28px 20px;
+          padding: 22px 16px;
           border-right: 1px solid var(--border);
           text-align: center;
         }
@@ -274,14 +282,14 @@ export default function HomePage() {
           .metric:nth-child(3), .metric:nth-child(4) { border-top: 1px solid var(--border); }
         }
         .metric-val {
-          font-size: clamp(22px, 2.5vw, 30px);
+          font-size: clamp(20px, 2.2vw, 26px);
           font-weight: 300;
           letter-spacing: -.02em;
           color: var(--text-1);
-          margin-bottom: 6px;
+          margin-bottom: 5px;
         }
         .metric-lbl {
-          font-size: 11px; font-weight: 500;
+          font-size: 10px; font-weight: 500;
           letter-spacing: .08em; text-transform: uppercase;
           color: var(--text-3);
         }
@@ -289,168 +297,219 @@ export default function HomePage() {
         /* ── SECTION COMMON ── */
         .section {
           max-width: var(--max-w); margin: 0 auto;
-          padding: clamp(36px,4.5vw,52px) var(--px);
+          padding: clamp(28px,3.5vw,44px) var(--px);
           border-bottom: 1px solid var(--border);
         }
+        /* Alternating section surfaces */
+        .section-alt { background: rgba(255,255,255,.016); }
         .section-hd {
-          display: flex; flex-direction: column; gap: 6px;
-          margin-bottom: 28px;
+          display: flex; flex-direction: column; gap: 5px;
+          margin-bottom: 24px;
         }
         .section-label {
           font-size: 11px; font-weight: 600; letter-spacing: .14em;
           text-transform: uppercase; color: var(--accent);
         }
         .section-h2 {
-          font-size: var(--fs-h2);
+          font-size: clamp(19px, 2vw, 27px);
           font-weight: 400;
           letter-spacing: -.02em;
           line-height: 1.1;
           color: var(--text-1);
-          max-width: 500px;
+          max-width: 480px;
         }
         .section-sub {
-          font-size: 14px; line-height: 1.6; color: var(--text-2);
-          max-width: 460px; margin-top: 2px;
+          font-size: 13px; line-height: 1.6; color: var(--text-2);
+          max-width: 400px; margin-top: 2px;
         }
 
         /* ── SERVICES ── */
         .services-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 1px;
+          background: var(--border);
           border: 1px solid var(--border);
           border-radius: 10px;
           overflow: hidden;
         }
-        @media (max-width: 700px) {
-          .services-grid { grid-template-columns: 1fr; }
-        }
         .service-item {
           background: var(--bg);
-          padding: 26px;
-          transition: background .18s;
-          border-right: 1px solid var(--border);
-          border-bottom: 1px solid var(--border);
-        }
-        /* Col 3 items: no right border */
-        .service-item:nth-child(3n) { border-right: none; }
-        /* Row 2 items (4th, 5th): no bottom border */
-        .service-item:nth-child(4),
-        .service-item:nth-child(5) { border-bottom: none; }
-        /* 5th item: center it across cols 2–3 so row 2 looks balanced */
-        .service-item:nth-child(4) { border-right: 1px solid var(--border); }
-        .service-item:nth-child(5) { border-right: none; }
-        @media (max-width: 700px) {
-          .service-item { border-right: none; }
-          .service-item:last-child { border-bottom: none; }
+          padding: 28px 26px;
+          transition: background .2s;
+          cursor: default;
         }
         .service-item:hover { background: var(--bg2); }
+        .service-item:hover .svc-icon { opacity: 1; }
+        .service-item:hover .svc-title { color: #ffffff; }
         .svc-icon {
-          color: var(--accent);
-          margin-bottom: 14px;
-          opacity: .85;
+          color: var(--teal);
+          margin-bottom: 16px;
+          opacity: .65;
+          transition: opacity .2s;
         }
         .svc-title {
-          font-size: 15px; font-weight: 500;
-          color: var(--text-1);
-          margin-bottom: 8px;
+          font-size: 14px; font-weight: 600;
+          color: #d8e8ff;
+          margin-bottom: 9px;
           letter-spacing: -.01em;
+          transition: color .2s;
         }
         .svc-desc {
-          font-size: 13.5px; line-height: 1.65;
+          font-size: 12.5px; line-height: 1.6;
           color: var(--text-2);
         }
 
         /* ── WHY ALERON ── */
         .why-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-          gap: 16px;
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+          column-gap: 32px;
+          row-gap: 0;
         }
         .why-item {
-          padding: 20px 0;
+          padding: 16px 0;
           border-top: 1px solid var(--border-t);
         }
         .why-title {
-          font-size: 14px; font-weight: 600;
+          font-size: 13.5px; font-weight: 600;
           color: var(--text-1);
-          margin-bottom: 8px;
+          margin-bottom: 6px;
         }
         .why-body {
-          font-size: 13.5px; line-height: 1.7;
+          font-size: 13px; line-height: 1.65;
           color: var(--text-2);
         }
 
         /* ── CASE STUDIES ── */
         .cases-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-          gap: 16px;
+          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+          gap: 12px;
           align-items: stretch;
         }
         .case-card {
           border: 1px solid var(--border);
           border-radius: 8px;
-          padding: 22px;
+          padding: 18px;
           background: var(--surface);
           display: flex; flex-direction: column;
-          gap: 0;
           transition: border-color .18s;
         }
         .case-card:hover { border-color: rgba(255,255,255,.14); }
-        .case-head { margin-bottom: 16px; }
+        .case-head { margin-bottom: 12px; }
         .case-ref {
           font-size: 10px; font-weight: 700; letter-spacing: .14em;
           text-transform: uppercase; color: var(--accent);
           margin-bottom: 4px;
+          display: flex; align-items: center; gap: 8px;
+        }
+        .case-years {
+          font-weight: 400; letter-spacing: .06em;
+          color: var(--text-3); text-transform: none;
+        }
+
+        /* ── FOUNDER ── */
+        .founder {
+          max-width: var(--max-w); margin: 0 auto;
+          padding: clamp(28px,3.5vw,44px) var(--px);
+          border-bottom: 1px solid var(--border);
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: clamp(28px, 4vw, 64px);
+          align-items: start;
+        }
+        @media (max-width: 720px) {
+          .founder { grid-template-columns: 1fr; gap: 24px; }
+        }
+        .founder-label {
+          font-size: 11px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+          margin-bottom: 12px;
+        }
+        .founder-name {
+          font-size: clamp(20px, 2.2vw, 28px);
+          font-weight: 400; letter-spacing: -.02em; line-height: 1.1;
+          color: var(--text-1);
+          margin-bottom: 4px;
+        }
+        .founder-title {
+          font-size: 13px; color: var(--text-3);
+          margin-bottom: 16px; font-weight: 400;
+        }
+        .founder-bio {
+          font-size: 14px; line-height: 1.7;
+          color: var(--text-2);
+          max-width: 460px;
+        }
+        .founder-bio p { margin-bottom: 12px; }
+        .founder-bio p:last-child { margin-bottom: 0; }
+        .founder-creds {
+          display: flex; flex-direction: column;
+          padding-top: 4px;
+        }
+        .cred-item {
+          display: flex; flex-direction: column; gap: 2px;
+          padding: 12px 0;
+          border-top: 1px solid var(--border);
+        }
+        .cred-item:first-child { border-top: none; padding-top: 0; }
+        .cred-label {
+          font-size: 10px; font-weight: 600; letter-spacing: .12em;
+          text-transform: uppercase; color: var(--text-3);
+        }
+        .cred-value {
+          font-size: 13.5px; color: var(--text-1); font-weight: 400;
+          line-height: 1.4;
         }
         .case-name {
           font-size: 15px; font-weight: 500;
           color: var(--text-1); letter-spacing: -.01em;
           line-height: 1.3;
         }
-        .case-rule { height: 1px; background: var(--border); margin-bottom: 16px; }
-        .case-blocks { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+        .case-rule { height: 1px; background: var(--border); margin-bottom: 12px; }
+        .case-blocks { display: flex; flex-direction: column; gap: 10px; flex: 1; }
         .case-block { display: flex; flex-direction: column; gap: 3px; }
         .case-lbl {
           font-size: 10px; font-weight: 600; letter-spacing: .12em;
           text-transform: uppercase; color: var(--text-3);
         }
-        .case-txt { font-size: 13px; line-height: 1.6; color: var(--text-2); }
+        .case-txt { font-size: 12.5px; line-height: 1.6; color: var(--text-2); }
         .case-outcome {
-          font-size: 13px; line-height: 1.6;
+          font-size: 12.5px; line-height: 1.55;
           color: var(--teal);
-          padding: 10px 12px;
+          padding: 9px 11px;
           border-radius: 6px;
           background: rgba(94,234,212,.05);
           border: 1px solid rgba(94,234,212,.1);
-          margin-top: 16px;
+          margin-top: 12px;
         }
 
         /* ── CTA ── */
         .cta-section {
           max-width: var(--max-w); margin: 0 auto;
-          padding: clamp(28px,3.5vw,44px) var(--px);
+          padding: clamp(24px,3vw,36px) var(--px);
         }
         .cta-inner {
           border: 1px solid var(--border);
           border-radius: 10px;
-          padding: clamp(24px,3vw,36px) clamp(24px,3.5vw,40px);
+          padding: clamp(20px,2.5vw,32px) clamp(20px,3vw,36px);
           background: var(--surface);
         }
         .cta-label {
           font-size: 11px; font-weight: 600; letter-spacing: .14em;
           text-transform: uppercase; color: var(--accent);
-          margin-bottom: 10px;
+          margin-bottom: 8px;
         }
         .cta-h2 {
-          font-size: clamp(18px, 2vw, 26px);
+          font-size: clamp(16px, 1.8vw, 22px);
           font-weight: 400; letter-spacing: -.02em; line-height: 1.15;
-          color: var(--text-1); max-width: 440px;
-          margin-bottom: 10px;
+          color: var(--text-1); max-width: 420px;
+          margin-bottom: 8px;
         }
         .cta-sub {
-          font-size: 14px; line-height: 1.65; color: var(--text-2);
-          max-width: 480px; margin-bottom: 20px;
+          font-size: 13.5px; line-height: 1.6; color: var(--text-2);
+          max-width: 460px; margin-bottom: 18px;
         }
 
         /* ── FOOTER ── */
@@ -503,16 +562,16 @@ export default function HomePage() {
       <section className="hero">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
           <motion.div className="hero-label" variants={fadeUp} custom={0}>
-            Salesforce Administration · Release Governance · Platform Operations
+            Salesforce Administration · Flow Automation · Release Governance
           </motion.div>
           <motion.h1 variants={fadeUp} custom={0.05}>
-            Enterprise Salesforce Operations,{' '}
-            <span>Automation & Release Governance</span>
+            Enterprise Salesforce Operations &amp;{' '}
+            <span>Release Governance</span>
           </motion.h1>
           <motion.p className="hero-sub" variants={fadeUp} custom={0.1}>
-            Aleron Systems provides senior-level Salesforce administration, workflow automation,
-            and release governance for enterprise environments. Hands-on platform expertise.
-            Compliance-aware. No junior handoffs.
+            Senior-level Salesforce administration, workflow automation, and deployment
+            governance for enterprise environments. Hands-on platform work. Compliance-aware.
+            No junior handoffs.
           </motion.p>
           <motion.div className="hero-btns" variants={fadeUp} custom={0.15}>
             <a href="/contact" className="btn-primary">
@@ -542,6 +601,7 @@ export default function HomePage() {
       </motion.div>
 
       {/* ── Services ── */}
+      <div className="section-alt">
       <motion.section
         className="section"
         initial="hidden"
@@ -567,6 +627,7 @@ export default function HomePage() {
           ))}
         </motion.div>
       </motion.section>
+      </div>
 
       {/* ── Why Aleron ── */}
       <motion.section
@@ -578,9 +639,9 @@ export default function HomePage() {
       >
         <motion.div className="section-hd" variants={itemFade}>
           <div className="section-label">Why Aleron</div>
-          <h2 className="section-h2">Senior Salesforce expertise, not generalist consulting</h2>
+          <h2 className="section-h2">Senior Salesforce work, directly delivered</h2>
           <p className="section-sub">
-            Operational credibility grounded in real platform work.
+            15 years of hands-on platform operations. Not advisory. Not oversight.
           </p>
         </motion.div>
 
@@ -594,6 +655,49 @@ export default function HomePage() {
         </motion.div>
       </motion.section>
 
+      {/* ── Founder ── */}
+      <div className="section-alt">
+      <motion.section
+        className="founder"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        variants={stagger}
+      >
+        <motion.div variants={itemFade}>
+          <div className="founder-label">About</div>
+          <div className="founder-name">Bogdan Alekseyenko</div>
+          <div className="founder-title">Founder, Aleron Systems LLC</div>
+          <div className="founder-bio">
+            <p>
+              15 years of hands-on Salesforce administration across enterprise and regulated
+              environments. Aleron Systems brings that experience directly to clients who need
+              senior-level platform work done reliably, without the overhead of a large firm.
+            </p>
+            <p>
+              Background covers Salesforce administration, Flow modernization, Experience Cloud,
+              enterprise integrations, DevOps support, and FDA 21 CFR Part 11 aligned deployment
+              practices. Veteran-owned. U.S. Army, Operation Iraqi Freedom.
+            </p>
+          </div>
+        </motion.div>
+        <motion.div className="founder-creds" variants={stagger}>
+          {[
+            { label: 'Certifications', value: 'Gearset Certified Deployment Specialist\nWorkato Automation Pro I & II' },
+            { label: 'Tools', value: 'Gearset, AutoRABIT, Workato, Celigo, GitHub, Data Loader' },
+            { label: 'Platforms', value: 'Salesforce Sales Cloud, Service Cloud, Experience Cloud, nCino' },
+            { label: 'Industries', value: 'Life Sciences, Financial Services, Retail Technology, Analytics' },
+            { label: 'Military Service', value: 'U.S. Army, Cavalry Scout E4\nOperation Iraqi Freedom' },
+          ].map((c) => (
+            <motion.div key={c.label} className="cred-item" variants={itemFade}>
+              <div className="cred-label">{c.label}</div>
+              <div className="cred-value" style={{ whiteSpace: 'pre-line' }}>{c.value}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
+      </div>
+
       {/* ── Case Studies ── */}
       <motion.section
         className="section"
@@ -604,9 +708,9 @@ export default function HomePage() {
       >
         <motion.div className="section-hd" variants={itemFade}>
           <div className="section-label">Proven Experience</div>
-          <h2 className="section-h2">Enterprise Salesforce engagements across regulated industries</h2>
+          <h2 className="section-h2">Enterprise and regulated environment engagements</h2>
           <p className="section-sub">
-            Selected platform operations work across enterprise and compliance-driven environments.
+            Selected platform operations work across enterprise, financial services, and life sciences.
           </p>
         </motion.div>
 
@@ -614,17 +718,17 @@ export default function HomePage() {
           {caseStudies.map((c) => (
             <motion.div key={c.ref} className="case-card" variants={itemFade}>
               <div className="case-head">
-                <div className="case-ref">{c.ref}</div>
+                <div className="case-ref">{c.ref} <span className="case-years">{c.years}</span></div>
                 <div className="case-name">{c.client}</div>
               </div>
               <div className="case-rule" />
               <div className="case-blocks">
                 <div className="case-block">
-                  <div className="case-lbl">Challenge</div>
+                  <div className="case-lbl">Context</div>
                   <div className="case-txt">{c.challenge}</div>
                 </div>
                 <div className="case-block">
-                  <div className="case-lbl">Approach</div>
+                  <div className="case-lbl">Work Performed</div>
                   <div className="case-txt">{c.solution}</div>
                 </div>
               </div>
