@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, BarChart3, Zap, TrendingUp, GitMerge, Server } from 'lucide-react';
 
@@ -155,16 +154,16 @@ export default function HomePage() {
         /* ── NAV ── */
         .nav {
           width: 100%;
-          position: sticky; top: 0; z-index: 50;
-          border-bottom: 1px solid var(--border);
-          background: rgba(2, 8, 23, 0.92);
+          border-bottom: 1px solid rgba(255,255,255,.08);
+          background: rgba(2,8,23,.92);
           backdrop-filter: blur(12px);
+          position: sticky; top: 0; z-index: 50;
         }
         .nav-inner {
-          max-width: var(--max-w);
+          max-width: 1280px;
+          height: 92px;
           margin: 0 auto;
-          height: 88px;
-          padding: 0 var(--px);
+          padding: 0 32px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -174,18 +173,14 @@ export default function HomePage() {
           align-items: center;
           flex-shrink: 0;
         }
-        .logo-wrap {
-          position: relative;
-          width: 190px;
-          height: 58px;
-        }
-        .logo-image {
-          object-fit: contain;
-          object-position: left center;
+        .nav-logo-img {
+          width: 220px;
+          height: auto;
+          display: block;
         }
         @media (max-width: 768px) {
-          .nav-inner { height: 78px; }
-          .logo-wrap { width: 160px; height: 48px; }
+          .nav-inner { height: 78px; padding: 0 20px; }
+          .nav-logo-img { width: 170px; }
         }
         .nav-links {
           display: flex; gap: 32px; align-items: center; list-style: none;
@@ -483,15 +478,11 @@ export default function HomePage() {
       >
         <div className="nav-inner">
           <a href="/" className="nav-logo">
-            <div className="logo-wrap">
-              <Image
-                src="/logos/navbar-logo-dark.png"
-                alt="Aleron Systems"
-                fill
-                priority
-                className="logo-image"
-              />
-            </div>
+            <img
+              src="/logos/navbar-logo-dark.png"
+              alt="Aleron Systems"
+              className="nav-logo-img"
+            />
           </a>
           <nav>
             <ul className="nav-links">
