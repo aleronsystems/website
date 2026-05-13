@@ -161,10 +161,10 @@ export default function HomePage() {
         }
         .nav-inner {
           max-width: var(--max-w); margin: 0 auto; padding: 0 var(--px);
-          height: 64px;
+          height: 72px;
           display: flex; align-items: center; justify-content: space-between;
         }
-        .nav-logo img { height: 38px; width: auto; display: block; }
+        .nav-logo img { height: 52px; width: auto; display: block; }
         .nav-links {
           display: flex; gap: 28px; align-items: center; list-style: none;
         }
@@ -298,12 +298,23 @@ export default function HomePage() {
         /* ── SERVICES ── */
         .services-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+          grid-template-columns: repeat(4, 1fr);
           gap: 1px;
           background: var(--border);
           border: 1px solid var(--border);
           border-radius: 10px;
           overflow: hidden;
+        }
+        @media (max-width: 900px) {
+          .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 520px) {
+          .services-grid { grid-template-columns: 1fr; }
+        }
+        /* 5th item spans 4 cols so it doesn't orphan with empty siblings */
+        .service-item:last-child {
+          grid-column: 1 / -1;
+          max-width: 320px;
         }
         .service-item {
           background: var(--bg);
@@ -445,7 +456,7 @@ export default function HomePage() {
               width={480}
               height={140}
               priority
-              style={{ height: '36px', width: 'auto' }}
+              style={{ height: '50px', width: 'auto' }}
             />
           </a>
           <nav>
