@@ -154,28 +154,44 @@ export default function HomePage() {
 
         /* ── NAV ── */
         .nav {
+          width: 100%;
           position: sticky; top: 0; z-index: 50;
-          background: rgba(6,12,22,.92);
+          background: rgba(2,8,23,.95);
           backdrop-filter: blur(12px);
-          border-bottom: 1px solid var(--border);
+          border-bottom: 1px solid rgba(255,255,255,.10);
         }
         .nav-inner {
-          max-width: var(--max-w); margin: 0 auto;
-          padding: 0 clamp(24px, 4vw, 52px);
+          margin: 0 auto;
+          max-width: 1280px;
           height: 88px;
-          display: flex; align-items: center; justify-content: space-between;
-          gap: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 32px;
         }
-        /* The wrapper div controls ALL sizing. The image fills it. */
-        .logo-wrapper {
-          flex-shrink: 0;
-          position: relative;
-          width: 180px;
-          height: 52px;
+        @media (min-width: 1024px) {
+          .nav-inner { padding: 0 48px; }
         }
         @media (max-width: 640px) {
-          .nav-inner { height: 72px; }
-          .logo-wrapper { width: 148px; height: 44px; }
+          .nav-inner { height: 68px; padding: 0 20px; }
+        }
+        /* Logo wrapper: this controls visual size. Nothing else touches it. */
+        .logo-link {
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          text-decoration: none;
+        }
+        .logo-box {
+          position: relative;
+          width: 170px;
+          height: 52px;
+        }
+        @media (min-width: 768px) {
+          .logo-box { width: 190px; height: 58px; }
+        }
+        @media (max-width: 480px) {
+          .logo-box { width: 140px; height: 42px; }
         }
         .nav-links {
           display: flex; gap: 32px; align-items: center; list-style: none;
@@ -472,14 +488,14 @@ export default function HomePage() {
         transition={{ duration: 0.4 }}
       >
         <div className="nav-inner">
-          <a href="/" style={{ textDecoration: 'none', display: 'block' }}>
-            <div className="logo-wrapper">
+          <a href="/" className="logo-link">
+            <div className="logo-box">
               <Image
                 src="/logos/navbar-logo-dark.png"
                 alt="Aleron Systems"
                 fill
                 priority
-                sizes="(max-width: 640px) 148px, 180px"
+                sizes="(max-width: 480px) 140px, (max-width: 768px) 170px, 190px"
                 style={{ objectFit: 'contain', objectPosition: 'left center' }}
               />
             </div>
