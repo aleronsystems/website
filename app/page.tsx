@@ -32,56 +32,56 @@ const itemFade = {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const metrics = [
-  { value: '15+', label: 'Years Enterprise Experience' },
-  { value: '2,000+', label: 'Users Supported' },
+  { value: '15+', label: 'Years Salesforce Experience' },
+  { value: '2,000+', label: 'Platform Users Supported' },
   { value: 'Veteran', label: 'Owned Business' },
-  { value: 'Enterprise', label: 'Platform Specialization' },
+  { value: 'Enterprise', label: 'Salesforce Specialization' },
 ];
 
 const services = [
   {
     icon: <BarChart3 size={18} />,
-    title: 'CRM Solutions',
-    description: 'Salesforce administration, optimization, and enterprise platform operations supporting global business teams.',
+    title: 'Salesforce Administration',
+    description: 'Day-to-day platform administration, user management, configuration, and ongoing operational support for enterprise Salesforce environments.',
   },
   {
     icon: <Zap size={18} />,
-    title: 'Workflow Automation',
-    description: 'Process automation and integration architecture that reduces manual overhead across operational environments.',
+    title: 'Workflow & Flow Automation',
+    description: 'Flow Builder development, legacy workflow modernization, and process automation to reduce manual overhead and improve operational reliability.',
   },
   {
     icon: <TrendingUp size={18} />,
     title: 'Business Process Improvement',
-    description: 'Operational analysis, workflow redesign, and reporting frameworks that drive measurable efficiency gains.',
+    description: 'Operational analysis, workflow redesign, and reporting improvements aligned with how enterprise teams actually work.',
   },
   {
     icon: <GitMerge size={18} />,
-    title: 'DevOps & Release Governance',
-    description: 'Controlled deployment pipelines, structured release management, and governance-focused operational practices.',
+    title: 'Release Governance & DevOps',
+    description: 'Deployment coordination across sandbox, UAT, and production environments using Gearset and AutoRABIT, with structured change management practices.',
   },
   {
     icon: <Server size={18} />,
-    title: 'Enterprise Platform Support',
-    description: 'Ongoing administration and integrations for enterprise platforms in regulated, compliance-critical environments.',
+    title: 'Integrations & Platform Support',
+    description: 'Enterprise integrations, Experience Cloud support, and ongoing platform operations for regulated and compliance-critical environments.',
   },
 ];
 
 const whyAleron = [
   {
-    heading: 'Deep Salesforce & CRM Experience',
-    body: 'Over 15 years supporting large-scale Salesforce environments across global operations — as a focused platform specialist, not a generalist.',
+    heading: 'Hands-On Salesforce Platform Experience',
+    body: 'Over 15 years of direct Salesforce administration and platform operations — supporting enterprise orgs with 2,000+ users across global sales, service, and operations teams.',
   },
   {
-    heading: 'Regulated Environment Experience',
-    body: 'Supported enterprise systems in highly regulated operational environments requiring governance-focused processes and audit-ready practices, including FDA 21 CFR Part 11 aligned workflows.',
+    heading: 'Regulated Environment Operations',
+    body: 'Experience supporting Salesforce deployments in regulated industries requiring audit-ready practices, controlled change management, and FDA 21 CFR Part 11 aligned operational processes.',
   },
   {
-    heading: 'Senior-Level Engagement',
-    body: 'Every engagement is handled at the senior level. No junior handoffs, no account managers as intermediaries — direct operational expertise from day one.',
+    heading: 'Release Governance You Can Rely On',
+    body: 'Structured QA, UAT, and production deployment coordination using Gearset and AutoRABIT — with documented governance practices that hold up to enterprise scrutiny.',
   },
   {
-    heading: 'Global Enterprise Operations',
-    body: 'Hands-on experience supporting enterprise platforms serving international business teams across multiple regions, operational structures, and deployment environments.',
+    heading: 'Senior-Level, No Handoffs',
+    body: 'Every engagement is staffed at the senior level from day one. No account managers, no junior resources on production work — direct platform expertise throughout.',
   },
 ];
 
@@ -89,30 +89,30 @@ const caseStudies = [
   {
     ref: 'Qlik',
     client: 'Analytics Platform Provider',
-    challenge: 'Legacy workflow processes creating operational bottlenecks across global sales and business operations.',
-    solution: 'Redesigned platform workflows and automation architecture to reduce manual touchpoints and unify data across regional teams.',
-    outcome: 'Streamlined operational processes and improved cross-team visibility across the business.',
+    challenge: 'Salesforce org supporting 2,000+ global users had accumulated legacy workflows, manual processes, and fragmented Experience Cloud configurations slowing platform operations.',
+    solution: 'Administered Salesforce platform operations, modernized legacy workflows using Flow Builder, supported Experience Cloud environments, and managed Gearset-based deployments with structured release governance.',
+    outcome: 'Stable, governable platform operations with modernized automation and reliable deployment cycles across a global user base.',
   },
   {
     ref: 'UL Solutions',
     client: 'Safety Science Organization',
-    challenge: 'Fragmented platform support with inconsistent governance practices across deployment and release cycles.',
-    solution: 'Established structured DevOps governance, controlled release processes, and audit-ready deployment practices aligned with regulated environment requirements.',
-    outcome: 'Consistent, governance-aligned deployment operations supporting compliance and operational integrity.',
+    challenge: 'Salesforce deployments in a regulated environment required consistent CI/CD practices and validation processes aligned with FDA 21 CFR Part 11 requirements.',
+    solution: 'Supported AutoRABIT migration and CI/CD pipeline operations, implemented controlled deployment practices across QA, UAT, and production environments, and maintained documentation aligned with regulated validation requirements.',
+    outcome: 'Deployment operations with audit-ready release documentation and compliance-aligned change management across the Salesforce environment.',
   },
   {
     ref: 'BankUnited',
     client: 'Financial Services Institution',
-    challenge: 'Enterprise platform operations lacking structured governance, release coordination, and process maturity.',
-    solution: 'Delivered operational governance support, change management coordination, and platform workflow improvements across business units.',
-    outcome: 'Improved operational maturity and deployment consistency across the enterprise environment.',
+    challenge: 'A regulated financial services Salesforce environment needed structured release coordination, governance controls, and audit-ready deployment practices.',
+    solution: 'Provided AutoRABIT deployment support, coordinated release schedules across sandbox and production environments, and established governance documentation and change control practices suited to a regulated financial institution.',
+    outcome: 'Consistent, audit-ready release operations with structured governance supporting the compliance requirements of a regulated financial environment.',
   },
   {
     ref: 'Aptos',
     client: 'Retail Technology Platform',
-    challenge: 'Scaling operations requiring enterprise platform support and automation modernization across business workflows.',
-    solution: 'Provided ongoing platform administration, workflow automation advisory, and operational process improvement support.',
-    outcome: 'Reduced operational overhead and improved platform reliability as the business scaled.',
+    challenge: 'Scaling Salesforce environment required ongoing administration, integration support, and workflow operations as the business expanded.',
+    solution: 'Delivered Salesforce administration, enterprise integration support, and workflow and process improvements to maintain platform reliability as operational demands grew.',
+    outcome: 'Reliable platform operations and integration stability supporting business growth without degrading Salesforce performance or supportability.',
   },
 ];
 
@@ -512,17 +512,16 @@ export default function HomePage() {
       <section className="hero">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
           <motion.div className="hero-label" variants={fadeUp} custom={0}>
-            Salesforce · Automation · Operational Governance
+            Salesforce Administration · Release Governance · Platform Operations
           </motion.div>
           <motion.h1 variants={fadeUp} custom={0.05}>
-            Streamline Operations Through{' '}
-            <span>CRM, Automation</span>{' '}
-            &amp; Process Optimization
+            Enterprise Salesforce Operations,{' '}
+            <span>Automation & Release Governance</span>
           </motion.h1>
           <motion.p className="hero-sub" variants={fadeUp} custom={0.1}>
-            Aleron Systems delivers focused consulting for enterprise platforms, workflow
-            automation, and operational improvement. Operationally mature. Compliance-aware.
-            Senior-level engagement.
+            Aleron Systems provides senior-level Salesforce administration, workflow automation,
+            and release governance for enterprise environments. Hands-on platform expertise.
+            Compliance-aware. No junior handoffs.
           </motion.p>
           <motion.div className="hero-btns" variants={fadeUp} custom={0.15}>
             <a href="/contact" className="btn-primary">
@@ -561,9 +560,9 @@ export default function HomePage() {
       >
         <motion.div className="section-hd" variants={itemFade}>
           <div className="section-label">Core Services</div>
-          <h2 className="section-h2">Enterprise consulting built around operational outcomes</h2>
+          <h2 className="section-h2">Platform operations built on direct enterprise experience</h2>
           <p className="section-sub">
-            Five practice areas grounded in enterprise experience, not template solutions.
+            Focused Salesforce and operational services — not broad consulting engagements.
           </p>
         </motion.div>
 
@@ -588,9 +587,9 @@ export default function HomePage() {
       >
         <motion.div className="section-hd" variants={itemFade}>
           <div className="section-label">Why Aleron</div>
-          <h2 className="section-h2">Credibility earned through enterprise work</h2>
+          <h2 className="section-h2">Senior Salesforce expertise, not generalist consulting</h2>
           <p className="section-sub">
-            Specific differentiators — not marketing language.
+            Operational credibility grounded in real platform work.
           </p>
         </motion.div>
 
@@ -614,9 +613,9 @@ export default function HomePage() {
       >
         <motion.div className="section-hd" variants={itemFade}>
           <div className="section-label">Proven Experience</div>
-          <h2 className="section-h2">Enterprise engagements, measurable outcomes</h2>
+          <h2 className="section-h2">Enterprise Salesforce engagements across regulated industries</h2>
           <p className="section-sub">
-            Selected examples from past enterprise consulting engagements.
+            Selected platform operations work across enterprise and compliance-driven environments.
           </p>
         </motion.div>
 
@@ -656,11 +655,11 @@ export default function HomePage() {
         <div className="cta-inner">
           <div className="cta-label">Get in Touch</div>
           <h2 className="cta-h2">
-            Let's discuss your operational goals.
+            Let's discuss your Salesforce and platform operations needs.
           </h2>
           <p className="cta-sub">
-            Whether you're optimizing enterprise platforms, modernizing operational workflows,
-            or establishing governance practices for controlled deployments — we're ready to engage.
+            Whether you need ongoing Salesforce administration, release governance support,
+            or workflow automation — we bring senior-level platform expertise directly to your environment.
           </p>
           <a href="/contact" className="btn-primary">
             Start the Conversation <ArrowRight size={14} />
