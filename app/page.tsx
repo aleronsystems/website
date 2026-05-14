@@ -1,7 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ArrowRight, BarChart3, Zap, TrendingUp, GitMerge, Server } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, BarChart3, Zap, TrendingUp, GitMerge, Server, Menu, X } from 'lucide-react';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -31,10 +32,10 @@ const itemFade = {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const metrics = [
-  { value: '15+', label: 'Years Salesforce Experience' },
+  { value: '15+', label: 'Years Enterprise Experience' },
   { value: '2,000+', label: 'Platform Users Supported' },
   { value: 'Veteran', label: 'Owned Business' },
-  { value: 'Gearset', label: 'Certified Specialist' },
+  { value: 'Gearset', label: 'Deployment Certified' },
 ];
 
 const services = [
@@ -68,15 +69,15 @@ const services = [
 const whyAleron = [
   {
     heading: '15 Years of Direct Platform Work',
-    body: 'Hands-on Salesforce administration across enterprise orgs — including a single engagement supporting 2,000+ users over eight years. Not advisory. Not oversight.',
+    body: 'Hands-on Salesforce administration across enterprise orgs, including a single engagement supporting 2,000+ users over eight years. Not advisory. Not oversight.',
   },
   {
     heading: 'Regulated Environment Experience',
-    body: 'Supported Salesforce and CI/CD operations where deployment documentation, change control, and audit-readiness are required — including FDA 21 CFR Part 11 aligned practices.',
+    body: 'Supported Salesforce and CI/CD operations where deployment documentation, change control, and audit-readiness are required, including FDA 21 CFR Part 11 aligned practices.',
   },
   {
     heading: 'Certified in the Tools That Matter',
-    body: 'Gearset Certified Deployment Specialist. Workato Automation Pro I & II. Hands-on with AutoRABIT, Celigo, GitHub, and Data Loader.',
+    body: 'Gearset Deployment Certified. Workato Automation Pro I & II. Hands-on with AutoRABIT, Celigo, GitHub, and Data Loader.',
   },
   {
     heading: 'Senior Work, Directly Delivered',
@@ -113,15 +114,17 @@ const caseStudies = [
     ref: 'Aptos',
     client: 'Retail Technology Platform',
     years: 'Contract',
-    challenge: 'Scaling Salesforce environment requiring consistent administration, integration support, and workflow operations.',
-    solution: 'Salesforce administration, integration maintenance, and workflow improvements to sustain reliability as operational demands grew.',
-    outcome: 'Stable platform operations with supportable integrations through growth.',
+    challenge: 'Enterprise Salesforce environment requiring integration modernization and ongoing platform support across multiple business systems.',
+    solution: 'Enterprise platform support, Celigo integration administration, and migration from Celigo to Workato to modernize workflow and integration architecture across business operations.',
+    outcome: 'Modernized integration layer with consolidated workflow operations and improved supportability across business systems.',
   },
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <main className="root">
       <style>{`
@@ -165,7 +168,7 @@ export default function HomePage() {
         }
         .nav-inner {
           max-width: 1280px;
-          height: 112px;
+          height: 116px;
           margin: 0 auto;
           padding: 0 40px;
           display: flex;
@@ -179,13 +182,16 @@ export default function HomePage() {
           line-height: 0;
         }
         .nav-logo-img {
-          width: 253px;
+          width: 298px;
           height: auto;
           display: block;
         }
         @media (max-width: 768px) {
-          .nav-inner { height: 88px; padding: 0 20px; }
-          .nav-logo-img { width: 187px; }
+          .nav-inner { height: 84px; padding: 0 20px; }
+          .nav-logo-img { width: 232px; }
+        }
+        @media (max-width: 420px) {
+          .nav-logo-img { width: 200px; }
         }
         .nav-links {
           display: flex; gap: 32px; align-items: center; list-style: none;
@@ -207,7 +213,68 @@ export default function HomePage() {
           white-space: nowrap;
         }
         .nav-contact:hover { border-color: rgba(94,234,212,.3); background: rgba(94,234,212,.05); }
-        @media (max-width: 600px) { .nav-links { display: none; } }
+
+        /* ── MOBILE MENU TRIGGER ── */
+        .nav-mobile-trigger {
+          display: none;
+          background: transparent;
+          border: 1px solid var(--border);
+          border-radius: 6px;
+          padding: 8px;
+          color: var(--text-1);
+          cursor: pointer;
+          align-items: center;
+          justify-content: center;
+          transition: border-color .18s, background .18s;
+        }
+        .nav-mobile-trigger:hover { border-color: rgba(94,234,212,.3); }
+        .nav-mobile-trigger:focus-visible {
+          outline: 2px solid var(--teal);
+          outline-offset: 2px;
+        }
+
+        /* ── MOBILE MENU PANEL ── */
+        .nav-mobile-menu {
+          position: fixed;
+          top: 84px;
+          left: 0; right: 0;
+          background: rgba(2,8,23,.98);
+          backdrop-filter: blur(16px);
+          border-bottom: 1px solid var(--border);
+          z-index: 49;
+          overflow: hidden;
+        }
+        .nav-mobile-list {
+          list-style: none;
+          padding: 8px 20px 20px;
+          display: flex; flex-direction: column;
+        }
+        .nav-mobile-list li { border-bottom: 1px solid var(--border); }
+        .nav-mobile-list li:last-child { border-bottom: none; }
+        .nav-mobile-list a {
+          display: block;
+          padding: 16px 4px;
+          color: var(--text-1);
+          text-decoration: none;
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: .02em;
+        }
+        .nav-mobile-list a.gov { color: var(--teal); }
+        .nav-mobile-list a.cta {
+          margin-top: 12px;
+          padding: 12px 16px;
+          background: var(--teal);
+          color: #021a14;
+          font-weight: 600;
+          border-radius: 6px;
+          text-align: center;
+        }
+
+        @media (max-width: 768px) {
+          .nav-links { display: none; }
+          .nav-mobile-trigger { display: inline-flex; }
+        }
 
         /* ── HERO ── */
         .hero {
@@ -536,7 +603,7 @@ export default function HomePage() {
         transition={{ duration: 0.4 }}
       >
         <div className="nav-inner">
-          <a href="/" className="nav-logo">
+          <a href="/" className="nav-logo" onClick={() => setMenuOpen(false)}>
             <img
               src="/logos/navbar-logo-dark.png"
               alt="Aleron Systems"
@@ -555,7 +622,36 @@ export default function HomePage() {
               </li>
             </ul>
           </nav>
+          <button
+            type="button"
+            className="nav-mobile-trigger"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              id="mobile-menu"
+              className="nav-mobile-menu"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <ul className="nav-mobile-list">
+                <li><a href="/services" onClick={() => setMenuOpen(false)}>Services</a></li>
+                <li><a href="/about" onClick={() => setMenuOpen(false)}>About</a></li>
+                <li><a href="/government" className="gov" onClick={() => setMenuOpen(false)}>Government</a></li>
+                <li><a href="/contact" className="cta" onClick={() => setMenuOpen(false)}>Contact</a></li>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.header>
 
       {/* ── Hero ── */}
@@ -670,24 +766,19 @@ export default function HomePage() {
           <div className="founder-title">Founder, Aleron Systems LLC</div>
           <div className="founder-bio">
             <p>
-              15 years of hands-on Salesforce administration across enterprise and regulated
-              environments. Aleron Systems brings that experience directly to clients who need
-              senior-level platform work done reliably, without the overhead of a large firm.
-            </p>
-            <p>
-              Background covers Salesforce administration, Flow modernization, Experience Cloud,
-              enterprise integrations, DevOps support, and FDA 21 CFR Part 11 aligned deployment
-              practices. Veteran-owned. U.S. Army, Operation Iraqi Freedom.
+              Senior-level Salesforce operations, governance, automation, and integration
+              support across enterprise and regulated environments. 15 years of hands-on
+              platform work. Direct engagement, without the overhead of a large firm.
+              Veteran-owned consulting firm.
             </p>
           </div>
         </motion.div>
         <motion.div className="founder-creds" variants={stagger}>
           {[
-            { label: 'Certifications', value: 'Gearset Certified Deployment Specialist\nWorkato Automation Pro I & II' },
+            { label: 'Certifications', value: 'Gearset Deployment Certified\nWorkato Automation Pro I & II' },
             { label: 'Tools', value: 'Gearset, AutoRABIT, Workato, Celigo, GitHub, Data Loader' },
             { label: 'Platforms', value: 'Salesforce Sales Cloud, Service Cloud, Experience Cloud, nCino' },
             { label: 'Industries', value: 'Life Sciences, Financial Services, Retail Technology, Analytics' },
-            { label: 'Military Service', value: 'U.S. Army, Cavalry Scout E4\nOperation Iraqi Freedom' },
           ].map((c) => (
             <motion.div key={c.label} className="cred-item" variants={itemFade}>
               <div className="cred-label">{c.label}</div>
