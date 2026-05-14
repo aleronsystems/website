@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, BarChart3, Zap, TrendingUp, GitMerge, Server, Menu, X } from 'lucide-react';
+import { ArrowRight, BarChart3, Zap, TrendingUp, GitMerge, Server, ShieldCheck, Menu, X } from 'lucide-react';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -63,6 +63,11 @@ const services = [
     icon: <Server size={18} />,
     title: 'Platform Operations & Support',
     description: 'Ongoing operational support for enterprise Salesforce environments, including data management, metadata migrations, and production stability.',
+  },
+  {
+    icon: <ShieldCheck size={18} />,
+    title: 'Governance, QA & UAT Coordination',
+    description: 'Deployment validation, UAT coordination, production readiness reviews, and operational governance across enterprise Salesforce environments.',
   },
 ];
 
@@ -168,7 +173,7 @@ export default function HomePage() {
         }
         .nav-inner {
           max-width: 1280px;
-          height: 116px;
+          height: 132px;
           margin: 0 auto;
           padding: 0 40px;
           display: flex;
@@ -182,16 +187,18 @@ export default function HomePage() {
           line-height: 0;
         }
         .nav-logo-img {
-          width: 298px;
+          width: 447px;
           height: auto;
           display: block;
+          max-width: 60vw;
         }
         @media (max-width: 768px) {
-          .nav-inner { height: 84px; padding: 0 20px; }
-          .nav-logo-img { width: 232px; }
+          .nav-inner { height: 100px; padding: 0 20px; }
+          .nav-logo-img { width: 313px; }
         }
         @media (max-width: 420px) {
-          .nav-logo-img { width: 200px; }
+          .nav-inner { height: 88px; }
+          .nav-logo-img { width: 270px; }
         }
         .nav-links {
           display: flex; gap: 32px; align-items: center; list-style: none;
@@ -236,13 +243,16 @@ export default function HomePage() {
         /* ── MOBILE MENU PANEL ── */
         .nav-mobile-menu {
           position: fixed;
-          top: 84px;
+          top: 100px;
           left: 0; right: 0;
           background: rgba(2,8,23,.98);
           backdrop-filter: blur(16px);
           border-bottom: 1px solid var(--border);
           z-index: 49;
           overflow: hidden;
+        }
+        @media (max-width: 420px) {
+          .nav-mobile-menu { top: 88px; }
         }
         .nav-mobile-list {
           list-style: none;
