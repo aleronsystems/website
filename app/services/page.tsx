@@ -1,330 +1,728 @@
 'use client';
 
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ArrowRight,
+  Menu,
+  X,
+  ShieldCheck,
+  Workflow,
+  GitBranch,
+  Users,
+  LifeBuoy,
+  Cable,
+  FlaskConical,
+  BarChart3,
+} from 'lucide-react';
+
+// ─── Animation Variants ───────────────────────────────────────────────────────
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 6 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94], delay },
+  }),
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.055 } },
+};
+
+const itemFade = {
+  hidden: { opacity: 0, y: 5 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
 
 const services = [
   {
-    title: 'CRM Consulting',
-    text: 'CRM strategy, process improvement, user support, reporting, and operational optimization.',
-    icon: '/icons/icon-crm.png',
+    icon: <ShieldCheck size={18} />,
+    title: 'Salesforce Administration',
+    description:
+      'Roles, profiles, permission sets, page layouts, validation rules, and ongoing platform configuration across enterprise Salesforce orgs.',
+    examples: 'User access reviews · Security model maintenance · Data hygiene · Configuration changes',
   },
   {
-    title: 'Salesforce Solutions',
-    text: 'Administration, configuration, automation, integrations, release support, and ongoing platform management.',
-    icon: '/icons/icon-cloud.png',
+    icon: <Workflow size={18} />,
+    title: 'Flow & Workflow Modernization',
+    description:
+      'Flow Builder development and migration of legacy Workflow Rules and Process Builders into consolidated Flow architecture with structured documentation.',
+    examples: 'Process Builder migration · Flow consolidation · Automation debugging · Documentation',
   },
   {
-    title: 'Workflow Automation',
-    text: 'Eliminate repetitive tasks and streamline business operations through smarter automated workflows.',
-    icon: '/icons/icon-automation.png',
+    icon: <GitBranch size={18} />,
+    title: 'Release Governance & DevOps Coordination',
+    description:
+      'Deployment coordination across Dev, QA, UAT, and Production environments using Gearset and AutoRABIT with change management suited to regulated work.',
+    examples: 'Sandbox pipelines · Change tracking · Rollback planning · Audit-ready releases',
   },
   {
-    title: 'Security & Infrastructure',
-    text: 'Security cameras, access control, low voltage cabling, WiFi/network installs, and onsite technical support.',
-    icon: '/icons/icon-security.png',
+    icon: <Users size={18} />,
+    title: 'Experience Cloud Support',
+    description:
+      'Operational support for partner, customer, and internal communities including access management, page configuration, and ongoing content workflows.',
+    examples: 'External user access · Page configuration · Portal operations · Community admin',
+  },
+  {
+    icon: <Cable size={18} />,
+    title: 'Enterprise Integrations',
+    description:
+      'Support and coordination of middleware integrations including Workato, Celigo, and direct API connections between Salesforce and adjacent systems.',
+    examples: 'Workato recipes · Celigo flows · API connections · Integration migrations',
+  },
+  {
+    icon: <LifeBuoy size={18} />,
+    title: 'CRM Operational Support',
+    description:
+      'Steady state platform support covering user requests, defect triage, data hygiene, and recurring administrative tasks across business units.',
+    examples: 'Tier 2/3 support · Defect triage · Data corrections · Recurring admin work',
+  },
+  {
+    icon: <FlaskConical size={18} />,
+    title: 'Sandbox & UAT Coordination',
+    description:
+      'Sandbox lifecycle management, refresh planning, and structured UAT coordination aligned with release windows and stakeholder sign off.',
+    examples: 'Refresh planning · UAT scripts · Stakeholder coordination · Release readiness',
+  },
+  {
+    icon: <BarChart3 size={18} />,
+    title: 'Operational Reporting & Process Optimization',
+    description:
+      'Reporting, dashboards, and process review work focused on reducing manual effort and surfacing operational signal for business owners.',
+    examples: 'Report development · Dashboards · Process review · Operational metrics',
   },
 ];
 
-const benefits = [
-  '15+ Years Enterprise Experience',
-  'Veteran Owned Business',
-  'Agile and Responsive Support',
-  'Cost Effective Solutions',
-  'Direct Access, No Layers of Management',
+const engagementModels = [
+  {
+    label: 'Advisory Support',
+    body: 'Short-cycle advisory work for teams that need senior input on architecture, automation strategy, or governance practices without ongoing platform ownership.',
+  },
+  {
+    label: 'Project-Based Engagements',
+    body: 'Defined scope engagements with clear deliverables. Common for Flow modernization, integration work, release pipeline setup, or platform reviews.',
+  },
+  {
+    label: 'Operational Augmentation',
+    body: 'Embedded senior support working alongside internal teams during release cycles, regulated changes, or periods of elevated operational demand.',
+  },
+  {
+    label: 'Ongoing Platform Support',
+    body: 'Continuous Salesforce operations covering administration, governance, integration support, and release coordination on a retainer basis.',
+  },
 ];
+
+const whyAleron = [
+  {
+    heading: 'Senior-Level Direct Engagement',
+    body: 'The person scoping the work is the person performing it. No account managers, no junior resources placed on production systems.',
+  },
+  {
+    heading: 'Regulated Environment Experience',
+    body: 'Supported Salesforce and CI/CD operations in environments requiring deployment documentation, change control, and FDA 21 CFR Part 11 aligned practices.',
+  },
+  {
+    heading: 'Enterprise Operational Maturity',
+    body: '15 years of hands-on Salesforce administration across enterprise environments, including a single engagement supporting 2,000+ users over eight years.',
+  },
+  {
+    heading: 'Deployment Governance Exposure',
+    body: 'Gearset Deployment Certified. Workato Automation Pro I & II. Hands-on with AutoRABIT, Celigo, GitHub, and Data Loader across production pipelines.',
+  },
+];
+
+// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ServicesPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        background:
-          'radial-gradient(circle at 20% 10%, rgba(20,184,166,.12), transparent 26%), radial-gradient(circle at 80% 20%, rgba(56,189,248,.10), transparent 28%), #050b14',
-        color: 'white',
-        fontFamily: 'Arial, sans-serif',
-        overflowX: 'hidden',
-      }}
-    >
-      <header
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          marginTop: '-105px',
-          padding: '0px 28px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: '24px',
-          flexWrap: 'nowrap',
-        }}
+    <main className="root">
+      <style>{`
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+          --teal:      #5eead4;
+          --sky:       #38bdf8;
+          --bg:        #060c16;
+          --bg2:       #0a1120;
+          --border:    rgba(255,255,255,.07);
+          --border-t:  rgba(94,234,212,.14);
+          --surface:   rgba(255,255,255,.03);
+          --text-1:    #edf2ff;
+          --text-2:    #8899b0;
+          --text-3:    #506070;
+          --accent:    #5eead4;
+          --max-w:     1200px;
+          --px:        clamp(20px, 4vw, 44px);
+        }
+
+        .root {
+          min-height: 100vh;
+          background: var(--bg);
+          background-image: radial-gradient(ellipse 70% 40% at 15% 0%, rgba(56,189,248,.05) 0%, transparent 55%);
+          color: var(--text-1);
+          font-family: -apple-system, 'Segoe UI', sans-serif;
+          overflow-x: hidden;
+          -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NAV ── */
+        .nav {
+          width: 100%;
+          border-bottom: 1px solid rgba(255,255,255,.08);
+          background: rgba(2,8,23,.92);
+          backdrop-filter: blur(12px);
+          position: sticky; top: 0; z-index: 50;
+        }
+        .nav-inner {
+          max-width: 1280px;
+          height: 132px;
+          margin: 0 auto;
+          padding: 0 40px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .nav-logo {
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          line-height: 0;
+        }
+        .nav-logo-img {
+          width: 447px;
+          height: auto;
+          display: block;
+          max-width: 60vw;
+        }
+        @media (max-width: 768px) {
+          .nav-inner { height: 100px; padding: 0 20px; }
+          .nav-logo-img { width: 313px; }
+        }
+        @media (max-width: 420px) {
+          .nav-inner { height: 88px; }
+          .nav-logo-img { width: 270px; }
+        }
+        .nav-links {
+          display: flex; gap: 32px; align-items: center; list-style: none;
+        }
+        .nav-links a {
+          color: var(--text-2); text-decoration: none;
+          font-size: 13px; font-weight: 500; letter-spacing: .04em;
+          transition: color .18s;
+        }
+        .nav-links a:hover { color: var(--text-1); }
+        .nav-links a.active { color: var(--teal); }
+        .nav-links a.gov { color: var(--text-2); }
+        .nav-links a.gov:hover { color: var(--text-1); }
+        .nav-contact {
+          padding: 9px 18px; border-radius: 6px;
+          border: 1px solid var(--border);
+          color: var(--text-1); background: transparent;
+          font-size: 13px; font-weight: 500; text-decoration: none;
+          transition: border-color .18s, background .18s;
+          display: inline-flex; align-items: center; gap: 6px;
+          white-space: nowrap;
+        }
+        .nav-contact:hover { border-color: rgba(94,234,212,.3); background: rgba(94,234,212,.05); }
+
+        /* ── MOBILE MENU TRIGGER ── */
+        .nav-mobile-trigger {
+          display: none;
+          background: transparent;
+          border: 1px solid var(--border);
+          border-radius: 6px;
+          padding: 8px;
+          color: var(--text-1);
+          cursor: pointer;
+          align-items: center;
+          justify-content: center;
+          transition: border-color .18s, background .18s;
+        }
+        .nav-mobile-trigger:hover { border-color: rgba(94,234,212,.3); }
+        .nav-mobile-trigger:focus-visible {
+          outline: 2px solid var(--teal);
+          outline-offset: 2px;
+        }
+
+        /* ── MOBILE MENU PANEL ── */
+        .nav-mobile-menu {
+          position: fixed;
+          top: 100px;
+          left: 0; right: 0;
+          background: rgba(2,8,23,.98);
+          backdrop-filter: blur(16px);
+          border-bottom: 1px solid var(--border);
+          z-index: 49;
+          overflow: hidden;
+        }
+        @media (max-width: 420px) {
+          .nav-mobile-menu { top: 88px; }
+        }
+        .nav-mobile-list {
+          list-style: none;
+          padding: 8px 20px 20px;
+          display: flex; flex-direction: column;
+        }
+        .nav-mobile-list li { border-bottom: 1px solid var(--border); }
+        .nav-mobile-list li:last-child { border-bottom: none; }
+        .nav-mobile-list a {
+          display: block;
+          padding: 16px 4px;
+          color: var(--text-1);
+          text-decoration: none;
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: .02em;
+        }
+        .nav-mobile-list a.active { color: var(--teal); }
+        .nav-mobile-list a.cta {
+          margin-top: 12px;
+          padding: 12px 16px;
+          background: var(--teal);
+          color: #021a14;
+          font-weight: 600;
+          border-radius: 6px;
+          text-align: center;
+        }
+
+        @media (max-width: 768px) {
+          .nav-links { display: none; }
+          .nav-mobile-trigger { display: inline-flex; }
+        }
+
+        /* ── HERO ── */
+        .hero {
+          max-width: var(--max-w); margin: 0 auto;
+          padding: clamp(32px,3.5vw,48px) var(--px) clamp(24px,3vw,36px);
+          border-bottom: 1px solid var(--border);
+        }
+        .hero-label {
+          font-size: 11px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+          margin-bottom: 12px;
+        }
+        .hero h1 {
+          font-size: clamp(26px, 3.3vw, 47px);
+          font-weight: 500;
+          line-height: 1.04;
+          letter-spacing: -.026em;
+          color: var(--text-1);
+          max-width: 820px;
+          margin-bottom: 14px;
+        }
+        .hero h1 span { color: var(--teal); }
+        .hero-sub {
+          font-size: clamp(13.5px, 1.2vw, 15px);
+          line-height: 1.65;
+          color: var(--text-2);
+          max-width: 560px;
+          margin-bottom: 22px;
+        }
+        .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn-primary {
+          display: inline-flex; align-items: center; gap: 7px;
+          padding: 11px 22px; border-radius: 7px;
+          background: var(--teal); color: #021a14;
+          font-size: 14px; font-weight: 600;
+          text-decoration: none;
+          transition: opacity .18s;
+        }
+        .btn-primary:hover { opacity: .88; }
+        .btn-ghost {
+          display: inline-flex; align-items: center; gap: 7px;
+          padding: 11px 22px; border-radius: 7px;
+          border: 1px solid var(--border);
+          color: var(--text-2);
+          font-size: 14px; font-weight: 500;
+          text-decoration: none;
+          transition: border-color .18s, color .18s;
+        }
+        .btn-ghost:hover { border-color: rgba(255,255,255,.18); color: var(--text-1); }
+
+        /* ── SECTION COMMON ── */
+        .section {
+          max-width: var(--max-w); margin: 0 auto;
+          padding: clamp(28px,3.5vw,44px) var(--px);
+          border-bottom: 1px solid var(--border);
+        }
+        .section-alt { background: rgba(255,255,255,.016); }
+        .section-hd {
+          display: flex; flex-direction: column; gap: 5px;
+          margin-bottom: 24px;
+        }
+        .section-label {
+          font-size: 11px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+        }
+        .section-h2 {
+          font-size: clamp(19px, 2vw, 27px);
+          font-weight: 400;
+          letter-spacing: -.02em;
+          line-height: 1.1;
+          color: var(--text-1);
+          max-width: 540px;
+        }
+        .section-sub {
+          font-size: 13px; line-height: 1.6; color: var(--text-2);
+          max-width: 480px; margin-top: 2px;
+        }
+
+        /* ── SERVICES GRID (matches homepage services-grid; 8 cards lock to 4/2/1) ── */
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1px;
+          background: var(--border);
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          overflow: hidden;
+        }
+        /* 8 cards factor cleanly into 4 / 2 / 1; skipping 3-col avoids orphans. */
+        @media (max-width: 1024px) {
+          .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+          .services-grid { grid-template-columns: 1fr; }
+        }
+        .service-item {
+          background: var(--bg);
+          padding: 28px 26px;
+          transition: background .2s;
+          cursor: default;
+          display: flex; flex-direction: column;
+        }
+        .service-item:hover { background: var(--bg2); }
+        .service-item:hover .svc-icon { opacity: 1; }
+        .service-item:hover .svc-title { color: #ffffff; }
+        .svc-icon {
+          color: var(--teal);
+          margin-bottom: 16px;
+          opacity: .65;
+          transition: opacity .2s;
+        }
+        .svc-title {
+          font-size: 14px; font-weight: 600;
+          color: #d8e8ff;
+          margin-bottom: 9px;
+          letter-spacing: -.01em;
+          transition: color .2s;
+        }
+        .svc-desc {
+          font-size: 12.5px; line-height: 1.6;
+          color: var(--text-2);
+          margin-bottom: 14px;
+        }
+        .svc-examples {
+          margin-top: auto;
+          padding-top: 12px;
+          border-top: 1px solid var(--border);
+          font-size: 11.5px; line-height: 1.55;
+          color: var(--text-3);
+          letter-spacing: .005em;
+        }
+
+        /* ── ENGAGEMENT MODELS (cred-item pattern from homepage founder block) ── */
+        .eng-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          column-gap: 32px;
+          row-gap: 0;
+        }
+        .eng-item {
+          padding: 16px 0;
+          border-top: 1px solid var(--border-t);
+        }
+        .eng-title {
+          font-size: 13.5px; font-weight: 600;
+          color: var(--text-1);
+          margin-bottom: 6px;
+        }
+        .eng-body {
+          font-size: 13px; line-height: 1.65;
+          color: var(--text-2);
+        }
+
+        /* ── WHY ALERON (matches homepage why-grid) ── */
+        .why-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+          column-gap: 32px;
+          row-gap: 0;
+        }
+        .why-item {
+          padding: 16px 0;
+          border-top: 1px solid var(--border-t);
+        }
+        .why-title {
+          font-size: 13.5px; font-weight: 600;
+          color: var(--text-1);
+          margin-bottom: 6px;
+        }
+        .why-body {
+          font-size: 13px; line-height: 1.65;
+          color: var(--text-2);
+        }
+
+        /* ── CTA (matches homepage) ── */
+        .cta-section {
+          max-width: var(--max-w); margin: 0 auto;
+          padding: clamp(24px,3vw,36px) var(--px);
+        }
+        .cta-inner {
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: clamp(20px,2.5vw,32px) clamp(20px,3vw,36px);
+          background: var(--surface);
+        }
+        .cta-label {
+          font-size: 11px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+          margin-bottom: 8px;
+        }
+        .cta-h2 {
+          font-size: clamp(16px, 1.8vw, 22px);
+          font-weight: 400; letter-spacing: -.02em; line-height: 1.15;
+          color: var(--text-1); max-width: 460px;
+          margin-bottom: 8px;
+        }
+        .cta-sub {
+          font-size: 13.5px; line-height: 1.6; color: var(--text-2);
+          max-width: 540px; margin-bottom: 18px;
+        }
+        .cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        /* ── FOOTER ── */
+        .footer {
+          border-top: 1px solid var(--border);
+          padding: 24px var(--px);
+        }
+        .footer-inner {
+          max-width: var(--max-w); margin: 0 auto;
+          display: flex; justify-content: space-between; align-items: center;
+          gap: 16px; flex-wrap: wrap;
+        }
+        .footer-copy, .footer-naics {
+          font-size: 12px; color: var(--text-3);
+        }
+        @media (max-width: 560px) { .footer-naics { display: none; } }
+      `}</style>
+
+      {/* ── Navigation ── */}
+      <motion.header
+        className="nav"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
       >
-        <a href="/" style={{ display: 'inline-flex', alignItems: 'center', marginLeft: '-20px' }}>
-          <Image
-            src="/logos/navbar-logo-dark.png"
-            alt="Aleron Systems"
-            width={520}
-            height={160}
-            priority
-            style={{
-              width: '540px',
-              height: 'auto',
-              display: 'block',
-            }}
-          />
-        </a>
-
-        <nav
-          style={{
-            display: 'flex',
-            gap: '24px',
-            flexWrap: 'nowrap',
-            alignItems: 'center',
-            fontSize: '16px',
-            fontWeight: 700,
-            letterSpacing: '0.04em',
-            textTransform: 'uppercase',
-          }}
-        >
-          <a href="/services" style={{ color: '#5eead4', textDecoration: 'none' }}>Services</a>
-          <a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About</a>
-          <a href="/government" style={{ color: 'white', textDecoration: 'none' }}>Government</a>
-          <a href="/contact" style={{ color: 'white', textDecoration: 'none' }}>Contact</a>
-        </nav>
-      </header>
-
-      <section
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '0px 28px 30px',
-        }}
-      >
-        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
-          <div
-            style={{
-              color: '#5eead4',
-              marginBottom: '18px',
-              fontWeight: 800,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              fontSize: '16px',
-            }}
+        <div className="nav-inner">
+          <a href="/" className="nav-logo" onClick={() => setMenuOpen(false)}>
+            <img
+              src="/logos/navbar-logo-dark.png"
+              alt="Aleron Systems"
+              className="nav-logo-img"
+            />
+          </a>
+          <nav>
+            <ul className="nav-links">
+              <li><a href="/services" className="active">Services</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/government" className="gov">Government</a></li>
+              <li>
+                <a href="/contact" className="nav-contact">
+                  Contact <ArrowRight size={12} />
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <button
+            type="button"
+            className="nav-mobile-trigger"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((o) => !o)}
           >
-            CRM • Salesforce • Automation • Infrastructure
-          </div>
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              id="mobile-menu"
+              className="nav-mobile-menu"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <ul className="nav-mobile-list">
+                <li><a href="/services" className="active" onClick={() => setMenuOpen(false)}>Services</a></li>
+                <li><a href="/about" onClick={() => setMenuOpen(false)}>About</a></li>
+                <li><a href="/government" onClick={() => setMenuOpen(false)}>Government</a></li>
+                <li><a href="/contact" className="cta" onClick={() => setMenuOpen(false)}>Contact</a></li>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
 
-          <h1
-            style={{
-              fontSize: 'clamp(40px, 5vw, 68px)',
-              lineHeight: '0.98',
-              margin: '0 0 24px',
-              letterSpacing: '-0.04em',
-              maxWidth: '900px',
-            }}
-          >
-            Services Designed to Scale Your Business
-          </h1>
-
-<p
-  style={{
-    color: '#dbeafe',
-    fontSize: '20px',
-    lineHeight: '1.5',
-    marginBottom: '24px',
-    maxWidth: '760px',
-  }}
->
-  From CRM optimization to automation and infrastructure support, Aleron Systems delivers practical solutions built on enterprise experience.
-</p>
-
-<a
-  href="/docs/Aleron_Commercial_Capability_Statement.pdf"
-  target="_blank"
-  rel="noopener noreferrer"
-  style={{
-    display: 'inline-flex',
-    marginTop: '8px',
-    alignItems: 'center',
-    gap: '8px',
-    background: 'linear-gradient(135deg,#5eead4,#38bdf8)',
-    color: '#021014',
-    padding: '15px 24px',
-    borderRadius: '12px',
-    textDecoration: 'none',
-    fontWeight: 'bold',
-    fontSize: '16px',
-    boxShadow: '0 8px 24px rgba(56,189,248,.18)',
-  }}
->
-  Download Commercial Capability Statement <ArrowRight size={18} />
-</a>
+      {/* ── Hero ── */}
+      <section className="hero">
+        <motion.div initial="hidden" animate="visible" variants={stagger}>
+          <motion.div className="hero-label" variants={fadeUp} custom={0}>
+            Services · Salesforce Operations · Automation · Release Governance
+          </motion.div>
+          <motion.h1 variants={fadeUp} custom={0.05}>
+            Operational Salesforce support, automation modernization, and{' '}
+            <span>release governance</span> for enterprise environments.
+          </motion.h1>
+          <motion.p className="hero-sub" variants={fadeUp} custom={0.1}>
+            Senior-level platform work delivered directly. No layered account management, no junior resources on production systems. Engagements scoped to fit the operational reality of the environment.
+          </motion.p>
+          <motion.div className="hero-btns" variants={fadeUp} custom={0.15}>
+            <a href="/contact" className="btn-primary">
+              Book a Consultation <ArrowRight size={14} />
+            </a>
+            <a href="/government" className="btn-ghost">
+              Government Capabilities
+            </a>
+          </motion.div>
         </motion.div>
       </section>
 
-      <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '40px 28px' }}>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: '22px',
-          }}
-        >
-          {services.map((service) => (
-            <motion.div
-              key={service.title}
-              whileHover={{ y: -6 }}
-              style={{
-                padding: '28px',
-                borderRadius: '26px',
-                background:
-                  'linear-gradient(180deg, rgba(15,23,42,.92), rgba(7,16,31,.92))',
-                border: '1px solid rgba(94,234,212,.14)',
-                minHeight: '340px',
-              }}
-            >
-              <div
-                style={{
-                  width: '120px',
-                  height: '120px',
-                  borderRadius: '26px',
-                  overflow: 'hidden',
-                  marginBottom: '24px',
-                  background: 'rgba(2,6,23,.8)',
-                  boxShadow: '0 0 34px rgba(94,234,212,.12)',
-                }}
-              >
-                <Image
-                  src={service.icon}
-                  alt=""
-                  width={220}
-                  height={220}
-                  style={{
-                    width: '160px',
-                    height: '160px',
-                    objectFit: 'cover',
-                    transform: 'translate(-20px, -20px)',
-                  }}
-                />
-              </div>
+      {/* ── Core Service Grid ── */}
+      <div className="section-alt">
+      <motion.section
+        className="section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        variants={stagger}
+      >
+        <motion.div className="section-hd" variants={itemFade}>
+          <div className="section-label">Core Services</div>
+          <h2 className="section-h2">Salesforce operations and platform services</h2>
+          <p className="section-sub">
+            Focused capability areas built around direct enterprise platform experience.
+          </p>
+        </motion.div>
 
-              <h2 style={{ fontSize: '28px', margin: '0 0 14px', lineHeight: 1.1 }}>
-                {service.title}
-              </h2>
-              <p style={{ color: '#cbd5e1', lineHeight: '1.65', margin: 0, fontSize: '18px' }}>
-                {service.text}
-              </p>
+        <motion.div className="services-grid" variants={stagger}>
+          {services.map((s) => (
+            <motion.div key={s.title} className="service-item" variants={itemFade}>
+              <div className="svc-icon">{s.icon}</div>
+              <div className="svc-title">{s.title}</div>
+              <div className="svc-desc">{s.description}</div>
+              <div className="svc-examples">{s.examples}</div>
             </motion.div>
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
+      </div>
 
-      <section style={{ maxWidth: '1280px', margin: '0 auto', padding: '64px 28px' }}>
-        <div style={{ maxWidth: '820px', marginBottom: '32px' }}>
-          <div style={{ color: '#5eead4', marginBottom: '12px', fontWeight: 800 }}>
-            Why Businesses Choose Aleron Systems
-          </div>
-          <h2 style={{ fontSize: 'clamp(34px, 4vw, 48px)', margin: '0 0 14px', lineHeight: 1.05 }}>
-            Practical technology support without unnecessary overhead.
-          </h2>
-          <p style={{ color: '#cbd5e1', fontSize: '18px', lineHeight: '1.6' }}>
-            Aleron Systems combines enterprise level experience with direct, responsive service for businesses that need reliable technical execution.
+      {/* ── How Engagements Work ── */}
+      <motion.section
+        className="section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        variants={stagger}
+      >
+        <motion.div className="section-hd" variants={itemFade}>
+          <div className="section-label">How Engagements Work</div>
+          <h2 className="section-h2">Engagement models built around operational reality</h2>
+          <p className="section-sub">
+            Engagements are scoped to the work, not packaged into fixed offerings. Most fall into one of the structures below.
           </p>
-        </div>
+        </motion.div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: '14px',
-          }}
-        >
-          {benefits.map((item) => (
-            <div
-              key={item}
-              style={{
-                display: 'flex',
-                gap: '10px',
-                alignItems: 'center',
-                padding: '16px',
-                borderRadius: '16px',
-                background: 'rgba(15,23,42,.75)',
-                border: '1px solid rgba(94,234,212,.14)',
-              }}
-            >
-              <CheckCircle2 size={18} color="#5eead4" />
-              <span>{item}</span>
-            </div>
+        <motion.div className="eng-grid" variants={stagger}>
+          {engagementModels.map((e) => (
+            <motion.div key={e.label} className="eng-item" variants={itemFade}>
+              <div className="eng-title">{e.label}</div>
+              <div className="eng-body">{e.body}</div>
+            </motion.div>
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      <section
-        style={{
-          maxWidth: '1200px',
-          margin: '40px auto 80px',
-          padding: '42px 28px',
-          borderRadius: '28px',
-          background:
-            'linear-gradient(rgba(5,11,20,.78), rgba(5,11,20,.92)), url("/footer/footer-bg-glow.png") center / cover no-repeat',
-          border: '1px solid rgba(94,234,212,.18)',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '24px',
-          alignItems: 'center',
-        }}
+      {/* ── Why Aleron ── */}
+      <div className="section-alt">
+      <motion.section
+        className="section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        variants={stagger}
       >
-        <div>
-          <div style={{ color: '#5eead4', marginBottom: '12px', fontWeight: 800 }}>
-            Need help with your systems?
-          </div>
-          <h2 style={{ fontSize: 'clamp(34px, 4vw, 46px)', margin: '0 0 14px', lineHeight: 1.05 }}>
-            Let’s discuss how Aleron Systems can streamline your business.
+        <motion.div className="section-hd" variants={itemFade}>
+          <div className="section-label">Why Aleron</div>
+          <h2 className="section-h2">Senior Salesforce work, directly delivered</h2>
+          <p className="section-sub">
+            15 years of hands-on platform operations across enterprise and regulated environments. Not advisory. Not oversight.
+          </p>
+        </motion.div>
+
+        <motion.div className="why-grid" variants={stagger}>
+          {whyAleron.map((w) => (
+            <motion.div key={w.heading} className="why-item" variants={itemFade}>
+              <div className="why-title">{w.heading}</div>
+              <div className="why-body">{w.body}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
+      </div>
+
+      {/* ── CTA ── */}
+      <motion.div
+        className="cta-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        variants={fadeUp}
+        custom={0}
+      >
+        <div className="cta-inner">
+          <div className="cta-label">Get in Touch</div>
+          <h2 className="cta-h2">
+            Let's discuss your Salesforce and platform operations needs.
           </h2>
+          <p className="cta-sub">
+            Whether you need ongoing administration, release governance support, or workflow automation, we bring senior-level platform expertise directly to your environment.
+          </p>
+          <div className="cta-btns">
+            <a href="/contact" className="btn-primary">
+              Start the Conversation <ArrowRight size={14} />
+            </a>
+            <a href="/government" className="btn-ghost">
+              Government Capabilities
+            </a>
+          </div>
         </div>
+      </motion.div>
 
-        <a
-          href="/contact"
-          style={{
-            justifySelf: 'start',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: 'linear-gradient(135deg,#5eead4,#38bdf8)',
-            color: '#021014',
-            padding: '15px 22px',
-            borderRadius: '12px',
-            textDecoration: 'none',
-            fontWeight: 'bold',
-          }}
-        >
-          Contact Us <ArrowRight size={18} />
-        </a>
-      </section>
-
-      <footer
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '30px 28px 44px',
-          textAlign: 'center',
-          borderTop: '1px solid rgba(94,234,212,.12)',
-        }}
-      >
-        <Image
-          src="/footer/footer-logo-dark.png"
-          alt="Aleron Systems"
-          width={300}
-          height={100}
-          style={{ width: '260px', height: 'auto' }}
-        />
-        <p style={{ color: '#94a3b8' }}>
-          CRM consulting • Cloud solutions • Workflow automation • Security & infrastructure
-        </p>
-        <p style={{ color: '#64748b', fontSize: '13px' }}>
-          © 2026 Aleron Systems LLC. All rights reserved.
-        </p>
+      {/* ── Footer ── */}
+      <footer className="footer">
+        <div className="footer-inner">
+          <div className="footer-copy">
+            © {new Date().getFullYear()} Aleron Systems LLC. All rights reserved.
+          </div>
+          <div className="footer-naics">
+            NAICS: 541511 · 541512 · 541519
+          </div>
+        </div>
       </footer>
     </main>
   );
