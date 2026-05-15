@@ -15,6 +15,7 @@ import {
   Cable,
   FlaskConical,
   BarChart3,
+  ClipboardCheck,
 } from 'lucide-react';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
@@ -107,6 +108,12 @@ const capabilities = [
     title: 'Operational Reporting & Process Optimization',
     description:
       'Reporting, dashboards, and process review work focused on reducing manual effort and surfacing operational signal for business owners.',
+  },
+  {
+    icon: <ClipboardCheck size={18} />,
+    title: 'Platform Governance & Change Management',
+    description:
+      'Structured operational governance covering deployment controls, access review coordination, release readiness validation, and cross-team change management processes.',
   },
 ];
 
@@ -456,12 +463,16 @@ export default function GovernmentPage() {
         /* ── CAPABILITIES (matches services-grid) ── */
         .caps-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          grid-template-columns: repeat(3, 1fr);
           gap: 1px;
           background: var(--border);
           border: 1px solid var(--border);
           border-radius: 10px;
           overflow: hidden;
+        }
+        /* 9 cards = 3x3. Skip 2-col to avoid orphan; collapse to single column on narrow viewports. */
+        @media (max-width: 720px) {
+          .caps-grid { grid-template-columns: 1fr; }
         }
         .cap-item {
           background: var(--bg);
