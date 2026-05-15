@@ -1,262 +1,806 @@
 'use client';
 
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { useState, type FormEvent } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Menu, X, Mail, MapPin, Clock, Globe } from 'lucide-react';
+
+// ─── Animation Variants ───────────────────────────────────────────────────────
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 6 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94], delay },
+  }),
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.055 } },
+};
+
+const itemFade = {
+  hidden: { opacity: 0, y: 5 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
+
+// ─── Data ─────────────────────────────────────────────────────────────────────
+
+const engagementOptions = [
+  'Salesforce Administration',
+  'Workflow Automation',
+  'Release Governance & DevOps',
+  'Enterprise Integrations',
+  'Experience Cloud Support',
+  'Government Inquiry',
+  'General Discussion',
+];
+
+const contactDetails = [
+  {
+    icon: <Mail size={15} />,
+    label: 'Email',
+    value: 'info@aleronsystems.com',
+    href: 'mailto:info@aleronsystems.com',
+  },
+  {
+    icon: <MapPin size={15} />,
+    label: 'Region',
+    value: 'Pennsylvania, United States',
+  },
+  {
+    icon: <Globe size={15} />,
+    label: 'Availability',
+    value: 'Remote support across U.S. time zones',
+  },
+  {
+    icon: <Clock size={15} />,
+    label: 'Response Window',
+    value: 'Typically within 1 to 2 business days',
+  },
+];
+
+const engagementTypes = [
+  {
+    heading: 'Project-Based Support',
+    body: 'Defined scope engagements with clear deliverables. Common for Flow modernization, integration work, release pipeline setup, or platform reviews.',
+  },
+  {
+    heading: 'Operational Augmentation',
+    body: 'Embedded senior support working alongside internal teams during release cycles, regulated changes, or elevated operational demand.',
+  },
+  {
+    heading: 'Advisory Engagement',
+    body: 'Short-cycle advisory work for teams that need senior input on architecture, automation strategy, or governance practices.',
+  },
+  {
+    heading: 'Ongoing Platform Support',
+    body: 'Continuous Salesforce operations covering administration, governance, integration support, and release coordination on a retainer basis.',
+  },
+];
+
+// ─── Form submission ──────────────────────────────────────────────────────────
+//
+// Integration hook. Wire any of the following here:
+//   • POST to /api/contact (Next.js route handler / server action)
+//   • POST to HubSpot Forms API
+//   • POST to Resend's /emails endpoint
+//   • Direct call to a server action via use server / form action
+//
+// The handler receives a typed payload below. Default behavior falls back to
+// a mailto: link so the form is functional before the backend is wired.
+
+type ContactPayload = {
+  name: string;
+  company: string;
+  email: string;
+  engagementType: string;
+  message: string;
+};
+
+async function submitContact(payload: ContactPayload): Promise<void> {
+  // Replace with real integration. Example shape:
+  //
+  //   const res = await fetch('/api/contact', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify(payload),
+  //   });
+  //   if (!res.ok) throw new Error('Submission failed');
+
+  // Fallback for pre-integration: open user's mail client with prefilled body.
+  const subject = encodeURIComponent(
+    `Inquiry: ${payload.engagementType || 'General Discussion'}`,
+  );
+  const body = encodeURIComponent(
+    `Name: ${payload.name}\nCompany: ${payload.company}\nEmail: ${payload.email}\nEngagement Type: ${payload.engagementType}\n\n${payload.message}`,
+  );
+  window.location.href = `mailto:info@aleronsystems.com?subject=${subject}&body=${body}`;
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ContactPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload: ContactPayload = {
+      name: String(data.get('name') ?? '').trim(),
+      company: String(data.get('company') ?? '').trim(),
+      email: String(data.get('email') ?? '').trim(),
+      engagementType: String(data.get('engagementType') ?? '').trim(),
+      message: String(data.get('message') ?? '').trim(),
+    };
+
+    setStatus('submitting');
+    setErrorMessage('');
+    try {
+      await submitContact(payload);
+      setStatus('success');
+      form.reset();
+    } catch (err) {
+      setStatus('error');
+      setErrorMessage(err instanceof Error ? err.message : 'Something went wrong.');
+    }
+  }
+
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        background:
-          'radial-gradient(circle at 20% 10%, rgba(20,184,166,.12), transparent 26%), radial-gradient(circle at 80% 20%, rgba(56,189,248,.10), transparent 28%), #050b14',
-        color: 'white',
-        fontFamily: 'Arial, sans-serif',
-        overflowX: 'hidden',
-      }}
-    >
-      <header
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          marginTop: '-105px',
-          padding: '0px 28px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: '24px',
-          flexWrap: 'nowrap',
-        }}
+    <main className="root">
+      <style>{`
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+          --teal:      #5eead4;
+          --sky:       #38bdf8;
+          --bg:        #060c16;
+          --bg2:       #0a1120;
+          --border:    rgba(255,255,255,.07);
+          --border-t:  rgba(94,234,212,.14);
+          --surface:   rgba(255,255,255,.03);
+          --text-1:    #edf2ff;
+          --text-2:    #8899b0;
+          --text-3:    #506070;
+          --accent:    #5eead4;
+          --max-w:     1200px;
+          --px:        clamp(20px, 4vw, 44px);
+        }
+
+        .root {
+          min-height: 100vh;
+          background: var(--bg);
+          background-image: radial-gradient(ellipse 70% 40% at 15% 0%, rgba(56,189,248,.05) 0%, transparent 55%);
+          color: var(--text-1);
+          font-family: -apple-system, 'Segoe UI', sans-serif;
+          overflow-x: hidden;
+          -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NAV ── */
+        .nav {
+          width: 100%;
+          border-bottom: 1px solid rgba(255,255,255,.08);
+          background: rgba(2,8,23,.92);
+          backdrop-filter: blur(12px);
+          position: sticky; top: 0; z-index: 50;
+        }
+        .nav-inner {
+          max-width: 1280px;
+          height: 132px;
+          margin: 0 auto;
+          padding: 0 40px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .nav-logo {
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          line-height: 0;
+        }
+        .nav-logo-img {
+          width: 447px;
+          height: auto;
+          display: block;
+          max-width: 60vw;
+        }
+        @media (max-width: 768px) {
+          .nav-inner { height: 100px; padding: 0 20px; }
+          .nav-logo-img { width: 313px; }
+        }
+        @media (max-width: 420px) {
+          .nav-inner { height: 88px; }
+          .nav-logo-img { width: 270px; }
+        }
+        .nav-links {
+          display: flex; gap: 32px; align-items: center; list-style: none;
+        }
+        .nav-links a {
+          color: var(--text-2); text-decoration: none;
+          font-size: 13px; font-weight: 500; letter-spacing: .04em;
+          transition: color .18s;
+        }
+        .nav-links a:hover { color: var(--text-1); }
+        .nav-contact {
+          padding: 9px 18px; border-radius: 6px;
+          border: 1px solid var(--teal);
+          color: var(--teal); background: transparent;
+          font-size: 13px; font-weight: 500; text-decoration: none;
+          transition: border-color .18s, background .18s, color .18s;
+          display: inline-flex; align-items: center; gap: 6px;
+          white-space: nowrap;
+        }
+        .nav-contact:hover { background: rgba(94,234,212,.06); }
+
+        .nav-mobile-trigger {
+          display: none;
+          background: transparent;
+          border: 1px solid var(--border);
+          border-radius: 6px;
+          padding: 8px;
+          color: var(--text-1);
+          cursor: pointer;
+          align-items: center;
+          justify-content: center;
+          transition: border-color .18s, background .18s;
+        }
+        .nav-mobile-trigger:hover { border-color: rgba(94,234,212,.3); }
+        .nav-mobile-trigger:focus-visible {
+          outline: 2px solid var(--teal);
+          outline-offset: 2px;
+        }
+
+        .nav-mobile-menu {
+          position: fixed;
+          top: 100px;
+          left: 0; right: 0;
+          background: rgba(2,8,23,.98);
+          backdrop-filter: blur(16px);
+          border-bottom: 1px solid var(--border);
+          z-index: 49;
+          overflow: hidden;
+        }
+        @media (max-width: 420px) {
+          .nav-mobile-menu { top: 88px; }
+        }
+        .nav-mobile-list {
+          list-style: none;
+          padding: 8px 20px 20px;
+          display: flex; flex-direction: column;
+        }
+        .nav-mobile-list li { border-bottom: 1px solid var(--border); }
+        .nav-mobile-list li:last-child { border-bottom: none; }
+        .nav-mobile-list a {
+          display: block;
+          padding: 16px 4px;
+          color: var(--text-1);
+          text-decoration: none;
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: .02em;
+        }
+        .nav-mobile-list a.active { color: var(--teal); }
+        .nav-mobile-list a.cta {
+          margin-top: 12px;
+          padding: 12px 16px;
+          background: var(--teal);
+          color: #021a14;
+          font-weight: 600;
+          border-radius: 6px;
+          text-align: center;
+        }
+        @media (max-width: 768px) {
+          .nav-links { display: none; }
+          .nav-mobile-trigger { display: inline-flex; }
+        }
+
+        /* ── HERO (calm, tight) ── */
+        .hero {
+          max-width: var(--max-w); margin: 0 auto;
+          padding: clamp(28px,3vw,40px) var(--px) clamp(20px,2.5vw,32px);
+          border-bottom: 1px solid var(--border);
+        }
+        .hero-label {
+          font-size: 11px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+          margin-bottom: 12px;
+        }
+        .hero h1 {
+          font-size: clamp(26px, 3.3vw, 47px);
+          font-weight: 500;
+          line-height: 1.04;
+          letter-spacing: -.026em;
+          color: var(--text-1);
+          max-width: 760px;
+          margin-bottom: 14px;
+        }
+        .hero h1 span { color: var(--teal); }
+        .hero-sub {
+          font-size: clamp(13.5px, 1.2vw, 15px);
+          line-height: 1.65;
+          color: var(--text-2);
+          max-width: 560px;
+          margin-bottom: 0;
+        }
+
+        /* ── BUTTONS ── */
+        .btn-primary {
+          display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+          padding: 11px 22px; border-radius: 7px;
+          background: var(--teal); color: #021a14;
+          font-size: 14px; font-weight: 600;
+          text-decoration: none;
+          border: none; cursor: pointer;
+          transition: opacity .18s;
+        }
+        .btn-primary:hover:not(:disabled) { opacity: .88; }
+        .btn-primary:disabled { opacity: .55; cursor: not-allowed; }
+        .btn-ghost {
+          display: inline-flex; align-items: center; gap: 7px;
+          padding: 11px 22px; border-radius: 7px;
+          border: 1px solid var(--border);
+          color: var(--text-2);
+          font-size: 14px; font-weight: 500;
+          text-decoration: none;
+          transition: border-color .18s, color .18s;
+        }
+        .btn-ghost:hover { border-color: rgba(255,255,255,.18); color: var(--text-1); }
+
+        /* ── SECTION COMMON ── */
+        .section {
+          max-width: var(--max-w); margin: 0 auto;
+          padding: clamp(28px,3.5vw,44px) var(--px);
+          border-bottom: 1px solid var(--border);
+        }
+        .section-alt { background: rgba(255,255,255,.016); }
+        .section-hd {
+          display: flex; flex-direction: column; gap: 5px;
+          margin-bottom: 24px;
+        }
+        .section-label {
+          font-size: 11px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+        }
+        .section-h2 {
+          font-size: clamp(19px, 2vw, 27px);
+          font-weight: 400;
+          letter-spacing: -.02em;
+          line-height: 1.1;
+          color: var(--text-1);
+          max-width: 540px;
+        }
+        .section-sub {
+          font-size: 13px; line-height: 1.6; color: var(--text-2);
+          max-width: 540px; margin-top: 2px;
+        }
+
+        /* ── CONTACT SECTION (form + details) ── */
+        .contact-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+          gap: clamp(24px, 3.5vw, 56px);
+          align-items: start;
+        }
+        @media (max-width: 880px) {
+          .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+        }
+
+        /* ── FORM ── */
+        .form-card {
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: clamp(22px, 2.4vw, 32px);
+          background: var(--surface);
+          display: flex; flex-direction: column; gap: 14px;
+        }
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        @media (max-width: 520px) {
+          .form-row { grid-template-columns: 1fr; }
+        }
+        .field {
+          display: flex; flex-direction: column; gap: 6px;
+        }
+        .field-label {
+          font-size: 11px; font-weight: 600; letter-spacing: .12em;
+          text-transform: uppercase; color: var(--text-3);
+        }
+        .field-input,
+        .field-select,
+        .field-textarea {
+          width: 100%;
+          padding: 11px 12px;
+          border-radius: 7px;
+          border: 1px solid var(--border);
+          background: rgba(2,8,23,.5);
+          color: var(--text-1);
+          font-size: 13.5px;
+          font-family: inherit;
+          line-height: 1.5;
+          outline: none;
+          transition: border-color .18s, background .18s;
+          -webkit-appearance: none;
+          appearance: none;
+        }
+        .field-input::placeholder,
+        .field-textarea::placeholder {
+          color: var(--text-3);
+        }
+        .field-input:focus,
+        .field-select:focus,
+        .field-textarea:focus {
+          border-color: rgba(94,234,212,.45);
+          background: rgba(2,8,23,.7);
+        }
+        .field-textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
+        .field-select {
+          padding-right: 36px;
+          background-image: linear-gradient(45deg, transparent 50%, var(--text-2) 50%),
+                            linear-gradient(135deg, var(--text-2) 50%, transparent 50%);
+          background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+          background-size: 5px 5px, 5px 5px;
+          background-repeat: no-repeat;
+        }
+        .field-select option {
+          background: var(--bg);
+          color: var(--text-1);
+        }
+        .form-actions {
+          display: flex; align-items: center; gap: 14px;
+          margin-top: 6px;
+          flex-wrap: wrap;
+        }
+        .form-note {
+          font-size: 12px; color: var(--text-3); line-height: 1.5;
+        }
+
+        /* ── FORM STATES ── */
+        .form-success,
+        .form-error {
+          padding: 12px 14px;
+          border-radius: 7px;
+          font-size: 13px; line-height: 1.55;
+        }
+        .form-success {
+          border: 1px solid rgba(94,234,212,.25);
+          background: rgba(94,234,212,.05);
+          color: var(--teal);
+        }
+        .form-error {
+          border: 1px solid rgba(248,113,113,.25);
+          background: rgba(248,113,113,.05);
+          color: #fca5a5;
+        }
+
+        /* ── DETAILS PANEL ── */
+        .details-panel {
+          display: flex; flex-direction: column;
+          padding-top: 4px;
+        }
+        .detail-row {
+          display: grid;
+          grid-template-columns: 18px 1fr;
+          gap: 14px;
+          align-items: start;
+          padding: 14px 0;
+          border-top: 1px solid var(--border);
+        }
+        .detail-row:first-child { border-top: none; padding-top: 0; }
+        .detail-icon {
+          color: var(--teal);
+          margin-top: 2px;
+        }
+        .detail-content {
+          display: flex; flex-direction: column; gap: 3px;
+          min-width: 0;
+        }
+        .detail-label {
+          font-size: 10px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--text-3);
+        }
+        .detail-value {
+          font-size: 13.5px; color: var(--text-1); font-weight: 400;
+          line-height: 1.5; word-break: break-word;
+        }
+        .detail-value a {
+          color: var(--text-1); text-decoration: none;
+          transition: color .18s;
+        }
+        .detail-value a:hover { color: var(--teal); }
+
+        /* ── ENGAGEMENT TYPES (homepage why-grid pattern) ── */
+        .eng-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+          column-gap: 32px;
+          row-gap: 0;
+        }
+        .eng-item {
+          padding: 16px 0;
+          border-top: 1px solid var(--border-t);
+        }
+        .eng-title {
+          font-size: 13.5px; font-weight: 600;
+          color: var(--text-1);
+          margin-bottom: 6px;
+        }
+        .eng-body {
+          font-size: 13px; line-height: 1.65;
+          color: var(--text-2);
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+          border-top: 1px solid var(--border);
+          padding: 24px var(--px);
+        }
+        .footer-inner {
+          max-width: var(--max-w); margin: 0 auto;
+          display: flex; justify-content: space-between; align-items: center;
+          gap: 16px; flex-wrap: wrap;
+        }
+        .footer-copy, .footer-naics {
+          font-size: 12px; color: var(--text-3);
+        }
+        @media (max-width: 560px) { .footer-naics { display: none; } }
+      `}</style>
+
+      {/* ── Navigation ── */}
+      <motion.header
+        className="nav"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
       >
-        <a href="/" style={{ display: 'inline-flex', alignItems: 'center', marginLeft: '-20px' }}>
-          <Image
-            src="/logos/navbar-logo-dark.png"
-            alt="Aleron Systems"
-            width={520}
-            height={160}
-            priority
-            style={{ width: '540px', height: 'auto', display: 'block' }}
-          />
-        </a>
-
-        <nav
-          style={{
-            display: 'flex',
-            gap: '24px',
-            flexWrap: 'nowrap',
-            alignItems: 'center',
-            fontSize: '16px',
-            fontWeight: 700,
-            letterSpacing: '0.04em',
-            textTransform: 'uppercase',
-          }}
-        >
-          <a href="/services" style={{ color: 'white', textDecoration: 'none' }}>Services</a>
-          <a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About</a>
-          <a href="/government" style={{ color: 'white', textDecoration: 'none' }}>Government</a>
-          <a href="/contact" style={{ color: '#5eead4', textDecoration: 'none' }}>Contact</a>
-        </nav>
-      </header>
-
-      <section
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '0px 28px 50px',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-          gap: '42px',
-          alignItems: 'start',
-        }}
-      >
-        <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
-          <div
-            style={{
-              color: '#5eead4',
-              marginBottom: '18px',
-              fontWeight: 800,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              fontSize: '16px',
-            }}
-          >
-            Contact Aleron Systems
-          </div>
-
-          <h1
-            style={{
-              fontSize: 'clamp(40px, 5vw, 68px)',
-              lineHeight: '0.98',
-              margin: '0 0 24px',
-              letterSpacing: '-0.04em',
-              maxWidth: '900px',
-            }}
-          >
-            Let’s talk through your technology needs.
-          </h1>
-
-          <p
-            style={{
-              color: '#dbeafe',
-              fontSize: '20px',
-              lineHeight: '1.5',
-              marginBottom: '26px',
-              maxWidth: '760px',
-            }}
-          >
-            Reach out for CRM consulting, Salesforce support, workflow automation,
-            infrastructure work, partnerships, or government contracting opportunities.
-          </p>
-
-          <div style={{ display: 'grid', gap: '16px', maxWidth: '620px' }}>
-            <div style={infoBoxStyle}>
-              <Mail color="#5eead4" size={22} />
-              <div>
-                <div style={labelStyle}>Email</div>
-                <a href="mailto:info@aleronsystems.com" style={valueLinkStyle}>
-                  info@aleronsystems.com
+        <div className="nav-inner">
+          <a href="/" className="nav-logo" onClick={() => setMenuOpen(false)}>
+            <img
+              src="/logos/navbar-logo-dark.png"
+              alt="Aleron Systems"
+              className="nav-logo-img"
+            />
+          </a>
+          <nav>
+            <ul className="nav-links">
+              <li><a href="/services">Services</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/government">Government</a></li>
+              <li>
+                <a href="/contact" className="nav-contact">
+                  Contact <ArrowRight size={12} />
                 </a>
-              </div>
-            </div>
-
-            <div style={infoBoxStyle}>
-              <Phone color="#5eead4" size={22} />
-              <div>
-                <div style={labelStyle}>Phone</div>
-                <a href="tel:2154446525" style={valueLinkStyle}>
-                  215.444.6525
-                </a>
-              </div>
-            </div>
-
-            <div style={infoBoxStyle}>
-              <MapPin color="#5eead4" size={22} />
-              <div>
-                <div style={labelStyle}>Location</div>
-                <div style={valueStyle}>Pennsylvania, United States</div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}>
-          <form
-            action="mailto:info@aleronsystems.com"
-            method="post"
-            encType="text/plain"
-            style={{
-              padding: '26px',
-              borderRadius: '28px',
-              background:
-                'linear-gradient(180deg, rgba(15,23,42,.92), rgba(7,16,31,.92))',
-              border: '1px solid rgba(94,234,212,.14)',
-              boxShadow: '0 28px 80px rgba(0,0,0,.28)',
-              display: 'grid',
-              gap: '16px',
-            }}
+              </li>
+            </ul>
+          </nav>
+          <button
+            type="button"
+            className="nav-mobile-trigger"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((o) => !o)}
           >
-            <h2 style={{ fontSize: '32px', margin: '0 0 8px', lineHeight: 1.05 }}>
-              Send a quick message
-            </h2>
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              id="mobile-menu"
+              className="nav-mobile-menu"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <ul className="nav-mobile-list">
+                <li><a href="/services" onClick={() => setMenuOpen(false)}>Services</a></li>
+                <li><a href="/about" onClick={() => setMenuOpen(false)}>About</a></li>
+                <li><a href="/government" onClick={() => setMenuOpen(false)}>Government</a></li>
+                <li><a href="/contact" className="active" onClick={() => setMenuOpen(false)}>Contact</a></li>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
 
-            <p style={{ color: '#cbd5e1', fontSize: '16px', lineHeight: '1.55', margin: '0 0 8px' }}>
-              Share a few details and we’ll follow up.
-            </p>
-
-            <input name="name" placeholder="Name" style={inputStyle} />
-            <input name="email" placeholder="Email" style={inputStyle} />
-            <input name="company" placeholder="Company" style={inputStyle} />
-            <textarea name="message" placeholder="How can we help?" rows={6} style={inputStyle} />
-
-            <button type="submit" style={buttonStyle}>
-              Send Message <ArrowRight size={18} />
-            </button>
-            
-            </form>
+      {/* ── Hero ── */}
+      <section className="hero">
+        <motion.div initial="hidden" animate="visible" variants={stagger}>
+          <motion.div className="hero-label" variants={fadeUp} custom={0}>
+            Contact
+          </motion.div>
+          <motion.h1 variants={fadeUp} custom={0.05}>
+            Discuss your Salesforce environment.
+          </motion.h1>
+          <motion.p className="hero-sub" variants={fadeUp} custom={0.1}>
+            For platform operations questions, release governance support, integration work, or government procurement conversations, reach out directly.
+          </motion.p>
         </motion.div>
       </section>
 
-      <footer
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '30px 28px 44px',
-          textAlign: 'center',
-          borderTop: '1px solid rgba(94,234,212,.12)',
-        }}
+      {/* ── Form + Details ── */}
+      <motion.section
+        className="section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        variants={stagger}
       >
-        <Image
-          src="/footer/footer-logo-dark.png"
-          alt="Aleron Systems"
-          width={300}
-          height={100}
-          style={{ width: '260px', height: 'auto' }}
-        />
-        <p style={{ color: '#94a3b8' }}>
-          CRM consulting • Cloud solutions • Workflow automation • Security & infrastructure
-        </p>
-        <p style={{ color: '#64748b', fontSize: '13px' }}>
-          © 2026 Aleron Systems LLC. All rights reserved.
-        </p>
+        <div className="contact-grid">
+          {/* Form */}
+          <motion.form
+            className="form-card"
+            variants={itemFade}
+            onSubmit={onSubmit}
+            noValidate
+          >
+            <div className="form-row">
+              <div className="field">
+                <label className="field-label" htmlFor="name">Name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  className="field-input"
+                  placeholder="Your name"
+                />
+              </div>
+              <div className="field">
+                <label className="field-label" htmlFor="company">Company</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  autoComplete="organization"
+                  className="field-input"
+                  placeholder="Company name"
+                />
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="field">
+                <label className="field-label" htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  className="field-input"
+                  placeholder="you@company.com"
+                />
+              </div>
+              <div className="field">
+                <label className="field-label" htmlFor="engagementType">Engagement Type</label>
+                <select
+                  id="engagementType"
+                  name="engagementType"
+                  defaultValue=""
+                  className="field-select"
+                >
+                  <option value="" disabled>Select an area</option>
+                  {engagementOptions.map((opt) => (
+                    <option key={opt} value={opt}>{opt}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="field">
+              <label className="field-label" htmlFor="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={6}
+                className="field-textarea"
+                placeholder="A few sentences about the environment or the work."
+              />
+            </div>
+
+            {status === 'success' && (
+              <div className="form-success" role="status">
+                Message received. We'll respond within 1 to 2 business days.
+              </div>
+            )}
+            {status === 'error' && (
+              <div className="form-error" role="alert">
+                {errorMessage || 'Something went wrong. Please try emailing info@aleronsystems.com directly.'}
+              </div>
+            )}
+
+            <div className="form-actions">
+              <button
+                type="submit"
+                className="btn-primary"
+                disabled={status === 'submitting'}
+              >
+                {status === 'submitting' ? 'Sending…' : (
+                  <>Send Message <ArrowRight size={14} /></>
+                )}
+              </button>
+              <span className="form-note">
+                Or email <a href="mailto:info@aleronsystems.com" style={{ color: 'var(--text-2)' }}>info@aleronsystems.com</a> directly.
+              </span>
+            </div>
+          </motion.form>
+
+          {/* Details */}
+          <motion.aside className="details-panel" variants={itemFade} aria-label="Contact details">
+            {contactDetails.map((d) => (
+              <div key={d.label} className="detail-row">
+                <span className="detail-icon" aria-hidden="true">{d.icon}</span>
+                <div className="detail-content">
+                  <div className="detail-label">{d.label}</div>
+                  <div className="detail-value">
+                    {d.href ? <a href={d.href}>{d.value}</a> : d.value}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </motion.aside>
+        </div>
+      </motion.section>
+
+      {/* ── Engagement Types ── */}
+      <div className="section-alt">
+      <motion.section
+        className="section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+        variants={stagger}
+      >
+        <motion.div className="section-hd" variants={itemFade}>
+          <div className="section-label">How Engagements Work</div>
+          <h2 className="section-h2">A short note on what to expect</h2>
+          <p className="section-sub">
+            Engagements are scoped to the work rather than packaged into fixed offerings. Most fall into one of the structures below.
+          </p>
+        </motion.div>
+
+        <motion.div className="eng-grid" variants={stagger}>
+          {engagementTypes.map((e) => (
+            <motion.div key={e.heading} className="eng-item" variants={itemFade}>
+              <div className="eng-title">{e.heading}</div>
+              <div className="eng-body">{e.body}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
+      </div>
+
+      {/* ── Footer ── */}
+      <footer className="footer">
+        <div className="footer-inner">
+          <div className="footer-copy">
+            © {new Date().getFullYear()} Aleron Systems LLC. All rights reserved.
+          </div>
+          <div className="footer-naics">
+            NAICS: 541511 · 541512 · 541519
+          </div>
+        </div>
       </footer>
     </main>
   );
 }
-
-const infoBoxStyle = {
-  display: 'flex',
-  gap: '14px',
-  alignItems: 'center',
-  padding: '18px',
-  borderRadius: '18px',
-  background: 'rgba(15,23,42,.75)',
-  border: '1px solid rgba(94,234,212,.14)',
-};
-
-const labelStyle = {
-  color: '#94a3b8',
-  fontSize: '13px',
-  marginBottom: '4px',
-  textTransform: 'uppercase' as const,
-  letterSpacing: '0.08em',
-};
-
-const valueStyle = {
-  color: '#f8fafc',
-  fontSize: '18px',
-  fontWeight: 700,
-};
-
-const valueLinkStyle = {
-  color: '#f8fafc',
-  fontSize: '18px',
-  fontWeight: 700,
-  textDecoration: 'none',
-};
-
-const inputStyle = {
-  width: '100%',
-  padding: '14px 16px',
-  borderRadius: '14px',
-  border: '1px solid rgba(94,234,212,.18)',
-  background: 'rgba(2,6,23,.65)',
-  color: 'white',
-  fontSize: '16px',
-  outline: 'none',
-};
-
-const buttonStyle = {
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '8px',
-  background: 'linear-gradient(135deg,#5eead4,#38bdf8)',
-  color: '#021014',
-  padding: '15px 22px',
-  borderRadius: '12px',
-  border: 'none',
-  fontWeight: 800,
-  fontSize: '16px',
-  cursor: 'pointer',
-};
