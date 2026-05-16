@@ -84,45 +84,6 @@ const engagementTypes = [
   },
 ];
 
-// ─── Form submission ──────────────────────────────────────────────────────────
-//
-// Integration hook. Wire any of the following here:
-//   • POST to /api/contact (Next.js route handler / server action)
-//   • POST to HubSpot Forms API
-//   • POST to Resend's /emails endpoint
-//   • Direct call to a server action via use server / form action
-//
-// The handler receives a typed payload below. Default behavior falls back to
-// a mailto: link so the form is functional before the backend is wired.
-
-type ContactPayload = {
-  name: string;
-  company: string;
-  email: string;
-  engagementType: string;
-  message: string;
-};
-
-async function submitContact(payload: ContactPayload): Promise<void> {
-  // Replace with real integration. Example shape:
-  //
-  //   const res = await fetch('/api/contact', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(payload),
-  //   });
-  //   if (!res.ok) throw new Error('Submission failed');
-
-  // Fallback for pre-integration: open user's mail client with prefilled body.
-  const subject = encodeURIComponent(
-    `Inquiry: ${payload.engagementType || 'General Discussion'}`,
-  );
-  const body = encodeURIComponent(
-    `Name: ${payload.name}\nCompany: ${payload.company}\nEmail: ${payload.email}\nEngagement Type: ${payload.engagementType}\n\n${payload.message}`,
-  );
-  window.location.href = `mailto:info@aleronsystems.com?subject=${subject}&body=${body}`;
-}
-
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ContactPage() {
@@ -134,23 +95,45 @@ export default function ContactPage() {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const payload: ContactPayload = {
+
+    const payload = {
       name: String(data.get('name') ?? '').trim(),
       company: String(data.get('company') ?? '').trim(),
       email: String(data.get('email') ?? '').trim(),
       engagementType: String(data.get('engagementType') ?? '').trim(),
       message: String(data.get('message') ?? '').trim(),
+      // Honeypot field: must remain empty for real users.
+      website: String(data.get('website') ?? ''),
     };
 
     setStatus('submitting');
     setErrorMessage('');
+
     try {
-      await submitContact(payload);
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json().catch(() => ({}));
+
+      if (!res.ok || !json.ok) {
+        throw new Error(
+          typeof json.error === 'string'
+            ? json.error
+            : 'Something went wrong. Please try again or email info@aleronsystems.com directly.',
+        );
+      }
+
       setStatus('success');
       form.reset();
     } catch (err) {
       setStatus('error');
-      setErrorMessage(err instanceof Error ? err.message : 'Something went wrong.');
+      setErrorMessage(
+        err instanceof Error
+          ? err.message
+          : 'Something went wrong. Please try again or email info@aleronsystems.com directly.',
+      );
     }
   }
 
@@ -202,18 +185,8 @@ export default function ContactPage() {
           align-items: center;
           justify-content: space-between;
         }
-        .nav-logo {
-          display: flex;
-          align-items: center;
-          flex-shrink: 0;
-          line-height: 0;
-        }
-        .nav-logo-img {
-          width: 447px;
-          height: auto;
-          display: block;
-          max-width: 60vw;
-        }
+        .nav-logo { display: flex; align-items: center; flex-shrink: 0; line-height: 0; }
+        .nav-logo-img { width: 447px; height: auto; display: block; max-width: 60vw; }
         @media (max-width: 768px) {
           .nav-inner { height: 100px; padding: 0 20px; }
           .nav-logo-img { width: 313px; }
@@ -222,9 +195,7 @@ export default function ContactPage() {
           .nav-inner { height: 88px; }
           .nav-logo-img { width: 270px; }
         }
-        .nav-links {
-          display: flex; gap: 32px; align-items: center; list-style: none;
-        }
+        .nav-links { display: flex; gap: 32px; align-items: center; list-style: none; }
         .nav-links a {
           color: var(--text-2); text-decoration: none;
           font-size: 13px; font-weight: 500; letter-spacing: .04em;
@@ -270,34 +241,20 @@ export default function ContactPage() {
           z-index: 49;
           overflow: hidden;
         }
-        @media (max-width: 420px) {
-          .nav-mobile-menu { top: 88px; }
-        }
-        .nav-mobile-list {
-          list-style: none;
-          padding: 8px 20px 20px;
-          display: flex; flex-direction: column;
-        }
+        @media (max-width: 420px) { .nav-mobile-menu { top: 88px; } }
+        .nav-mobile-list { list-style: none; padding: 8px 20px 20px; display: flex; flex-direction: column; }
         .nav-mobile-list li { border-bottom: 1px solid var(--border); }
         .nav-mobile-list li:last-child { border-bottom: none; }
         .nav-mobile-list a {
-          display: block;
-          padding: 16px 4px;
-          color: var(--text-1);
-          text-decoration: none;
-          font-size: 15px;
-          font-weight: 500;
-          letter-spacing: .02em;
+          display: block; padding: 16px 4px;
+          color: var(--text-1); text-decoration: none;
+          font-size: 15px; font-weight: 500; letter-spacing: .02em;
         }
         .nav-mobile-list a.active { color: var(--teal); }
         .nav-mobile-list a.cta {
-          margin-top: 12px;
-          padding: 12px 16px;
-          background: var(--teal);
-          color: #021a14;
-          font-weight: 600;
-          border-radius: 6px;
-          text-align: center;
+          margin-top: 12px; padding: 12px 16px;
+          background: var(--teal); color: #021a14;
+          font-weight: 600; border-radius: 6px; text-align: center;
         }
         @media (max-width: 768px) {
           .nav-links { display: none; }
@@ -317,20 +274,15 @@ export default function ContactPage() {
         }
         .hero h1 {
           font-size: clamp(26px, 3.3vw, 47px);
-          font-weight: 500;
-          line-height: 1.04;
-          letter-spacing: -.026em;
-          color: var(--text-1);
-          max-width: 760px;
-          margin-bottom: 14px;
+          font-weight: 500; line-height: 1.04;
+          letter-spacing: -.026em; color: var(--text-1);
+          max-width: 760px; margin-bottom: 14px;
         }
         .hero h1 span { color: var(--teal); }
         .hero-sub {
           font-size: clamp(13.5px, 1.2vw, 15px);
-          line-height: 1.65;
-          color: var(--text-2);
-          max-width: 560px;
-          margin-bottom: 0;
+          line-height: 1.65; color: var(--text-2);
+          max-width: 560px; margin-bottom: 0;
         }
 
         /* ── BUTTONS ── */
@@ -339,8 +291,7 @@ export default function ContactPage() {
           padding: 11px 22px; border-radius: 7px;
           background: var(--teal); color: #021a14;
           font-size: 14px; font-weight: 600;
-          text-decoration: none;
-          border: none; cursor: pointer;
+          text-decoration: none; border: none; cursor: pointer;
           transition: opacity .18s;
         }
         .btn-primary:hover:not(:disabled) { opacity: .88; }
@@ -363,28 +314,22 @@ export default function ContactPage() {
           border-bottom: 1px solid var(--border);
         }
         .section-alt { background: rgba(255,255,255,.016); }
-        .section-hd {
-          display: flex; flex-direction: column; gap: 5px;
-          margin-bottom: 24px;
-        }
+        .section-hd { display: flex; flex-direction: column; gap: 5px; margin-bottom: 24px; }
         .section-label {
           font-size: 11px; font-weight: 600; letter-spacing: .14em;
           text-transform: uppercase; color: var(--accent);
         }
         .section-h2 {
           font-size: clamp(19px, 2vw, 27px);
-          font-weight: 400;
-          letter-spacing: -.02em;
-          line-height: 1.1;
-          color: var(--text-1);
-          max-width: 540px;
+          font-weight: 400; letter-spacing: -.02em; line-height: 1.1;
+          color: var(--text-1); max-width: 540px;
         }
         .section-sub {
           font-size: 13px; line-height: 1.6; color: var(--text-2);
           max-width: 540px; margin-top: 2px;
         }
 
-        /* ── CONTACT SECTION (form + details) ── */
+        /* ── CONTACT GRID ── */
         .contact-grid {
           display: grid;
           grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
@@ -403,17 +348,9 @@ export default function ContactPage() {
           background: var(--surface);
           display: flex; flex-direction: column; gap: 14px;
         }
-        .form-row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-        }
-        @media (max-width: 520px) {
-          .form-row { grid-template-columns: 1fr; }
-        }
-        .field {
-          display: flex; flex-direction: column; gap: 6px;
-        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+        .field { display: flex; flex-direction: column; gap: 6px; }
         .field-label {
           font-size: 11px; font-weight: 600; letter-spacing: .12em;
           text-transform: uppercase; color: var(--text-3);
@@ -436,19 +373,14 @@ export default function ContactPage() {
           appearance: none;
         }
         .field-input::placeholder,
-        .field-textarea::placeholder {
-          color: var(--text-3);
-        }
+        .field-textarea::placeholder { color: var(--text-3); }
         .field-input:focus,
         .field-select:focus,
         .field-textarea:focus {
           border-color: rgba(94,234,212,.45);
           background: rgba(2,8,23,.7);
         }
-        .field-textarea {
-          resize: vertical;
-          min-height: 120px;
-        }
+        .field-textarea { resize: vertical; min-height: 120px; }
         .field-select {
           padding-right: 36px;
           background-image: linear-gradient(45deg, transparent 50%, var(--text-2) 50%),
@@ -457,17 +389,21 @@ export default function ContactPage() {
           background-size: 5px 5px, 5px 5px;
           background-repeat: no-repeat;
         }
-        .field-select option {
-          background: var(--bg);
-          color: var(--text-1);
-        }
+        .field-select option { background: var(--bg); color: var(--text-1); }
         .form-actions {
           display: flex; align-items: center; gap: 14px;
-          margin-top: 6px;
-          flex-wrap: wrap;
+          margin-top: 6px; flex-wrap: wrap;
         }
-        .form-note {
-          font-size: 12px; color: var(--text-3); line-height: 1.5;
+        .form-note { font-size: 12px; color: var(--text-3); line-height: 1.5; }
+
+        /* ── HONEYPOT (invisible to humans, visible to bots) ── */
+        .honeypot {
+          position: absolute;
+          left: -10000px;
+          top: auto;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
         }
 
         /* ── FORM STATES ── */
@@ -489,10 +425,7 @@ export default function ContactPage() {
         }
 
         /* ── DETAILS PANEL ── */
-        .details-panel {
-          display: flex; flex-direction: column;
-          padding-top: 4px;
-        }
+        .details-panel { display: flex; flex-direction: column; padding-top: 4px; }
         .detail-row {
           display: grid;
           grid-template-columns: 18px 1fr;
@@ -502,14 +435,8 @@ export default function ContactPage() {
           border-top: 1px solid var(--border);
         }
         .detail-row:first-child { border-top: none; padding-top: 0; }
-        .detail-icon {
-          color: var(--teal);
-          margin-top: 2px;
-        }
-        .detail-content {
-          display: flex; flex-direction: column; gap: 3px;
-          min-width: 0;
-        }
+        .detail-icon { color: var(--teal); margin-top: 2px; }
+        .detail-content { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
         .detail-label {
           font-size: 10px; font-weight: 600; letter-spacing: .14em;
           text-transform: uppercase; color: var(--text-3);
@@ -518,10 +445,7 @@ export default function ContactPage() {
           font-size: 13.5px; color: var(--text-1); font-weight: 400;
           line-height: 1.5; word-break: break-word;
         }
-        .detail-value a {
-          color: var(--text-1); text-decoration: none;
-          transition: color .18s;
-        }
+        .detail-value a { color: var(--text-1); text-decoration: none; transition: color .18s; }
         .detail-value a:hover { color: var(--teal); }
 
         /* ── ENGAGEMENT TYPES (homepage why-grid pattern) ── */
@@ -531,33 +455,18 @@ export default function ContactPage() {
           column-gap: 32px;
           row-gap: 0;
         }
-        .eng-item {
-          padding: 16px 0;
-          border-top: 1px solid var(--border-t);
-        }
-        .eng-title {
-          font-size: 13.5px; font-weight: 600;
-          color: var(--text-1);
-          margin-bottom: 6px;
-        }
-        .eng-body {
-          font-size: 13px; line-height: 1.65;
-          color: var(--text-2);
-        }
+        .eng-item { padding: 16px 0; border-top: 1px solid var(--border-t); }
+        .eng-title { font-size: 13.5px; font-weight: 600; color: var(--text-1); margin-bottom: 6px; }
+        .eng-body { font-size: 13px; line-height: 1.65; color: var(--text-2); }
 
         /* ── FOOTER ── */
-        .footer {
-          border-top: 1px solid var(--border);
-          padding: 24px var(--px);
-        }
+        .footer { border-top: 1px solid var(--border); padding: 24px var(--px); }
         .footer-inner {
           max-width: var(--max-w); margin: 0 auto;
           display: flex; justify-content: space-between; align-items: center;
           gap: 16px; flex-wrap: wrap;
         }
-        .footer-copy, .footer-naics {
-          font-size: 12px; color: var(--text-3);
-        }
+        .footer-copy, .footer-naics { font-size: 12px; color: var(--text-3); }
         @media (max-width: 560px) { .footer-naics { display: none; } }
       `}</style>
 
@@ -644,13 +553,24 @@ export default function ContactPage() {
         variants={stagger}
       >
         <div className="contact-grid">
-          {/* Form */}
           <motion.form
             className="form-card"
             variants={itemFade}
             onSubmit={onSubmit}
             noValidate
           >
+            {/* Honeypot. Real users never see or fill this. Bots typically do. */}
+            <div className="honeypot" aria-hidden="true">
+              <label htmlFor="website">Website (leave blank)</label>
+              <input
+                id="website"
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
             <div className="form-row">
               <div className="field">
                 <label className="field-label" htmlFor="name">Name</label>
@@ -720,7 +640,7 @@ export default function ContactPage() {
 
             {status === 'success' && (
               <div className="form-success" role="status">
-                Message received. We'll respond within 1 to 2 business days.
+                Thank you. Your message has been received.
               </div>
             )}
             {status === 'error' && (
@@ -745,7 +665,6 @@ export default function ContactPage() {
             </div>
           </motion.form>
 
-          {/* Details */}
           <motion.aside className="details-panel" variants={itemFade} aria-label="Contact details">
             {contactDetails.map((d) => (
               <div key={d.label} className="detail-row">
@@ -790,7 +709,6 @@ export default function ContactPage() {
       </motion.section>
       </div>
 
-      {/* ── Footer ── */}
       <footer className="footer">
         <div className="footer-inner">
           <div className="footer-copy">
