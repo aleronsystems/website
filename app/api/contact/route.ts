@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { contactSchema } from '@/lib/contact-schema';
+import { contactSchema } from '../../../lib/contact-schema';
 
 /**
  * POST /api/contact
