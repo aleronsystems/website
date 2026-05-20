@@ -32,10 +32,19 @@ const itemFade = {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const metrics = [
-  { value: '15+', label: 'Years Enterprise Experience' },
+  { value: '15+', label: 'Years Enterprise CRM Operations' },
   { value: '2,000+', label: 'Platform Users Supported' },
-  { value: 'Veteran', label: 'Owned Business' },
-  { value: 'Gearset', label: 'Deployment Certified' },
+  { value: 'VOSB', label: 'SAM Registered' },
+  { value: 'Regulated', label: 'Environment Experience' },
+];
+
+const coreCapabilities = [
+  'Salesforce Administration',
+  'CRM Automation',
+  'Release Governance',
+  'CI/CD Coordination',
+  'Experience Cloud',
+  'Enterprise Platform Support',
 ];
 
 const services = [
@@ -81,8 +90,8 @@ const whyAleron = [
     body: 'Supported Salesforce and CI/CD operations where deployment documentation, change control, and audit-readiness are required, including FDA 21 CFR Part 11 aligned practices.',
   },
   {
-    heading: 'Certified in the Tools That Matter',
-    body: 'Gearset Deployment Certified. Workato Automation Pro I & II. Hands-on with AutoRABIT, Celigo, GitHub, and Data Loader.',
+    heading: 'Production Release Governance',
+    body: 'Hands-on with the deployment and integration tooling that runs enterprise CRM environments: Gearset, AutoRABIT, Workato, Celigo, GitHub, and Data Loader across production pipelines.',
   },
   {
     heading: 'Senior Work, Directly Delivered',
@@ -369,6 +378,46 @@ export default function HomePage() {
           font-size: 10px; font-weight: 500;
           letter-spacing: .08em; text-transform: uppercase;
           color: var(--text-3);
+        }
+
+        /* ── CORE CAPABILITIES SNAPSHOT (subtle scannable strip) ── */
+        .capabilities {
+          max-width: var(--max-w); margin: 0 auto;
+          padding: 18px var(--px);
+          border-bottom: 1px solid var(--border);
+          display: flex;
+          align-items: baseline;
+          gap: clamp(14px, 2vw, 28px);
+          flex-wrap: wrap;
+        }
+        .cap-label {
+          font-size: 10px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+          flex-shrink: 0;
+        }
+        .cap-list {
+          display: flex; flex-wrap: wrap;
+          gap: 6px 18px;
+          list-style: none;
+          padding: 0; margin: 0;
+        }
+        .cap-list li {
+          font-size: 12.5px;
+          color: var(--text-2);
+          letter-spacing: .005em;
+          position: relative;
+          padding-right: 18px;
+        }
+        .cap-list li:not(:last-child)::after {
+          content: '·';
+          position: absolute;
+          right: 4px;
+          color: var(--text-3);
+        }
+        @media (max-width: 560px) {
+          .capabilities { flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px var(--px); }
+          .cap-list { gap: 4px 14px; }
+          .cap-list li { padding-right: 14px; font-size: 12px; }
         }
 
         /* ── SECTION COMMON ── */
@@ -668,16 +717,16 @@ export default function HomePage() {
       <section className="hero">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
           <motion.div className="hero-label" variants={fadeUp} custom={0}>
-            Salesforce Administration · Flow Automation · Release Governance
+            Enterprise CRM Operations · Release Governance · Production Platform Support
           </motion.div>
           <motion.h1 variants={fadeUp} custom={0.05}>
             Enterprise Salesforce Operations &amp;{' '}
             <span>Release Governance</span>
           </motion.h1>
           <motion.p className="hero-sub" variants={fadeUp} custom={0.1}>
-            Senior-level Salesforce administration, workflow automation, and deployment
-            governance for enterprise environments. Hands-on platform work. Compliance-aware.
-            No junior handoffs.
+            Supporting enterprise CRM environments through structured automation,
+            deployment governance, and operational platform ownership. Senior delivery.
+            Production-aware. Compliance-aligned.
           </motion.p>
           <motion.div className="hero-btns" variants={fadeUp} custom={0.15}>
             <a href="/contact" className="btn-primary">
@@ -704,6 +753,23 @@ export default function HomePage() {
             <div className="metric-lbl">{m.label}</div>
           </motion.div>
         ))}
+      </motion.div>
+
+      {/* ── Core Capabilities snapshot ── */}
+      <motion.div
+        className="capabilities"
+        initial={{ opacity: 0, y: 4 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+        aria-label="Core capabilities"
+      >
+        <div className="cap-label">Core Capabilities</div>
+        <ul className="cap-list">
+          {coreCapabilities.map((c) => (
+            <li key={c}>{c}</li>
+          ))}
+        </ul>
       </motion.div>
 
       {/* ── Services ── */}
@@ -779,7 +845,7 @@ export default function HomePage() {
               Senior-level Salesforce operations, governance, automation, and integration
               support across enterprise and regulated environments. 15 years of hands-on
               platform work. Direct engagement, without the overhead of a large firm.
-              Veteran-owned consulting firm.
+              Veteran-owned. SAM registered.
             </p>
           </div>
         </motion.div>
