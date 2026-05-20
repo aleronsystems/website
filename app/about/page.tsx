@@ -60,7 +60,7 @@ const philosophy = [
 
 const credentials = [
   {
-    label: 'Certifications',
+    label: 'Certified Tooling',
     value: 'Gearset Deployment Certified\nWorkato Automation Pro I & II',
   },
   {
@@ -88,7 +88,7 @@ const industries = [
   },
   {
     name: 'SaaS & Analytics',
-    note: 'Enterprise platform support, Flow modernization, Experience Cloud operations, and integration administration at scale.',
+    note: 'Enterprise platform support, workflow governance, Experience Cloud operations, and integration administration at scale.',
   },
   {
     name: 'Retail Technology',
@@ -371,15 +371,16 @@ export default function AboutPage() {
         .founder-photo-wrap {
           position: relative;
           width: 100%;
-          max-width: 360px;
+          max-width: 320px;
           justify-self: end;
           border: 1px solid var(--border);
           border-radius: 8px;
           overflow: hidden;
           background: var(--surface);
+          padding: 6px;
         }
         @media (max-width: 820px) {
-          .founder-photo-wrap { justify-self: start; max-width: 280px; }
+          .founder-photo-wrap { justify-self: start; max-width: 260px; padding: 5px; }
         }
         .founder-photo {
           width: 100%;
@@ -388,6 +389,7 @@ export default function AboutPage() {
           aspect-ratio: 4 / 5;
           object-fit: cover;
           object-position: center 22%;
+          border-radius: 4px;
         }
 
         /* ── PHILOSOPHY (matches homepage why-grid pattern) ── */
@@ -580,7 +582,7 @@ export default function AboutPage() {
             <span>operational experience</span>.
           </motion.h1>
           <motion.p className="hero-sub" variants={fadeUp} custom={0.1}>
-            Aleron Systems is a veteran-owned consulting firm focused on enterprise Salesforce operations, workflow modernization, release governance, and platform support for environments where reliability and maintainability matter.
+            Aleron Systems is a veteran-owned consulting firm focused on enterprise Salesforce operations, workflow governance, release coordination, and platform support for environments where reliability and maintainability matter.
           </motion.p>
         </motion.div>
       </section>
@@ -603,7 +605,7 @@ export default function AboutPage() {
               Senior-level Salesforce operations, governance, automation, and integration support across enterprise and regulated environments. 15 years of hands-on platform work, including a single engagement supporting 2,000+ users over eight years.
             </p>
             <p>
-              Direct experience with Flow modernization, Experience Cloud operations, enterprise integration administration, and release coordination across Dev, QA, UAT, and Production environments. Comfortable working inside formal change control and audit-aware release practices.
+              Direct experience with Workflow governance and Flow consolidation, Experience Cloud operations, enterprise integration administration, and release coordination across Dev, QA, UAT, and Production environments. Comfortable working inside formal change control and audit-aware release practices.
             </p>
             <p>
               Engagements are operated personally. There is no account management layer between scoping and delivery, and no junior resources placed on production systems.
@@ -657,7 +659,7 @@ export default function AboutPage() {
       >
         <motion.div className="section-hd" variants={itemFade}>
           <div className="section-label">Tools &amp; Platforms</div>
-          <h2 className="section-h2">The working environment</h2>
+          <h2 className="section-h2">Operating environment and tooling</h2>
           <p className="section-sub">
             The tools and platforms used regularly across Salesforce operations, deployment governance, and integration work.
           </p>
@@ -684,7 +686,7 @@ export default function AboutPage() {
       >
         <motion.div className="section-hd" variants={itemFade}>
           <div className="section-label">Industries Supported</div>
-          <h2 className="section-h2">Environments where the work has been delivered</h2>
+          <h2 className="section-h2">Environments operated</h2>
           <p className="section-sub">
             Selected industries with direct platform operations and governance experience.
           </p>
