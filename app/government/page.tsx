@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
@@ -48,8 +48,18 @@ const itemFade = {
 const identifiers = [
   { label: 'UEI', value: 'SUQ9LD8LND96' },
   { label: 'CAGE Code', value: '200X0' },
-  { label: 'Business Status', value: 'Veteran-Owned Small Business' },
+  { label: 'SAM Status', value: 'Active · SAM Registered' },
+  { label: 'Business Status', value: 'Veteran-Owned Small Business (VOSB)' },
   { label: 'Entity', value: 'Pennsylvania Registered LLC' },
+];
+
+// Procurement scan strip: the highest-signal items for at-a-glance verification.
+// Shown directly under the hero so contracting officers can confirm vendor
+// status without scrolling into the full registrations grid.
+const procurementScan = [
+  { label: 'UEI', value: 'SUQ9LD8LND96' },
+  { label: 'CAGE', value: '200X0' },
+  { label: 'Status', value: 'VOSB · SAM Registered' },
 ];
 
 const naicsCodes = [
@@ -371,6 +381,63 @@ export default function GovernmentPage() {
         }
         .btn-ghost:hover { border-color: rgba(255,255,255,.18); color: var(--text-1); }
 
+        /* ── PROCUREMENT SCAN STRIP (under hero, above-the-fold) ── */
+        .procurement-scan {
+          max-width: var(--max-w); margin: 0 auto;
+          padding: 14px var(--px);
+          border-bottom: 1px solid var(--border);
+          background: rgba(255,255,255,.016);
+          display: flex;
+          align-items: center;
+          gap: clamp(14px, 2.2vw, 32px);
+          flex-wrap: wrap;
+        }
+        .ps-item {
+          display: inline-flex;
+          align-items: baseline;
+          gap: 8px;
+        }
+        .ps-label {
+          font-size: 10px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+        }
+        .ps-value {
+          font-size: 12.5px;
+          color: var(--text-1);
+          font-weight: 500;
+          letter-spacing: .005em;
+          font-variant-numeric: tabular-nums;
+        }
+        .ps-divider {
+          width: 1px; height: 14px;
+          background: var(--border);
+        }
+        .ps-cta {
+          margin-left: auto;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 12px;
+          border-radius: 6px;
+          border: 1px solid rgba(94,234,212,.30);
+          background: rgba(94,234,212,.04);
+          color: var(--teal);
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: .02em;
+          text-decoration: none;
+          transition: background .18s, border-color .18s;
+        }
+        .ps-cta:hover {
+          background: rgba(94,234,212,.08);
+          border-color: rgba(94,234,212,.5);
+        }
+        @media (max-width: 720px) {
+          .procurement-scan { gap: 10px 18px; padding: 12px var(--px); }
+          .ps-divider { display: none; }
+          .ps-cta { margin-left: 0; width: 100%; justify-content: center; }
+        }
+
         /* ── SECTION COMMON ── */
         .section {
           max-width: var(--max-w); margin: 0 auto;
@@ -663,7 +730,7 @@ export default function GovernmentPage() {
       <section className="hero">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
           <motion.div className="hero-label" variants={fadeUp} custom={0}>
-            Government &amp; Public Sector · Veteran-Owned · Compliance-Aware
+            Government &amp; Public Sector · VOSB · SAM Registered · Compliance-Aware
           </motion.div>
           <motion.h1 variants={fadeUp} custom={0.05}>
             Government Focused Salesforce Operations &amp;{' '}
@@ -687,6 +754,34 @@ export default function GovernmentPage() {
           </motion.div>
         </motion.div>
       </section>
+
+      {/* ── Procurement Scan Strip ── */}
+      <motion.div
+        className="procurement-scan"
+        initial={{ opacity: 0, y: 4 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+        aria-label="Procurement identifiers"
+      >
+        {procurementScan.map((item, idx) => (
+          <Fragment key={item.label}>
+            <div className="ps-item">
+              <span className="ps-label">{item.label}</span>
+              <span className="ps-value">{item.value}</span>
+            </div>
+            {idx < procurementScan.length - 1 && <span className="ps-divider" aria-hidden="true" />}
+          </Fragment>
+        ))}
+        <a
+          href="/docs/Aleron_Federal_Capability_Statement.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ps-cta"
+        >
+          <Download size={12} /> Capability Statement (PDF)
+        </a>
+      </motion.div>
 
       {/* ── Registrations & Identifiers ── */}
       <div className="section-alt">
@@ -729,6 +824,16 @@ export default function GovernmentPage() {
 
           <motion.div className="reg-card" variants={itemFade}>
             <div className="reg-card-label">Engagement Models</div>
+            <p
+              style={{
+                fontSize: '12.5px',
+                lineHeight: 1.6,
+                color: 'var(--text-2)',
+                marginBottom: '12px',
+              }}
+            >
+              Flexible contract structures aligned to operational support, project delivery, and ongoing platform governance.
+            </p>
             <div className="reg-list">
               {engagementModels.map((m) => (
                 <div key={m} className="reg-list-row">
@@ -755,7 +860,7 @@ export default function GovernmentPage() {
           <div className="section-label">Core Capabilities</div>
           <h2 className="section-h2">Operational Salesforce and CRM services</h2>
           <p className="section-sub">
-            Practical capability areas Aleron supports across commercial and public sector Salesforce environments.
+            Structured operational practices aligned to controlled deployment, change governance, and audit-aware environments across commercial and public sector Salesforce platforms.
           </p>
         </motion.div>
 
