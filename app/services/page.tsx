@@ -48,21 +48,21 @@ const services = [
     icon: <ShieldCheck size={18} />,
     title: 'Salesforce Administration',
     description:
-      'Roles, profiles, permission sets, page layouts, validation rules, and ongoing platform configuration across enterprise Salesforce orgs.',
+      'Ongoing platform administration across enterprise Salesforce orgs. Roles, profiles, permission sets, validation rules, and configuration changes performed against production with senior-level review.',
     examples: 'User access reviews · Security model maintenance · Data hygiene · Configuration changes',
   },
   {
     icon: <Workflow size={18} />,
-    title: 'Flow & Workflow Modernization',
+    title: 'Workflow Governance & Automation',
     description:
-      'Flow Builder development and migration of legacy Workflow Rules and Process Builders into consolidated Flow architecture with structured documentation.',
+      'Flow Builder development and migration of legacy Workflow Rules and Process Builders into consolidated, documented automation. Built to be maintained, not just delivered.',
     examples: 'Process Builder migration · Flow consolidation · Automation debugging · Documentation',
   },
   {
     icon: <GitBranch size={18} />,
     title: 'Release Governance & DevOps Coordination',
     description:
-      'Deployment coordination across Dev, QA, UAT, and Production environments using Gearset and AutoRABIT with change management suited to regulated work.',
+      'Deployment coordination across Dev, QA, UAT, and Production environments using Gearset and AutoRABIT with change control practices suited to regulated environments.',
     examples: 'Sandbox pipelines · Change tracking · Rollback planning · Audit-ready releases',
   },
   {
@@ -74,30 +74,30 @@ const services = [
   },
   {
     icon: <Cable size={18} />,
-    title: 'Enterprise Integrations',
+    title: 'Enterprise System Integration Support',
     description:
-      'Support and coordination of middleware integrations including Workato, Celigo, and direct API connections between Salesforce and adjacent systems.',
+      'Ongoing administration and coordination of middleware integrations including Workato, Celigo, and direct API connections between Salesforce and adjacent enterprise systems.',
     examples: 'Workato recipes · Celigo flows · API connections · Integration migrations',
   },
   {
     icon: <LifeBuoy size={18} />,
     title: 'CRM Operational Support',
     description:
-      'Steady state platform support covering user requests, defect triage, data hygiene, and recurring administrative tasks across business units.',
+      'Steady-state platform support covering user requests, defect triage, data hygiene, and recurring administrative work across business units.',
     examples: 'Tier 2/3 support · Defect triage · Data corrections · Recurring admin work',
   },
   {
     icon: <FlaskConical size={18} />,
     title: 'Sandbox & UAT Coordination',
     description:
-      'Sandbox lifecycle management, refresh planning, and structured UAT coordination aligned with release windows and stakeholder sign off.',
+      'Sandbox lifecycle management, refresh planning, and structured UAT coordination aligned with release windows and stakeholder sign-off.',
     examples: 'Refresh planning · UAT scripts · Stakeholder coordination · Release readiness',
   },
   {
     icon: <BarChart3 size={18} />,
-    title: 'Operational Reporting & Process Optimization',
+    title: 'Operational Reporting & Platform Visibility',
     description:
-      'Reporting, dashboards, and process review work focused on reducing manual effort and surfacing operational signal for business owners.',
+      'Reporting, dashboards, and process review focused on surfacing operational signal for business owners and reducing manual operational overhead.',
     examples: 'Report development · Dashboards · Process review · Operational metrics',
   },
 ];
@@ -124,7 +124,7 @@ const engagementModels = [
 const whyAleron = [
   {
     heading: 'Senior-Level Direct Engagement',
-    body: 'The person scoping the work is the person performing it. No account managers, no junior resources placed on production systems.',
+    body: 'The person scoping the work is the person performing it. No account managers between you and delivery. No junior resources placed on production systems.',
   },
   {
     heading: 'Regulated Environment Experience',
@@ -135,8 +135,8 @@ const whyAleron = [
     body: '15 years of hands-on Salesforce administration across enterprise environments, including a single engagement supporting 2,000+ users over eight years.',
   },
   {
-    heading: 'Deployment Governance Exposure',
-    body: 'Gearset Deployment Certified. Workato Automation Pro I & II. Hands-on with AutoRABIT, Celigo, GitHub, and Data Loader across production pipelines.',
+    heading: 'Production Release Governance',
+    body: 'Hands-on with the deployment and integration tooling that runs enterprise CRM environments: Gearset, AutoRABIT, Workato, Celigo, GitHub, and Data Loader across production pipelines.',
   },
 ];
 
@@ -581,7 +581,7 @@ export default function ServicesPage() {
       <section className="hero">
         <motion.div initial="hidden" animate="visible" variants={stagger}>
           <motion.div className="hero-label" variants={fadeUp} custom={0}>
-            Services · Salesforce Operations · Automation · Release Governance
+            Enterprise CRM Operations · Release Governance · Production Platform Support
           </motion.div>
           <motion.h1 variants={fadeUp} custom={0.05}>
             Operational Salesforce support, automation modernization, and{' '}
@@ -614,7 +614,7 @@ export default function ServicesPage() {
           <div className="section-label">Core Services</div>
           <h2 className="section-h2">Salesforce operations and platform services</h2>
           <p className="section-sub">
-            Focused capability areas built around direct enterprise platform experience.
+            Service areas built around operating live enterprise Salesforce environments. Each capability is delivered with direct senior involvement and against the operational reality of the platform.
           </p>
         </motion.div>
 
