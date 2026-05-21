@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Menu, X } from 'lucide-react';
 
 /**
- * SiteNav — shared site navigation header for Aleron Systems.
+ * SiteNav: shared site navigation header for Aleron Systems.
  *
  * Single source of truth for the nav across all pages. Each page renders:
  *
@@ -28,7 +28,7 @@ import { ArrowRight, Menu, X } from 'lucide-react';
  * 3. Mobile nav heights and logo widths were reduced one step from the
  *    previous values for a tighter, more premium mobile header feel.
  *
- *    Previous → Current,
+ *    Previous → Current
  *      ≤768px: 100px → 80px height,  313px → 240px logo
  *      ≤420px:  88px → 64px height,  270px → 200px logo
  */
@@ -58,6 +58,7 @@ export default function SiteNav({ active }: SiteNavProps) {
   const close = () => setMenuOpen(false);
 
   return (
+    <>
     <motion.header
       className="sn-nav"
       initial={{ opacity: 0 }}
@@ -149,15 +150,30 @@ export default function SiteNav({ active }: SiteNavProps) {
       </div>
 
       <style>{`
-        /* ── NAV CONTAINER ── */
+        /* ── NAV CONTAINER ──
+           Uses position: fixed (not sticky) because sticky depends on every
+           ancestor having overflow: visible and no transformed/contained
+           containing blocks. fixed is anchored to the viewport directly and
+           has zero ancestor dependencies, so it cannot silently break.
+           A height-matched spacer below pushes page content down so it does
+           not render underneath the fixed nav. */
         .sn-nav {
-          position: sticky; top: 0; z-index: 50;
+          position: fixed; top: 0; left: 0; right: 0;
+          z-index: 50;
           width: 100%;
           border-bottom: 1px solid rgba(255,255,255,.08);
           background: rgba(2,8,23,.92);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
         }
+        /* Spacer reserves vertical room equal to the nav height at each
+           breakpoint, so page content starts below the fixed nav rather
+           than under it. Heights must mirror .sn-inner heights exactly. */
+        .sn-spacer {
+          height: 132px;
+        }
+        @media (max-width: 768px) { .sn-spacer { height: 80px; } }
+        @media (max-width: 420px) { .sn-spacer { height: 64px; } }
         .sn-inner {
           position: relative; /* anchor for mobile menu panel */
           max-width: 1280px;
@@ -289,5 +305,8 @@ export default function SiteNav({ active }: SiteNavProps) {
         }
       `}</style>
     </motion.header>
+    {/* Spacer below the fixed nav so page content starts below it instead of underneath. */}
+    <div className="sn-spacer" aria-hidden="true" />
+    </>
   );
 }
