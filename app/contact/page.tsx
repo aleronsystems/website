@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Menu, X, Mail, MapPin, Clock, Globe } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Mail, MapPin, Clock, Globe } from 'lucide-react';
+import SiteNav from '../../components/SiteNav';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -87,7 +88,6 @@ const engagementTypes = [
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ContactPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
 
@@ -164,102 +164,12 @@ export default function ContactPage() {
           background-image: radial-gradient(ellipse 70% 40% at 15% 0%, rgba(56,189,248,.05) 0%, transparent 55%);
           color: var(--text-1);
           font-family: -apple-system, 'Segoe UI', sans-serif;
-          overflow-x: hidden;
           -webkit-font-smoothing: antialiased;
         }
+        /* Horizontal scroll protection that does not break sticky/fixed contexts. */
+        html, body { overflow-x: clip; }
 
-        /* ── NAV ── */
-        .nav {
-          width: 100%;
-          border-bottom: 1px solid rgba(255,255,255,.08);
-          background: rgba(2,8,23,.92);
-          backdrop-filter: blur(12px);
-          position: sticky; top: 0; z-index: 50;
-        }
-        .nav-inner {
-          max-width: 1280px;
-          height: 132px;
-          margin: 0 auto;
-          padding: 0 40px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-        .nav-logo { display: flex; align-items: center; flex-shrink: 0; line-height: 0; }
-        .nav-logo-img { width: 447px; height: auto; display: block; max-width: 60vw; }
-        @media (max-width: 768px) {
-          .nav-inner { height: 100px; padding: 0 20px; }
-          .nav-logo-img { width: 313px; }
-        }
-        @media (max-width: 420px) {
-          .nav-inner { height: 88px; }
-          .nav-logo-img { width: 270px; }
-        }
-        .nav-links { display: flex; gap: 32px; align-items: center; list-style: none; }
-        .nav-links a {
-          color: var(--text-2); text-decoration: none;
-          font-size: 13px; font-weight: 500; letter-spacing: .04em;
-          transition: color .18s;
-        }
-        .nav-links a:hover { color: var(--text-1); }
-        .nav-contact {
-          padding: 9px 18px; border-radius: 6px;
-          border: 1px solid var(--teal);
-          color: var(--teal); background: transparent;
-          font-size: 13px; font-weight: 500; text-decoration: none;
-          transition: border-color .18s, background .18s, color .18s;
-          display: inline-flex; align-items: center; gap: 6px;
-          white-space: nowrap;
-        }
-        .nav-contact:hover { background: rgba(94,234,212,.06); }
-
-        .nav-mobile-trigger {
-          display: none;
-          background: transparent;
-          border: 1px solid var(--border);
-          border-radius: 6px;
-          padding: 8px;
-          color: var(--text-1);
-          cursor: pointer;
-          align-items: center;
-          justify-content: center;
-          transition: border-color .18s, background .18s;
-        }
-        .nav-mobile-trigger:hover { border-color: rgba(94,234,212,.3); }
-        .nav-mobile-trigger:focus-visible {
-          outline: 2px solid var(--teal);
-          outline-offset: 2px;
-        }
-
-        .nav-mobile-menu {
-          position: fixed;
-          top: 100px;
-          left: 0; right: 0;
-          background: rgba(2,8,23,.98);
-          backdrop-filter: blur(16px);
-          border-bottom: 1px solid var(--border);
-          z-index: 49;
-          overflow: hidden;
-        }
-        @media (max-width: 420px) { .nav-mobile-menu { top: 88px; } }
-        .nav-mobile-list { list-style: none; padding: 8px 20px 20px; display: flex; flex-direction: column; }
-        .nav-mobile-list li { border-bottom: 1px solid var(--border); }
-        .nav-mobile-list li:last-child { border-bottom: none; }
-        .nav-mobile-list a {
-          display: block; padding: 16px 4px;
-          color: var(--text-1); text-decoration: none;
-          font-size: 15px; font-weight: 500; letter-spacing: .02em;
-        }
-        .nav-mobile-list a.active { color: var(--teal); }
-        .nav-mobile-list a.cta {
-          margin-top: 12px; padding: 12px 16px;
-          background: var(--teal); color: #021a14;
-          font-weight: 600; border-radius: 6px; text-align: center;
-        }
-        @media (max-width: 768px) {
-          .nav-links { display: none; }
-          .nav-mobile-trigger { display: inline-flex; }
-        }
+        /* Nav styles now live inside components/SiteNav.tsx */
 
         /* ── HERO (calm, tight) ── */
         .hero {
@@ -471,63 +381,7 @@ export default function ContactPage() {
       `}</style>
 
       {/* ── Navigation ── */}
-      <motion.header
-        className="nav"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
-      >
-        <div className="nav-inner">
-          <a href="/" className="nav-logo" onClick={() => setMenuOpen(false)}>
-            <img
-              src="/logos/navbar-logo-dark.png"
-              alt="Aleron Systems"
-              className="nav-logo-img"
-            />
-          </a>
-          <nav>
-            <ul className="nav-links">
-              <li><a href="/services">Services</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/government">Government</a></li>
-              <li>
-                <a href="/contact" className="nav-contact">
-                  Contact <ArrowRight size={12} />
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <button
-            type="button"
-            className="nav-mobile-trigger"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setMenuOpen((o) => !o)}
-          >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              id="mobile-menu"
-              className="nav-mobile-menu"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
-              <ul className="nav-mobile-list">
-                <li><a href="/services" onClick={() => setMenuOpen(false)}>Services</a></li>
-                <li><a href="/about" onClick={() => setMenuOpen(false)}>About</a></li>
-                <li><a href="/government" onClick={() => setMenuOpen(false)}>Government</a></li>
-                <li><a href="/contact" className="active" onClick={() => setMenuOpen(false)}>Contact</a></li>
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.header>
+      <SiteNav active="contact" />
 
       {/* ── Hero ── */}
       <section className="hero">
