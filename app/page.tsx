@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, BarChart3, Zap, TrendingUp, GitMerge, Server, ShieldCheck } from 'lucide-react';
-import SiteNav from '../../components/SiteNav';
+import SiteNav from '../components/SiteNav';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
