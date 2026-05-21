@@ -126,9 +126,14 @@ export default function AboutPage() {
           background-image: radial-gradient(ellipse 70% 40% at 15% 0%, rgba(56,189,248,.05) 0%, transparent 55%);
           color: var(--text-1);
           font-family: -apple-system, 'Segoe UI', sans-serif;
-          overflow-x: hidden;
           -webkit-font-smoothing: antialiased;
+          /* overflow-x: hidden removed; it establishes an overflow context
+             that breaks `position: sticky` on the nav. Horizontal overflow
+             protection moved to html, body via overflow-x: clip below, which
+             does not create a sticky-breaking containing block. */
         }
+        /* Horizontal scroll protection that does not break position: sticky. */
+        html, body { overflow-x: clip; }
 
         /* Nav styles now live inside components/SiteNav.tsx */
 
