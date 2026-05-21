@@ -128,7 +128,7 @@ export default function AboutPage() {
           font-family: -apple-system, 'Segoe UI', sans-serif;
           -webkit-font-smoothing: antialiased;
           /* overflow-x: hidden removed; it establishes an overflow context
-             that breaks `position: sticky` on the nav. Horizontal overflow
+             that breaks position: sticky on the nav. Horizontal overflow
              protection moved to html, body via overflow-x: clip below, which
              does not create a sticky-breaking containing block. */
         }
