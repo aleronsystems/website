@@ -28,7 +28,7 @@ import { ArrowRight, Menu, X } from 'lucide-react';
  * 3. Mobile nav heights and logo widths were reduced one step from the
  *    previous values for a tighter, more premium mobile header feel.
  *
- *    Previous → Current
+ *    Previous → Current,
  *      ≤768px: 100px → 80px height,  313px → 240px logo
  *      ≤420px:  88px → 64px height,  270px → 200px logo
  */
