@@ -168,12 +168,14 @@ export default function SiteNav({ active }: SiteNavProps) {
         }
         /* Spacer reserves vertical room equal to the nav height at each
            breakpoint, so page content starts below the fixed nav rather
-           than under it. Heights must mirror .sn-inner heights exactly. */
+           than under it. Heights add a small buffer at mobile breakpoints
+           to absorb the 1px border-bottom on .sn-nav and sub-pixel
+           rounding inconsistencies in iOS Safari. */
         .sn-spacer {
           height: 132px;
         }
-        @media (max-width: 768px) { .sn-spacer { height: 80px; } }
-        @media (max-width: 420px) { .sn-spacer { height: 64px; } }
+        @media (max-width: 768px) { .sn-spacer { height: 84px; } }
+        @media (max-width: 420px) { .sn-spacer { height: 68px; } }
         .sn-inner {
           position: relative; /* anchor for mobile menu panel */
           max-width: 1280px;
