@@ -52,6 +52,63 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Site-wide JSON-LD structured data.
+ *
+ * Two schemas described on every page: Organization (the company entity)
+ * and ProfessionalService (the business as a service provider). Both
+ * describe the same entity from different angles, which search engines
+ * handle correctly. The ProfessionalService schema lives at root because
+ * app/page.tsx is a client component and cannot cleanly own a server-only
+ * JSON-LD script tag; rendering it from the root layout means it appears
+ * on subpages too, which is semantically harmless and saves a per-route
+ * edit to existing client page files.
+ *
+ * Logo path uses the verified deployed asset at /logos/navbar-logo-dark.png
+ * (referenced by SiteNav). Update if a dedicated /logo.png asset is added
+ * to /public.
+ */
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Aleron Systems LLC',
+  alternateName: 'Aleron Systems',
+  url: 'https://aleronsystems.com',
+  logo: 'https://aleronsystems.com/logos/navbar-logo-dark.png',
+  description:
+    'Enterprise Salesforce operations, CRM governance, workflow automation, release coordination, and government-ready platform support.',
+  areaServed: 'US',
+  foundingLocation: {
+    '@type': 'Place',
+    name: 'Pennsylvania, United States',
+  },
+  sameAs: [],
+};
+
+const professionalServiceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Aleron Systems LLC',
+  url: 'https://aleronsystems.com',
+  image: 'https://aleronsystems.com/logos/navbar-logo-dark.png',
+  description:
+    'Enterprise Salesforce operations, CRM governance, workflow automation, release coordination, and government-ready platform support.',
+  areaServed: 'US',
+  serviceType: [
+    'Salesforce Administration',
+    'CRM Governance',
+    'Workflow Automation',
+    'Release Coordination',
+    'Enterprise Platform Support',
+    'Government CRM Capabilities',
+  ],
+  provider: {
+    '@type': 'Organization',
+    name: 'Aleron Systems LLC',
+    url: 'https://aleronsystems.com',
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -60,6 +117,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ margin: 0 }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
+        />
         {children}
       </body>
     </html>
