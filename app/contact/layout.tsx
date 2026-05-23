@@ -29,10 +29,37 @@ export const metadata: Metadata = {
   },
 };
 
+const contactPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  url: 'https://aleronsystems.com/contact',
+  name: 'Contact | Aleron Systems',
+  description:
+    'Connect with Aleron Systems regarding Salesforce operations, CRM governance, workflow optimization, and enterprise support engagements.',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'Aleron Systems',
+    url: 'https://aleronsystems.com',
+  },
+  about: {
+    '@type': 'Organization',
+    name: 'Aleron Systems LLC',
+    url: 'https://aleronsystems.com',
+  },
+};
+
 export default function ContactLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }}
+      />
+      {children}
+    </>
+  );
 }
