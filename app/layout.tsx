@@ -94,18 +94,53 @@ const professionalServiceSchema = {
   description:
     'Enterprise Salesforce operations, CRM governance, workflow automation, release coordination, and government-ready platform support.',
   areaServed: 'US',
-  serviceType: [
-    'Salesforce Administration',
-    'CRM Governance',
-    'Workflow Automation',
-    'Release Coordination',
-    'Enterprise Platform Support',
-    'Government CRM Capabilities',
-  ],
-  provider: {
-    '@type': 'Organization',
-    name: 'Aleron Systems LLC',
-    url: 'https://aleronsystems.com',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Salesforce Consulting Services',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Salesforce Administration',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'CRM Governance',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Workflow Automation',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Release Coordination',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Enterprise Platform Support',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Government CRM Capabilities',
+        },
+      },
+    ],
   },
 };
 
