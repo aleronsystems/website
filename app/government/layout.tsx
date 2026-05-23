@@ -29,10 +29,51 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Government page schema.
+ *
+ * Uses WebPage rather than GovernmentService. The schema.org
+ * GovernmentService type means "a service provided BY a government
+ * entity to constituents" (e.g. license renewal). It does NOT mean
+ * "services offered to governments." Using it here would mis-categorize
+ * Aleron as a public-sector body. WebPage with audience targeting is
+ * the correct semantic match.
+ */
+const governmentPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  url: 'https://aleronsystems.com/government',
+  name: 'Government Capabilities | Aleron Systems',
+  description:
+    'Government-ready Salesforce operations, CRM modernization, workflow governance, and enterprise platform support for public sector organizations.',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'Aleron Systems',
+    url: 'https://aleronsystems.com',
+  },
+  audience: {
+    '@type': 'GovernmentAudience',
+    name: 'Public sector organizations and government agencies',
+  },
+  about: {
+    '@type': 'Organization',
+    name: 'Aleron Systems LLC',
+    url: 'https://aleronsystems.com',
+  },
+};
+
 export default function GovernmentLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(governmentPageSchema) }}
+      />
+      {children}
+    </>
+  );
 }
