@@ -33,10 +33,37 @@ export const metadata: Metadata = {
   },
 };
 
+const aboutPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  url: 'https://aleronsystems.com/about',
+  name: 'About | Aleron Systems',
+  description:
+    'Operational Salesforce leadership with enterprise platform support, governance, release coordination, and production environment experience.',
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'Aleron Systems',
+    url: 'https://aleronsystems.com',
+  },
+  about: {
+    '@type': 'Organization',
+    name: 'Aleron Systems LLC',
+    url: 'https://aleronsystems.com',
+  },
+};
+
 export default function AboutLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
+      {children}
+    </>
+  );
 }
