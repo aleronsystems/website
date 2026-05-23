@@ -7,12 +7,13 @@
     "build": "next build",
     "start": "next start"
   },
-  "dependencies": {
+"dependencies": {
     "next": "14.2.5",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "framer-motion": "^11.3.19",
     "lucide-react": "^0.441.0",
+    "posthog-js": "^1.207.0",
     "resend": "^4.0.0",
     "zod": "^3.23.8"
   },
