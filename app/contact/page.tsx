@@ -376,6 +376,30 @@ export default function ContactPage() {
         .detail-value a { color: var(--text-1); text-decoration: none; transition: color .18s; }
         .detail-value a:hover { color: var(--teal); }
 
+        /* ── SCHEDULE CARD (secondary Calendly CTA inside details panel) ── */
+        .schedule-card {
+          margin-top: 18px;
+          padding: 18px 16px;
+          border: 1px solid var(--border-t);
+          border-radius: 8px;
+          background: rgba(94,234,212,.025);
+          display: flex; flex-direction: column; gap: 10px;
+        }
+        .schedule-label {
+          font-size: 10px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+        }
+        .schedule-title {
+          font-size: 14px; font-weight: 600; color: var(--text-1); line-height: 1.4;
+        }
+        .schedule-copy {
+          font-size: 13px; color: var(--text-2); line-height: 1.55;
+        }
+        .schedule-card .btn-primary {
+          align-self: flex-start;
+          margin-top: 2px;
+        }
+
         /* ── ENGAGEMENT TYPES (homepage why-grid pattern) ── */
         .eng-grid {
           display: grid;
@@ -549,6 +573,32 @@ export default function ContactPage() {
                 </div>
               </div>
             ))}
+
+            <div className="schedule-card">
+              <div className="schedule-label">Schedule Directly</div>
+              <div className="schedule-title">Prefer to schedule directly?</div>
+              <div className="schedule-copy">
+                Book a 30 minute consultation and choose a time that works for you.
+              </div>
+              <a
+                href="https://calendly.com/bogdan-aleronsystems/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary"
+                onClick={() => {
+                  try {
+                    posthog.capture('calendly_opened', {
+                      source: 'contact_page',
+                      cta: 'Book a Consultation',
+                    });
+                  } catch {
+                    // Swallow analytics errors so navigation is never blocked.
+                  }
+                }}
+              >
+                Book a Consultation
+              </a>
+            </div>
           </motion.aside>
         </div>
       </motion.section>
