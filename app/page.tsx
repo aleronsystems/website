@@ -561,7 +561,7 @@ export default function HomePage() {
                 try {
                   posthog.capture('calendly_opened', {
                     source: 'homepage',
-                    cta: 'Book Consultation',
+                    cta: 'Book a Consultation',
                   });
                 } catch {
                   // Swallow analytics errors so navigation is never blocked.
