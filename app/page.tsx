@@ -48,6 +48,11 @@ const coreCapabilities = [
   'Enterprise Platform Support',
 ];
 
+// Enterprise client list shown in the subtle trust strip below the hero.
+// Mirrors the four detailed case studies further down the page; the strip
+// gives a fast-recognition signal before the visitor scrolls.
+const trustStripClients = ['Qlik', 'UL Solutions', 'BankUnited', 'Aptos'];
+
 const services = [
   {
     icon: <BarChart3 size={18} />,
@@ -299,6 +304,48 @@ export default function HomePage() {
           .cap-list li { padding-right: 14px; font-size: 12px; }
         }
 
+        /* ── TRUST STRIP (enterprise client signal, sits between hero and metrics) ── */
+        .trust-strip {
+          max-width: var(--max-w); margin: 0 auto;
+          padding: 18px var(--px);
+          border-bottom: 1px solid var(--border);
+          display: flex;
+          align-items: baseline;
+          gap: clamp(14px, 2vw, 32px);
+          flex-wrap: wrap;
+        }
+        .trust-label {
+          font-size: 10px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+          flex-shrink: 0;
+        }
+        .trust-list {
+          display: flex; flex-wrap: wrap;
+          gap: 6px 22px;
+          list-style: none;
+          padding: 0; margin: 0;
+        }
+        .trust-list li {
+          font-size: 13px;
+          font-weight: 500;
+          color: var(--text-1);
+          letter-spacing: .01em;
+          position: relative;
+          padding-right: 22px;
+        }
+        .trust-list li:not(:last-child)::after {
+          content: '·';
+          position: absolute;
+          right: 6px;
+          color: var(--text-3);
+          font-weight: 400;
+        }
+        @media (max-width: 560px) {
+          .trust-strip { flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px var(--px); }
+          .trust-list { gap: 4px 18px; }
+          .trust-list li { padding-right: 18px; font-size: 12.5px; }
+        }
+
         /* ── SECTION COMMON ── */
         .section {
           max-width: var(--max-w); margin: 0 auto;
@@ -547,9 +594,9 @@ export default function HomePage() {
             <span>Release Governance</span>
           </motion.h1>
           <motion.p className="hero-sub" variants={fadeUp} custom={0.1}>
-            Supporting enterprise CRM environments through structured automation,
-            deployment governance, and operational platform ownership. Senior delivery.
-            Production-aware. Compliance-aligned.
+            Operational modernization, workflow optimization, and release governance
+            for enterprise CRM environments. Built for regulated workloads and
+            scalable platform operations.
           </motion.p>
           <motion.div className="hero-btns" variants={fadeUp} custom={0.15}>
             <a
@@ -576,6 +623,23 @@ export default function HomePage() {
           </motion.div>
         </motion.div>
       </section>
+
+      {/* ── Trust Strip (enterprise client signal) ── */}
+      <motion.div
+        className="trust-strip"
+        initial={{ opacity: 0, y: 4 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+        aria-label="Enterprise experience"
+      >
+        <div className="trust-label">Enterprise Experience Supporting</div>
+        <ul className="trust-list">
+          {trustStripClients.map((c) => (
+            <li key={c}>{c}</li>
+          ))}
+        </ul>
+      </motion.div>
 
       {/* ── Metrics ── */}
       <motion.div
