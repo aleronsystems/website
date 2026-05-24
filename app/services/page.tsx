@@ -12,6 +12,7 @@ import {
   FlaskConical,
   BarChart3,
 } from 'lucide-react';
+import posthog from 'posthog-js';
 import SiteNav from '../../components/SiteNav';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
@@ -409,7 +410,21 @@ export default function ServicesPage() {
             Senior-level platform work delivered directly. No layered account management, no junior resources on production systems. Engagements scoped to fit the operational reality of the environment.
           </motion.p>
           <motion.div className="hero-btns" variants={fadeUp} custom={0.15}>
-            <a href="/contact" className="btn-primary">
+            <a
+              href="/contact"
+              className="btn-primary"
+              onClick={() => {
+                try {
+                  posthog.capture('cta_clicked', {
+                    cta: 'Book a Consultation',
+                    page: '/services',
+                    location: 'services_page',
+                  });
+                } catch {
+                  // Swallow analytics errors so navigation is never blocked.
+                }
+              }}
+            >
               Book a Consultation <ArrowRight size={14} />
             </a>
             <a href="/government" className="btn-ghost">
