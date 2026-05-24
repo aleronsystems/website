@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, BarChart3, Zap, TrendingUp, GitMerge, Server, ShieldCheck } from 'lucide-react';
+import posthog from 'posthog-js';
 import SiteNav from '../components/SiteNav';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
@@ -551,7 +552,22 @@ export default function HomePage() {
             Production-aware. Compliance-aligned.
           </motion.p>
           <motion.div className="hero-btns" variants={fadeUp} custom={0.15}>
-            <a href="/contact" className="btn-primary">
+            <a
+              href="https://calendly.com/bogdan-aleronsystems/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+              onClick={() => {
+                try {
+                  posthog.capture('calendly_opened', {
+                    source: 'homepage',
+                    cta: 'Book Consultation',
+                  });
+                } catch {
+                  // Swallow analytics errors so navigation is never blocked.
+                }
+              }}
+            >
               Book a Consultation <ArrowRight size={14} />
             </a>
             <a href="/services" className="btn-ghost">
