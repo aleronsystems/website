@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Mail, MapPin, Clock, Globe } from 'lucide-react';
+import posthog from 'posthog-js';
 import SiteNav from '../../components/SiteNav';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
@@ -127,6 +128,23 @@ export default function ContactPage() {
 
       setStatus('success');
       form.reset();
+
+      // Custom PostHog conversion event. Fires only after the API
+      // response confirms the submission succeeded. Properties are
+      // deliberately PII-free: no name, email, company name, or
+      // message text is sent to PostHog.
+      try {
+        posthog.capture('contact_form_submitted', {
+          page: window.location.pathname,
+          engagementType: payload.engagementType,
+          companyProvided: Boolean(payload.company),
+          messageLength: payload.message.length,
+          source: 'contact_page',
+        });
+      } catch {
+        // Swallow analytics errors. Form submission already succeeded;
+        // a PostHog hiccup should never surface to the user.
+      }
     } catch (err) {
       setStatus('error');
       setErrorMessage(
