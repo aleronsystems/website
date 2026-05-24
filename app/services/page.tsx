@@ -411,14 +411,15 @@ export default function ServicesPage() {
           </motion.p>
           <motion.div className="hero-btns" variants={fadeUp} custom={0.15}>
             <a
-              href="/contact"
+              href="https://calendly.com/bogdan-aleronsystems/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary"
               onClick={() => {
                 try {
-                  posthog.capture('cta_clicked', {
+                  posthog.capture('calendly_opened', {
+                    source: 'services_page',
                     cta: 'Book a Consultation',
-                    page: '/services',
-                    location: 'services_page',
                   });
                 } catch {
                   // Swallow analytics errors so navigation is never blocked.
