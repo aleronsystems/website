@@ -15,6 +15,7 @@ import {
   BarChart3,
   ClipboardCheck,
 } from 'lucide-react';
+import posthog from 'posthog-js';
 import SiteNav from '../../components/SiteNav';
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
@@ -60,6 +61,12 @@ const procurementScan = [
   { label: 'CAGE', value: '200X0' },
   { label: 'Status', value: 'VOSB · SAM Registered' },
 ];
+
+// Enterprise client list shown in the trust strip below the procurement
+// scan. Mirrors the four past-performance engagements detailed further
+// down the page; gives procurement visitors fast-recognition validation
+// before they scroll into the registrations and capabilities content.
+const trustStripClients = ['Qlik', 'UL Solutions', 'BankUnited', 'Aptos'];
 
 const naicsCodes = [
   { code: '541511', title: 'Custom Computer Programming Services' },
@@ -173,6 +180,21 @@ const whyAleron = [
 ];
 
 // ─── Component ────────────────────────────────────────────────────────────────
+
+// Fires the capability statement download event. Wrapped in try/catch so
+// PostHog failures (ad blockers, missing env vars) never block the PDF
+// download. No preventDefault, no await; the anchor's default navigation
+// proceeds immediately after the synchronous capture call returns.
+function trackCapabilityStatementDownload() {
+  try {
+    posthog.capture('capability_statement_downloaded', {
+      source: 'government_page',
+      asset: 'federal_capability_statement',
+    });
+  } catch {
+    // Swallow analytics errors so download is never blocked.
+  }
+}
 
 export default function GovernmentPage() {
   return (
@@ -313,6 +335,48 @@ export default function GovernmentPage() {
           .procurement-scan { gap: 10px 18px; padding: 12px var(--px); }
           .ps-divider { display: none; }
           .ps-cta { margin-left: 0; width: 100%; justify-content: center; }
+        }
+
+        /* ── TRUST STRIP (enterprise client signal, between scan and registrations) ── */
+        .trust-strip {
+          max-width: var(--max-w); margin: 0 auto;
+          padding: 18px var(--px);
+          border-bottom: 1px solid var(--border);
+          display: flex;
+          align-items: baseline;
+          gap: clamp(14px, 2vw, 32px);
+          flex-wrap: wrap;
+        }
+        .trust-label {
+          font-size: 10px; font-weight: 600; letter-spacing: .14em;
+          text-transform: uppercase; color: var(--accent);
+          flex-shrink: 0;
+        }
+        .trust-list {
+          display: flex; flex-wrap: wrap;
+          gap: 6px 22px;
+          list-style: none;
+          padding: 0; margin: 0;
+        }
+        .trust-list li {
+          font-size: 13px;
+          font-weight: 500;
+          color: var(--text-1);
+          letter-spacing: .01em;
+          position: relative;
+          padding-right: 22px;
+        }
+        .trust-list li:not(:last-child)::after {
+          content: '·';
+          position: absolute;
+          right: 6px;
+          color: var(--text-3);
+          font-weight: 400;
+        }
+        @media (max-width: 560px) {
+          .trust-strip { flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px var(--px); }
+          .trust-list { gap: 4px 18px; }
+          .trust-list li { padding-right: 18px; font-size: 12.5px; }
         }
 
         /* ── SECTION COMMON ── */
@@ -566,6 +630,7 @@ export default function GovernmentPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
+              onClick={trackCapabilityStatementDownload}
             >
               <Download size={14} /> Download Capability Statement
             </a>
@@ -599,9 +664,27 @@ export default function GovernmentPage() {
           target="_blank"
           rel="noopener noreferrer"
           className="ps-cta"
+          onClick={trackCapabilityStatementDownload}
         >
           <Download size={12} /> Capability Statement (PDF)
         </a>
+      </motion.div>
+
+      {/* ── Trust Strip (enterprise client signal) ── */}
+      <motion.div
+        className="trust-strip"
+        initial={{ opacity: 0, y: 4 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+        aria-label="Enterprise and regulated environment experience"
+      >
+        <div className="trust-label">Enterprise &amp; Regulated Environment Experience</div>
+        <ul className="trust-list">
+          {trustStripClients.map((c) => (
+            <li key={c}>{c}</li>
+          ))}
+        </ul>
       </motion.div>
 
       {/* ── Registrations & Identifiers ── */}
@@ -759,12 +842,12 @@ export default function GovernmentPage() {
         custom={0}
       >
         <div className="cta-inner">
-          <div className="cta-label">Capability Statement</div>
+          <div className="cta-label">Federal Capability Statement</div>
           <h2 className="cta-h2">
-            Procurement, teaming, and subcontracting inquiries welcome.
+            Download the Federal Capability Statement.
           </h2>
           <p className="cta-sub">
-            Download the capability statement for a complete overview of services, identifiers, and engagement structures. For teaming opportunities, procurement questions, or subcontracting discussions, reach out directly.
+            A single-page overview of services, identifiers, NAICS codes, engagement structures, and past performance. For teaming opportunities, procurement questions, or subcontracting discussions, reach out directly.
           </p>
           <div className="cta-btns">
             <a
@@ -772,8 +855,9 @@ export default function GovernmentPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
+              onClick={trackCapabilityStatementDownload}
             >
-              <Download size={14} /> Download Capability Statement
+              <Download size={14} /> Federal Capability Statement (PDF)
             </a>
             <a href="/contact" className="btn-ghost">
               Contact Aleron <ArrowRight size={14} />
