@@ -34,12 +34,22 @@ export const metadata: Metadata = {
     title: 'Aleron Systems | Enterprise Salesforce Operations & CRM Governance',
     description:
       'Enterprise Salesforce operations, CRM governance, workflow automation, release coordination, and government-ready platform support.',
+    images: [
+      {
+        url: '/marketing/og-default.png',
+        width: 1200,
+        height: 630,
+        alt: 'Aleron Systems',
+        type: 'image/png',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Aleron Systems | Enterprise Salesforce Operations & CRM Governance',
     description:
       'Enterprise Salesforce operations, CRM governance, workflow automation, release coordination, and government-ready platform support.',
+    images: ['/marketing/og-default.png'],
   },
   robots: {
     index: true,
